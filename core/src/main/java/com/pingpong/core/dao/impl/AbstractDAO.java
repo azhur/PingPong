@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @version 3.0
  * @since 25/12/2011
  */
-@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 @Guarded
 public abstract class AbstractDAO<E extends Entity> implements DAO<E> {
 	private Class<E> clazz;
@@ -29,6 +29,7 @@ public abstract class AbstractDAO<E extends Entity> implements DAO<E> {
 		this.clazz = clazz;
 	}
 
+	@Transactional(readOnly = false)
 	public Integer insert(@NotNull E entity) {
 		return manager.insertEntity(entity);
 	}
@@ -41,5 +42,21 @@ public abstract class AbstractDAO<E extends Entity> implements DAO<E> {
 	@SuppressWarnings("unchecked")
 	public E getById(@NotNull Integer id) {
 		return (E)manager.getEntityById(clazz, id);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public void update(@NotNull E entity) {
+		manager.updateEntity(entity);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public void deleteById(@NotNull Integer id) {
+		manager.deleteEntityById(clazz, id);
+	}
+
+	public HibernateManager getManager() {
+		return manager;
 	}
 }

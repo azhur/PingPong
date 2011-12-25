@@ -22,11 +22,14 @@ public class Demo {
 		Player player = new Player();
 		player.setEmail("sdfctrftsdf");
 		player.setGender(Gender.MALE);
-		player.setLogin("loginess");
+		player.setLogin("loginessyut");
 		player.setPassword("pass");
 		player.setName("name");
 		player.setBirth(new LocalDate());
 		PlayerDAO dao= applicationContext.getBean(PlayerDAOImpl.class);
-		System.out.println(dao.getById(10).getBirth());
+
+		Player byId = dao.getById(10);
+		byId.setGender(Gender.FEMALE);
+		dao.update(byId);
 	}
 }

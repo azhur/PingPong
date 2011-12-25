@@ -20,7 +20,7 @@ import java.io.Serializable;
 
 public class HibernateManager extends HibernateTemplate {
 
-	public Integer insertEntity(final Entity entity) throws HibernateException{
+	public Integer insertEntity(final Entity entity) throws HibernateException {
 		Validate.notNull(entity);
 
 		Serializable id;
@@ -34,19 +34,43 @@ public class HibernateManager extends HibernateTemplate {
 		}
 		return (Integer)id;
 	}
-	
-	public Entity getEntityById(Class<? extends Entity> entityType, Integer id) throws HibernateException{
+
+	public Entity getEntityById(Class<? extends Entity> entityType, Integer id) throws HibernateException {
 		Validate.notNull(entityType);
 		Validate.notNull(id);
 
 		Entity entity;
 		Session session = getSession();
-		try{
+		try {
 			entity = (Entity)session.get(entityType, id);
 		} finally {
 			SessionFactoryUtils.releaseSession(session, getSessionFactory());
 		}
 
 		return entity;
+	}
+
+	public void updateEntity(Entity entity) throws HibernateException {
+		Validate.notNull(entity);
+		Session session = getSession();
+		try {
+			checkWriteOperationAllowed(session);
+
+			session.merge(entity);
+		} finally {
+			SessionFactoryUtils.releaseSession(session, getSessionFactory());
+		}
+	}
+
+	public void deleteEntityById(Class<? extends Entity> entityType, Integer id) throws HibernateException {
+		Validate.notNull(id);
+		Session session = getSession();
+		try {
+			checkWriteOperationAllowed(session);
+
+			session.delete(getEntityById(entityType, id));
+		} finally {
+			SessionFactoryUtils.releaseSession(session, getSessionFactory());
+		}
 	}
 }
