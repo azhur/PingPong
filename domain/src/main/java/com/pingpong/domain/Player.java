@@ -5,10 +5,14 @@ package com.pingpong.domain;
 
 
 import com.pingpong.domain.enumeration.Gender;
+import org.hibernate.annotations.Type;
+import org.joda.time.LocalDate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.sql.Timestamp;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
 /**
  * @author Artur Zhurat
@@ -20,10 +24,7 @@ import java.sql.Timestamp;
 @Table
 public class Player extends AbstractEntity {
 	private static final long serialVersionUID = -3951276983281739052L;
-	@Id
-	@SequenceGenerator(name = "gen", sequenceName = "player_seq", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
-	private Integer id;
+
 	@Column
 	private String name;
 	@Column
@@ -32,25 +33,13 @@ public class Player extends AbstractEntity {
 	private String login;
 	@Column
 	private String password;
-	/*@Column
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
-	private LocalDate birth;*/
+	@Column
+	@Type(type="org.joda.time.contrib.hibernate.PersistentLocalDate")
+	private LocalDate birth;
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 	@Column
 	private boolean enabled;
-	@Version
-	@Column(name = "version")
-	private Timestamp version;
-
-
-	public Timestamp getVersion() {
-		return version;
-	}
-
-	public void setVersion(Timestamp version) {
-		this.version = version;
-	}
 
 
 	public String getName() {
@@ -85,13 +74,13 @@ public class Player extends AbstractEntity {
 		this.password = password;
 	}
 
-	/*public LocalDate getBirth() {
+	public LocalDate getBirth() {
 		return birth;
 	}
 
 	public void setBirth(LocalDate birth) {
 		this.birth = birth;
-	}*/
+	}
 
 	public Gender getGender() {
 		return gender;
@@ -107,13 +96,5 @@ public class Player extends AbstractEntity {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
-	}
-
-	public Integer getId() {
-		return null;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 }
