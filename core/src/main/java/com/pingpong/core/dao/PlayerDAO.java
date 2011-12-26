@@ -11,5 +11,5 @@ import com.pingpong.domain.Player;
  * @since 25/12/2011
  */
 
-public interface PlayerDAO extends Dao<Player> {
+public interface PlayerDAO extends DAO<Player> {
 }

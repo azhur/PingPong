@@ -3,7 +3,7 @@
  */
 package com.pingpong.core.dao.impl;
 
-import com.pingpong.core.dao.Dao;
+import com.pingpong.core.dao.DAO;
 import com.pingpong.core.hibernate.HibernateManager;
 import com.pingpong.domain.Entity;
 import net.sf.oval.constraint.NotNull;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 @Guarded
-public abstract class AbstractDAO<E extends Entity> implements Dao<E> {
+public abstract class AbstractDAO<E extends Entity> implements DAO<E> {
 	private Class<E> clazz;
 	@Autowired
 	private HibernateManager manager;
