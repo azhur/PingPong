@@ -72,6 +72,6 @@
 
     <tx:annotation-driven order="30" mode="proxy" proxy-target-class="true"/>
     <context:component-scan base-package="com.pingpong.core.dao" name-generator="org.springframework.context.annotation.AnnotationBeanNameGenerator">
-        <context:include-filter type="assignable" expression="com.pingpong.core.dao.DAO"/>
+        <context:include-filter type="assignable" expression="com.pingpong.core.dao.Dao"/>
     </context:component-scan>
 </beans>

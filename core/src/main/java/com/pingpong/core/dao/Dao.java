@@ -3,8 +3,12 @@
  */
 package com.pingpong.core.dao;
 
+import com.pingpong.core.hibernate.HibernateManager;
 import com.pingpong.domain.Entity;
 import net.sf.oval.constraint.NotNull;
+import net.sf.oval.guard.Guarded;
+
+import java.util.List;
 
 /**
  * @author Artur Zhurat
@@ -12,7 +16,19 @@ import net.sf.oval.constraint.NotNull;
  * @since 25/12/2011
  */
 
-public interface DAO<E extends Entity> {
+@Guarded
+public interface Dao<E extends Entity> {
 	Integer insert(@NotNull E entity);
+
 	E getById(@NotNull Integer id);
+
+	void update(@NotNull E entity);
+
+	void deleteById(@NotNull Integer id);
+
+	@NotNull
+	List<E> list();
+
+	@NotNull
+	HibernateManager getManager();
 }
