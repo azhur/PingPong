@@ -29,7 +29,6 @@ public class Demo {
 		PlayerDAO dao= applicationContext.getBean(PlayerDAOImpl.class);
 
 		Player byId = dao.getById(10);
-		byId.setGender(Gender.FEMALE);
-		dao.update(byId);
+		dao.list();
 	}
 }

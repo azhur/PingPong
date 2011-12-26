@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author Artur Zhurat
  * @version 3.0
@@ -51,11 +53,18 @@ public abstract class AbstractDAO<E extends Entity> implements DAO<E> {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
+	public List<E> list() {
+		return (List<E>)manager.list(clazz);
+	}
+
+	@Override
 	@Transactional(readOnly = false)
 	public void deleteById(@NotNull Integer id) {
 		manager.deleteEntityById(clazz, id);
 	}
 
+	@Override
 	public HibernateManager getManager() {
 		return manager;
 	}
