@@ -6,7 +6,7 @@
 
 	<context:annotation-config/>
 
-	<import resource="classpath:com/pingpong/core/app-context.xml"/>
+    <import resource="applicationContext.xml"/>
 
     <bean name="/hello.htm" class="com.pingpong.core.web.controller.HelloController"/>
 
