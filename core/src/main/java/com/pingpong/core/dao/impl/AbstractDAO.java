@@ -32,6 +32,8 @@ public abstract class AbstractDAO<E extends Entity> implements DAO<E> {
 	}
 
 	@Transactional(readOnly = false)
+	@Override
+	@NotNull
 	public Integer insert(@NotNull E entity) {
 		return manager.insertEntity(entity);
 	}
@@ -53,6 +55,7 @@ public abstract class AbstractDAO<E extends Entity> implements DAO<E> {
 	}
 
 	@Override
+	@NotNull
 	@SuppressWarnings("unchecked")
 	public List<E> list() {
 		return (List<E>)manager.list(clazz);
@@ -65,6 +68,7 @@ public abstract class AbstractDAO<E extends Entity> implements DAO<E> {
 	}
 
 	@Override
+	@NotNull
 	public HibernateManager getManager() {
 		return manager;
 	}

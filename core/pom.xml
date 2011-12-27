@@ -11,6 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>core</artifactId>
+    <packaging>war</packaging>
 
     <dependencies>
         <dependency>
@@ -60,10 +61,6 @@
             <artifactId>postgresql</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-        </dependency>
         <dependency>
             <groupId>net.sf.oval</groupId>
             <artifactId>oval</artifactId>
@@ -131,6 +128,10 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time-hibernate</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
         </dependency>
 
     </dependencies>
