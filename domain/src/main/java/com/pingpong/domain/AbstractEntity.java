@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
@@ -18,7 +17,7 @@ import java.sql.Timestamp;
  * @since 25/12/2011
  */
 @MappedSuperclass
-public abstract class AbstractEntity implements Entity, Serializable {
+public abstract class AbstractEntity extends AbstractVersionableEntity<Integer> {
 	private static final long serialVersionUID = 1836353019026551960L;
 
 	@Id

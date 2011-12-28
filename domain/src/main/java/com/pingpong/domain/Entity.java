@@ -3,7 +3,7 @@
  */
 package com.pingpong.domain;
 
-import java.sql.Timestamp;
+import java.io.Serializable;
 
 /**
  * @author Artur Zhurat
@@ -11,7 +11,6 @@ import java.sql.Timestamp;
  * @since 25/12/2011
  */
 
-public interface Entity {
-	Integer getId();
-	Timestamp getVersion();
+public interface Entity<ID extends Serializable> extends Serializable{
+	ID getId();
 }

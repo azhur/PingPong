@@ -8,6 +8,7 @@ import com.pingpong.domain.Entity;
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.guard.Guarded;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -16,18 +17,18 @@ import java.util.List;
  * @since 27/12/2011
  */
 @Guarded
-public interface DAO<E extends Entity> {
+public interface DAO<ID extends Serializable, E extends Entity<ID>> {
 	@NotNull
-	Integer insert(@NotNull E entity);
+	ID insert(@NotNull E entity);
 
-	E getById(@NotNull Integer id);
+	E getById(@NotNull ID id);
 
 	void update(@NotNull E entity);
 
 	@NotNull
 	List<E> list();
 
-	void deleteById(@NotNull Integer id);
+	void deleteById(@NotNull ID id);
 
 	@NotNull
 	HibernateManager getManager() ;

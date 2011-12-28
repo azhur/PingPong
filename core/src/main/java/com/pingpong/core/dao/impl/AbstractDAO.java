@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -20,9 +21,9 @@ import java.util.List;
  * @version 3.0
  * @since 25/12/2011
  */
-@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
+@Transactional(propagation = Propagation.MANDATORY)
 @Guarded
-public abstract class AbstractDAO<E extends Entity> implements DAO<E> {
+public abstract class AbstractDAO<ID extends Serializable, E extends Entity<ID>> implements DAO<ID, E> {
 	private Class<E> clazz;
 	@Autowired
 	private HibernateManager manager;
@@ -34,8 +35,8 @@ public abstract class AbstractDAO<E extends Entity> implements DAO<E> {
 	@Transactional(readOnly = false)
 	@Override
 	@NotNull
-	public Integer insert(@NotNull E entity) {
-		return manager.insertEntity(entity);
+	public ID insert(@NotNull E entity) {
+		return (ID)manager.insertEntity(entity);
 	}
 
 	protected Session getCurrentSession() {
@@ -44,7 +45,7 @@ public abstract class AbstractDAO<E extends Entity> implements DAO<E> {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public E getById(@NotNull Integer id) {
+	public E getById(@NotNull ID id) {
 		return (E)manager.getEntityById(clazz, id);
 	}
 
@@ -63,7 +64,7 @@ public abstract class AbstractDAO<E extends Entity> implements DAO<E> {
 
 	@Override
 	@Transactional(readOnly = false)
-	public void deleteById(@NotNull Integer id) {
+	public void deleteById(@NotNull ID id) {
 		manager.deleteEntityById(clazz, id);
 	}
 

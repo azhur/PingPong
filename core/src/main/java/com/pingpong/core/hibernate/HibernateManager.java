@@ -25,7 +25,7 @@ import java.util.List;
 public class HibernateManager extends HibernateTemplate {
 	private static final Logger LOGGER = LoggerFactory.getLogger(HibernateManager.class);
 
-	public Integer insertEntity(final Entity entity) throws HibernateException {
+	public Serializable insertEntity(final Entity<? extends Serializable> entity) throws HibernateException {
 		Validate.notNull(entity);
 
 		Serializable id;
@@ -39,17 +39,17 @@ public class HibernateManager extends HibernateTemplate {
 		} finally {
 			SessionFactoryUtils.releaseSession(session, getSessionFactory());
 		}
-		return (Integer)id;
+		return id;
 	}
 
-	public Entity getEntityById(Class<? extends Entity> entityType, Integer id) throws HibernateException {
+	public Entity<? extends Serializable> getEntityById(Class<? extends Entity<? extends Serializable>> entityType, Serializable id) throws HibernateException {
 		Validate.notNull(entityType);
 		Validate.notNull(id);
 
-		Entity entity;
+		Entity<? extends Serializable> entity;
 		Session session = getSession();
 		try {
-			entity = (Entity)session.get(entityType, id);
+			entity = (Entity<? extends Serializable>)session.get(entityType, id);
 
 			LOGGER.info("Got entity by id = '{}'", id);
 		} finally {
@@ -59,7 +59,7 @@ public class HibernateManager extends HibernateTemplate {
 		return entity;
 	}
 
-	public void updateEntity(Entity entity) throws HibernateException {
+	public void updateEntity(Entity<? extends Serializable> entity) throws HibernateException {
 		Validate.notNull(entity);
 		Session session = getSession();
 		try {
@@ -73,7 +73,7 @@ public class HibernateManager extends HibernateTemplate {
 		}
 	}
 
-	public void deleteEntityById(Class<? extends Entity> entityType, Integer id) throws HibernateException {
+	public void deleteEntityById(Class<? extends Entity<? extends Serializable>> entityType, Serializable id) throws HibernateException {
 		Validate.notNull(id);
 		Validate.notNull(entityType);
 
@@ -89,9 +89,9 @@ public class HibernateManager extends HibernateTemplate {
 		}
 	}
 
-	public List<Entity> list(Class<? extends Entity> entityType) {
+	public List<Entity<? extends Serializable>> list(Class<? extends Entity<? extends Serializable>> entityType) {
 		Validate.notNull(entityType);
-		List<Entity> entities = new ArrayList<Entity>();
+		List<Entity<? extends Serializable>> entities = new ArrayList<Entity<? extends Serializable>>();
 		Session session = getSession();
 		try {
 			entities = session.createCriteria(entityType).list();
