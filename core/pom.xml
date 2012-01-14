@@ -139,7 +139,10 @@
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
         </dependency>
-
+        <dependency>
+        	<groupId>jstl</groupId>
+        	<artifactId>jstl</artifactId>
+        </dependency>
     </dependencies>
 
 

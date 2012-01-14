@@ -21,7 +21,7 @@ import java.util.List;
  * @version 3.0
  * @since 25/12/2011
  */
-@Transactional(propagation = Propagation.MANDATORY)
+@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 @Guarded
 public abstract class AbstractDAO<ID extends Serializable, E extends Entity<ID>> implements DAO<ID, E> {
 	private Class<E> clazz;
