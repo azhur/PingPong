@@ -57,7 +57,6 @@ public abstract class AbstractDAO<ID extends Serializable, E extends Entity<ID>>
 
 	@Override
 	@NotNull
-	@SuppressWarnings("unchecked")
 	public List<E> list() {
 		return (List<E>)manager.list(clazz);
 	}

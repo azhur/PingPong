@@ -89,9 +89,9 @@ public class HibernateManager extends HibernateTemplate {
 		}
 	}
 
-	public List<Entity<? extends Serializable>> list(Class<? extends Entity<? extends Serializable>> entityType) {
+	public List<? extends Entity<? extends Serializable>> list(Class<? extends Entity<? extends Serializable>> entityType) {
 		Validate.notNull(entityType);
-		List<Entity<? extends Serializable>> entities = new ArrayList<Entity<? extends Serializable>>();
+		List<? extends Entity<? extends Serializable>> entities = new ArrayList<Entity<? extends Serializable>>();
 		Session session = getSession();
 		try {
 			entities = session.createCriteria(entityType).list();

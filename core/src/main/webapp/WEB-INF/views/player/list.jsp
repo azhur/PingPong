@@ -8,9 +8,9 @@
 </head>
 <body>
 
-<h3>Players</h3>
+<h3>Players</h3><h2><a href="player/add">Add new</a></h2>
 <c:if test="${!empty players}">
-    <table class="data">
+    <table class="data" border="1">
         <tr>
             <th>1</th>
             <th>2</th>
@@ -19,7 +19,7 @@
         </tr>
         <c:forEach items="${players}" var="player">
             <tr>
-                <td>${player.name}</td>
+                <td><a href="players/${player.id}">${player.name}</a></td>
                 <td>${player.email}</td>
                 <td>${player.gender}</td>
                 <td><a href="player/delete/${player.id}">delete</a></td>
