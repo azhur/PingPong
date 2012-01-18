@@ -4,6 +4,7 @@
     <title>PingPong</title>
 
     <link rel="stylesheet" href="resources/bootstrap/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="resources/css/main.css" type="text/css"/>
 
     <script src="resources/js/jquery/jquery-1.7.min.js"></script>
     <script src="resources/bootstrap/js/bootstrap-alerts.js"></script>
