@@ -4,29 +4,52 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf8">
+    <title>Players</title>
+
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/bootstrap/bootstrap.min.css" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/main.css" type="text/css"/>
+
+    <script src="${pageContext.servletContext.contextPath}/resources/js/jquery/jquery-1.7.min.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-alerts.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-twipsy.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-popover.js"></script>
 </head>
 <body>
+<div class="topbar-wrapper">
+    <div class="topbar">
+        <div class="topbar-inner">
+            <div class="container">
+                <h3><a href="${pageContext.servletContext.contextPath}">PingPong</a></h3>
+                <ul class="nav">
+                    <li><a href="players" class="active">Players</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <h3>Players</h3>
 
-<h3>Players</h3><h2><a href="player/add">Add new</a></h2>
-<c:if test="${!empty players}">
-    <table class="data" border="1">
-        <tr>
-            <th>1</th>
-            <th>2</th>
-            <th>3</th>
-            <th>&nbsp;</th>
-        </tr>
-        <c:forEach items="${players}" var="player">
+    <h2><a href="player/add">Add new</a></h2>
+    <c:if test="${!empty players}">
+        <table class="zebra-striped">
             <tr>
-                <td><a href="players/${player.id}">${player.name}</a></td>
-                <td>${player.email}</td>
-                <td>${player.gender}</td>
-                <td><a href="player/delete/${player.id}">delete</a></td>
+                <th>Name</th>
+                <th>Family name</th>
+                <th>Gender</th>
+                <th>Actions</th>
             </tr>
-        </c:forEach>
-    </table>
-</c:if>
-
+            <c:forEach items="${players}" var="player">
+                <tr>
+                    <td><a href="players/${player.id}">${player.name}</a></td>
+                    <td>${player.email}</td>
+                    <td>${player.gender}</td>
+                    <td><a href="player/delete/${player.id}">delete</a></td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
+</div>
 </body>
 </html>
