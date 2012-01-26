@@ -1,7 +1,7 @@
 /**
  * Copyright U-wiss
  */
-package com.pingpong.core.util;
+package com.pingpong.shared.util;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;

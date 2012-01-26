@@ -1,10 +1,10 @@
 /**
  * Copyright U-wiss
  */
-package com.pingpong.core.web.controller;
+package com.pingpong.admin.controller;
 
-import com.pingpong.core.dao.PlayerDAO;
 import com.pingpong.domain.Player;
+import com.pingpong.shared.AppService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +27,13 @@ public class PlayerController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PlayerController.class);
 
 	@Autowired
-	private PlayerDAO playerDAO;
+	private AppService appService;
 
 	@RequestMapping("/players")
 	public ModelAndView list() {
 		LOGGER.info("Returning hello view");
 		ModelAndView model = new ModelAndView("player/list");
-		model.addObject("players", playerDAO.list());
+		model.addObject("players", appService.listPlayers());
 
 		return model;
 	}
@@ -48,7 +48,7 @@ public class PlayerController {
 	@RequestMapping(value = "/player/add", method = RequestMethod.POST)
     public String addContact(@ModelAttribute("player") Player player, BindingResult result) {
 
-        playerDAO.insert(player);
+        appService.insertPlayer(player);
 
         return "redirect:/players";
     }
