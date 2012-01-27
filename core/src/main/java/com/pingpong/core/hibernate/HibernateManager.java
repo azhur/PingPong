@@ -4,7 +4,6 @@
 package com.pingpong.core.hibernate;
 
 import com.pingpong.domain.Entity;
-import org.apache.commons.lang.Validate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.slf4j.Logger;
@@ -16,6 +15,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * @author Artur Zhurat
  * @version 3.0
@@ -26,7 +27,7 @@ public class HibernateManager extends HibernateTemplate {
 	private static final Logger LOGGER = LoggerFactory.getLogger(HibernateManager.class);
 
 	public Serializable insertEntity(final Entity<? extends Serializable> entity) throws HibernateException {
-		Validate.notNull(entity);
+		checkNotNull(entity);
 
 		Serializable id;
 		Session session = getSession();
@@ -43,8 +44,8 @@ public class HibernateManager extends HibernateTemplate {
 	}
 
 	public Entity<? extends Serializable> getEntityById(Class<? extends Entity<? extends Serializable>> entityType, Serializable id) throws HibernateException {
-		Validate.notNull(entityType);
-		Validate.notNull(id);
+		checkNotNull(entityType);
+		checkNotNull(id);
 
 		Entity<? extends Serializable> entity;
 		Session session = getSession();
@@ -60,7 +61,7 @@ public class HibernateManager extends HibernateTemplate {
 	}
 
 	public void updateEntity(Entity<? extends Serializable> entity) throws HibernateException {
-		Validate.notNull(entity);
+		checkNotNull(entity);
 		Session session = getSession();
 		try {
 			checkWriteOperationAllowed(session);
@@ -74,8 +75,8 @@ public class HibernateManager extends HibernateTemplate {
 	}
 
 	public void deleteEntityById(Class<? extends Entity<? extends Serializable>> entityType, Serializable id) throws HibernateException {
-		Validate.notNull(id);
-		Validate.notNull(entityType);
+		checkNotNull(id);
+		checkNotNull(entityType);
 
 		Session session = getSession();
 		try {
@@ -90,7 +91,7 @@ public class HibernateManager extends HibernateTemplate {
 	}
 
 	public List<? extends Entity<? extends Serializable>> list(Class<? extends Entity<? extends Serializable>> entityType) {
-		Validate.notNull(entityType);
+		checkNotNull(entityType);
 		List<? extends Entity<? extends Serializable>> entities = new ArrayList<Entity<? extends Serializable>>();
 		Session session = getSession();
 		try {
