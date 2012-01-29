@@ -36,14 +36,14 @@
         <table class="zebra-striped">
             <tr>
                 <th>Name</th>
-                <th>Family name</th>
+                <th>Birth</th>
                 <th>Gender</th>
                 <th>Actions</th>
             </tr>
             <c:forEach items="${players}" var="player">
                 <tr>
                     <td><a href="players/${player.id}">${player.name}</a></td>
-                    <td>${player.email}</td>
+                    <td>${player.birth}</td>
                     <td>${player.gender}</td>
                     <td><a href="player/delete/${player.id}">delete</a></td>
                 </tr>

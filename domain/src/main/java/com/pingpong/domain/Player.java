@@ -22,14 +22,14 @@ import javax.persistence.Table;
 public class Player extends AbstractEntity {
 	private static final long serialVersionUID = -3951276983281739052L;
 
+	public static enum Status {
+		REGISTRATION,
+		ACTIVE,
+		BLOCKED
+	}
+
 	@Column
 	private String name;
-	@Column
-	private String email;
-	@Column
-	private String login;
-	@Column
-	private String password;
 	@Column
 	@Type(type="org.joda.time.contrib.hibernate.PersistentLocalDate")
 	private LocalDate birth;
@@ -37,6 +37,8 @@ public class Player extends AbstractEntity {
 	private Gender gender;
 	@Column
 	private boolean enabled;
+	@Enumerated(EnumType.STRING)
+	private Status status;
 
 
 	public String getName() {
@@ -45,30 +47,6 @@ public class Player extends AbstractEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public LocalDate getBirth() {
@@ -93,5 +71,13 @@ public class Player extends AbstractEntity {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 }
