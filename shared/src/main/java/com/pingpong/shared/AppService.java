@@ -1,6 +1,3 @@
-/**
- * Copyright U-wiss
- */
 package com.pingpong.shared;
 
 import com.pingpong.domain.Player;

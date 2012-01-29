@@ -1,6 +1,3 @@
-/**
- * Copyright U-wiss
- */
 package com.pingpong.core.dao.impl;
 
 import com.pingpong.core.dao.PlayerDAO;

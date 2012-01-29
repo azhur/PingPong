@@ -1,6 +1,3 @@
-/**
- * Copyright U-wiss
- */
 package com.pingpong.core.hibernate;
 
 import com.pingpong.domain.Entity;

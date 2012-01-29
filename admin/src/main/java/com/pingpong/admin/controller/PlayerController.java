@@ -1,6 +1,3 @@
-/**
- * Copyright U-wiss
- */
 package com.pingpong.admin.controller;
 
 import com.pingpong.domain.Player;

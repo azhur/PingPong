@@ -1,6 +1,3 @@
-/**
- * Copyright U-wiss
- */
 package com.pingpong.domain;
 
 import java.io.Serializable;

@@ -1,6 +1,3 @@
-/**
- * Copyright U-wiss
- */
 package com.pingpong.shared.util;
 
 import org.apache.commons.lang.StringUtils;

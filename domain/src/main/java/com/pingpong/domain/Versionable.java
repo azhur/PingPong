@@ -1,6 +1,3 @@
-/**
- * Copyright U-wiss
- */
 package com.pingpong.domain;
 
 import java.sql.Timestamp;
