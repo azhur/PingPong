@@ -13,6 +13,7 @@
         <module>core</module>
         <module>shared</module>
         <module>admin</module>
+        <module>portal</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -37,19 +38,19 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>3.6.7.Final</version>
+                <groupId>com.pingpong</groupId>
+                <artifactId>portal</artifactId>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-commons-annotations</artifactId>
-                <version>3.2.0.Final</version>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-ehcache</artifactId>
-                <version>3.6.7.Final</version>
+                <version>${hibernate.version}</version>
             </dependency>
 
             <dependency>
@@ -200,6 +201,7 @@
     </dependencyManagement>
     <properties>
         <spring-framework.version>3.1.0.RELEASE</spring-framework.version>
+        <hibernate.version>3.6.7.final</hibernate.version>
     </properties>
 
 </project>

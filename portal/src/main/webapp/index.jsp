@@ -1,7 +1,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>PingPong Administration</title>
+    <title>PingPong Portal</title>
 
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/bootstrap/bootstrap.min.css" type="text/css"/>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/main.css" type="text/css"/>
@@ -17,7 +17,7 @@
     <div class="topbar">
         <div class="topbar-inner">
             <div class="container">
-                <h3><a href="${pageContext.servletContext.contextPath}">PingPong Administration</a></h3>
+                <h3><a href="${pageContext.servletContext.contextPath}">PingPong Portal</a></h3>
                 <ul class="nav">
                     <li><a href="players" class="active">Players</a></li>
                 </ul>
