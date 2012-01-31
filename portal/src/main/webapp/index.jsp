@@ -19,7 +19,8 @@
             <div class="container">
                 <h3><a href="${pageContext.servletContext.contextPath}">PingPong Portal</a></h3>
                 <ul class="nav">
-                    <li><a href="players" class="active">Players</a></li>
+                    <li><a href="login" class="active">Login</a></li>
+                    <li><a href="registration" class="active">Register</a></li>
                 </ul>
 
             </div>

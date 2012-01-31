@@ -10,7 +10,7 @@
 
     <import resource="classpath:com/pingpong/portal/app-context.xml"/>
 
-    <context:component-scan base-package="com.pingpong.admin.controller" name-generator="org.springframework.context.annotation.AnnotationBeanNameGenerator"/>
+    <context:component-scan base-package="com.pingpong.portal.controller" name-generator="org.springframework.context.annotation.AnnotationBeanNameGenerator"/>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
