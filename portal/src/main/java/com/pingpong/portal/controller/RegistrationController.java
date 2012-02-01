@@ -3,6 +3,7 @@
  */
 package com.pingpong.portal.controller;
 
+import com.pingpong.domain.enumeration.Gender;
 import com.pingpong.portal.command.PlayerRegistrationCommand;
 import com.pingpong.shared.AppService;
 import org.slf4j.Logger;
@@ -26,8 +27,9 @@ public class RegistrationController {
 
 	@RequestMapping("/registration")
 	public ModelAndView list() {
-		ModelAndView model = new ModelAndView("registration/registration");
+		ModelAndView model = new ModelAndView("registration/index");
 		model.addObject("registration", new PlayerRegistrationCommand());
+		model.addObject("genders", Gender.values());
 
 		return model;
 	}
