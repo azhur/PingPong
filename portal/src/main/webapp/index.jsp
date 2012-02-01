@@ -28,6 +28,9 @@
 </div>
 <div id="content" class="container">
      <h1>Welcome to PingPong</h1>
+    <div class="centered_text">
+        <img src="resources/images/ping-pong-welcome.png" />
+    </div>
 </div>
 <script src="${pageContext.servletContext.contextPath}/resources/js/jquery/jquery-1.7.min.js"></script>
 <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap.min.js.js"></script>
