@@ -24,7 +24,7 @@ public class LoginController {
 	private AppService appService;
 
 	@RequestMapping("/login")
-		public ModelAndView list() {
+		public ModelAndView login() {
 			ModelAndView model = new ModelAndView("login/index");
 			model.addObject("login", new LoginCommand());
 
