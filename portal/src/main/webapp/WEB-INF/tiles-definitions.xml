@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+  
+  <!--We declare a new template named template-main.
+  This template is used for displaying the main page.
+  It has 4 attributes. These attributes are placeholder for our contents
+  For each attribute, we have assigned a corresponding JSP-->
+ <definition name="template-main" template="/WEB-INF/views/layout/main.jsp">
+  <!--<put-attribute name="banner-content" value="/WEB-INF/jsp/sections/banner.jsp" />
+  <put-attribute name="title-content" value="Pet Type" />
+  <put-attribute name="primary-content" value="" />
+  <put-attribute name="footer-content" value="/WEB-INF/jsp/sections/footer.jsp" />-->
+ </definition>
+  
+</tiles-definitions>
