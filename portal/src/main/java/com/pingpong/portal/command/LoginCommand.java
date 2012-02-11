@@ -16,6 +16,7 @@ public class LoginCommand implements Serializable {
 	
 	private String email;
 	private String pass;
+	private boolean rememberMe;
 
 	public String getEmail() {
 		return email;
@@ -31,5 +32,13 @@ public class LoginCommand implements Serializable {
 
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+
+	public boolean isRememberMe() {
+		return rememberMe;
+	}
+
+	public void setRememberMe(boolean rememberMe) {
+		this.rememberMe = rememberMe;
 	}
 }

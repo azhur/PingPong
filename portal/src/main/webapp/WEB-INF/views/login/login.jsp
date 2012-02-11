@@ -2,7 +2,7 @@
 <h1 class="page-header">
     Sign in
 </h1>
-<form:form method="post" action="login" commandName="login" cssClass="form-horizontal">
+<form:form method="post" action="signIn" commandName="login" cssClass="form-horizontal">
     <div class="control-group ">
         <label class="control-label">Email:</label>
 
@@ -25,6 +25,15 @@
                       </span>
                 <form:password path="pass"/>
             </div>
+        </div>
+    </div>
+    <div class="control-group ">
+        <label class="control-label"></label>
+
+        <div class="controls">
+            <label class="checkbox">
+                <form:checkbox path="rememberMe"/>Remember me
+            </label>
         </div>
     </div>
 
