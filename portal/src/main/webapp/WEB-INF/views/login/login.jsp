@@ -23,16 +23,8 @@
                       <span class="add-on">
                          <i class="icon-asterisk"></i>
                       </span>
-                <form:input path="pass"/>
+                <form:password path="pass"/>
             </div>
-        </div>
-    </div>
-
-    <div class="control-group ">
-        <label class="control-label">Password1:</label>
-
-        <div class="controls">
-            <form:password path="pass"/>
         </div>
     </div>
 
