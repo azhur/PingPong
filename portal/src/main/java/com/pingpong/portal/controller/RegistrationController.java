@@ -29,7 +29,7 @@ public class RegistrationController {
 
 	@RequestMapping("/registration")
 	public ModelAndView registration() {
-		ModelAndView model = new ModelAndView("registration/index");
+		ModelAndView model = new ModelAndView("registration/registration");
 		model.addObject("registration", new PlayerRegistrationCommand());
 		model.addObject("genders", Gender.values());
 
