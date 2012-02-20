@@ -1,9 +1,12 @@
 package com.pingpong.core;
 
-import com.pingpong.core.dao.PlayerDAO;
+import com.pingpong.core.bo.AccountBO;
+import com.pingpong.core.bo.PlayerBO;
 import com.pingpong.domain.Player;
 import com.pingpong.shared.AppService;
+import com.pingpong.shared.registration.PlayerRegistrationData;
 import net.sf.oval.constraint.NotNull;
+import net.sf.oval.guard.Guarded;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -13,17 +16,30 @@ import java.util.List;
  * @version 3.0
  * @since 25/01/2012
  */
+@Guarded
 public class AppServiceImpl implements AppService {
 	@Autowired
-	private PlayerDAO playerDAO;
+	private PlayerBO playerBO;
+	@Autowired
+	private AccountBO accountBO;
 
 	@Override
 	public List<Player> listPlayers() {
-		return playerDAO.list();
+		return playerBO.list();
 	}
 
 	@Override
 	public Integer insertPlayer(@NotNull Player player) {
-		return playerDAO.insert(player);
+		return playerBO.insert(player);
+	}
+
+	@Override
+	public void register(@NotNull PlayerRegistrationData registrationData) {
+		playerBO.register(registrationData);
+	}
+
+	@Override
+	public boolean isEmailUnique(@NotNull String email) {
+		return accountBO.getByEmail(email) == null;
 	}
 }

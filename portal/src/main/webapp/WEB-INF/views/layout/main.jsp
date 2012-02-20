@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/bootstrap.min.css" type="text/css"/>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/bootstrap.css" type="text/css"/>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/main.css" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/jquery-ui-1.8.17.datepicker.css" type="text/css"/>
 </head>
 <body>
 <div class="navbar navbar-fixed-top">
@@ -31,10 +32,11 @@
         </div>
     </div>
 </div>
+<script src="${pageContext.servletContext.contextPath}/resources/js/jquery/jquery-1.7.1.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/js/jquery/jquery-ui-1.8.17.datepicker.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 <div id="content" class="container">
     <tiles:insertAttribute name="content"/>
 </div>
-<script src="${pageContext.servletContext.contextPath}/resources/js/jquery/jquery-1.7.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -12,7 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Map;
 
 /**
  * @author Artur Zhurat
@@ -26,15 +27,13 @@ public class LoginController {
 	private AppService appService;
 
 	@RequestMapping("/login")
-	public ModelAndView login() {
-		ModelAndView model = new ModelAndView("login/login");
-		model.addObject("login", new LoginCommand());
-
-		return model;
+	public String login(Map model) {
+		model.put("login", new LoginCommand());
+		return "login/login";
 	}
 
 	@RequestMapping(value = "/signIn", method = RequestMethod.POST)
-		public String signIn(@ModelAttribute("login") LoginCommand command) {
-			return "redirect:/";
-		}
+	public String signIn(@ModelAttribute("login") LoginCommand command) {
+		return "redirect:/";
+	}
 }

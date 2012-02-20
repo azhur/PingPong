@@ -2,6 +2,7 @@ package com.pingpong.domain;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * @author Artur Zhurat
@@ -9,6 +10,7 @@ import javax.persistence.Entity;
  * @since 29/01/2012
  */
 @Entity
+@Table(name = "admin_account")
 @DiscriminatorValue(value = "ADMIN_ACCOUNT")
 public class AdminAccount extends Account{
 	private static final long serialVersionUID = 7973114071404139089L;

@@ -18,7 +18,7 @@ import java.util.List;
  * @version 3.0
  * @since 25/12/2011
  */
-@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+@Transactional(propagation = Propagation.MANDATORY)
 @Guarded
 public abstract class AbstractDAO<ID extends Serializable, E extends Entity<ID>> implements DAO<ID, E> {
 	private Class<E> clazz;
@@ -29,7 +29,6 @@ public abstract class AbstractDAO<ID extends Serializable, E extends Entity<ID>>
 		this.clazz = clazz;
 	}
 
-	@Transactional(readOnly = false)
 	@Override
 	@NotNull
 	public ID insert(@NotNull E entity) {
@@ -47,7 +46,6 @@ public abstract class AbstractDAO<ID extends Serializable, E extends Entity<ID>>
 	}
 
 	@Override
-	@Transactional(readOnly = false)
 	public void update(@NotNull E entity) {
 		manager.updateEntity(entity);
 	}
@@ -59,7 +57,6 @@ public abstract class AbstractDAO<ID extends Serializable, E extends Entity<ID>>
 	}
 
 	@Override
-	@Transactional(readOnly = false)
 	public void deleteById(@NotNull ID id) {
 		manager.deleteEntityById(clazz, id);
 	}

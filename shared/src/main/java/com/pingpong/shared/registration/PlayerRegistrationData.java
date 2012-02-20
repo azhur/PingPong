@@ -5,6 +5,7 @@ package com.pingpong.shared.registration;
 
 import com.pingpong.domain.enumeration.Gender;
 import org.joda.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 
@@ -16,11 +17,12 @@ import java.io.Serializable;
 
 public class PlayerRegistrationData  implements Serializable {
 	private static final long serialVersionUID = 3518498214315728437L;
-	
+
 	private String name;
 	private String email;
 	private String password;
 	private Gender gender;
+	@DateTimeFormat(pattern = "dd/mm/yy")
 	private LocalDate birth;
 
 	public String getName() {

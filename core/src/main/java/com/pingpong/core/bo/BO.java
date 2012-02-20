@@ -1,6 +1,8 @@
-package com.pingpong.core.dao;
+/**
+ * Copyright U-wiss
+ */
+package com.pingpong.core.bo;
 
-import com.pingpong.core.hibernate.HibernateManager;
 import com.pingpong.domain.Entity;
 import net.sf.oval.constraint.NotNull;
 
@@ -10,10 +12,10 @@ import java.util.List;
 /**
  * @author Artur Zhurat
  * @version 3.0
- * @since 27/12/2011
+ * @since 20/02/2012
  */
 
-public interface DAO<ID extends Serializable, E extends Entity<ID>> {
+public interface BO<ID extends Serializable, E extends Entity<ID>> {
 	@NotNull
 	ID insert(@NotNull E entity);
 
@@ -25,7 +27,4 @@ public interface DAO<ID extends Serializable, E extends Entity<ID>> {
 	List<E> list();
 
 	void deleteById(@NotNull ID id);
-
-	@NotNull
-	HibernateManager getManager() ;
 }

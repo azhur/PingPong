@@ -18,6 +18,10 @@
         <put-attribute name="title" value="PingPong registration"/>
         <put-attribute name="content" value="/WEB-INF/views/registration/registration.jsp"/>
     </definition>
+    <definition name="registration/success" extends="main">
+        <put-attribute name="title" value="PingPong registration"/>
+        <put-attribute name="content" value="/WEB-INF/views/registration/success.jsp"/>
+    </definition>
 
     <definition name="login/login" extends="main">
         <put-attribute name="title" value="PingPong registration"/>

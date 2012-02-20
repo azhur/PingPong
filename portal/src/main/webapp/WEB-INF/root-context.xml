@@ -10,7 +10,7 @@
 
     <import resource="classpath:com/pingpong/portal/app-context.xml"/>
 
-    <context:component-scan base-package="com.pingpong.portal.controller" name-generator="org.springframework.context.annotation.AnnotationBeanNameGenerator"/>
+    <context:component-scan base-package="com.pingpong.portal" name-generator="org.springframework.context.annotation.AnnotationBeanNameGenerator"/>
 
     <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles2.TilesViewResolver">
         <property name="order" value="0"/>
@@ -27,8 +27,28 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="/WEB-INF/config/messages"/>
+    </bean>
 
-    <mvc:annotation-driven />
+    <bean id="emailValidator" class="org.hibernate.validator.constraints.impl.EmailValidator"/>
+
+
+    <!--<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="webBindingInitializer">
+            &lt;!&ndash; Configures Spring MVC DataBinder instances &ndash;&gt;
+            <bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+                <property name="validator" ref="validator"/>
+            </bean>
+        </property>
+    </bean>
+
+    &lt;!&ndash; Creates the JSR-303 Validator &ndash;&gt;
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+-->
+    <bean class="com.pingpong.portal.converter.StringToJodaDateConverter"/>
+
+    <mvc:annotation-driven/>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
 </beans>

@@ -17,7 +17,7 @@ import javax.persistence.InheritanceType;
  */
 
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(
     name="discriminator",
     discriminatorType= DiscriminatorType.STRING
@@ -39,7 +39,7 @@ public class Account extends AbstractEntity {
 	@Column
 	private boolean enabled;
 	@Enumerated(value = EnumType.STRING)
-	@Column(insertable = false, updatable = false)
+	//@Column(insertable = false, updatable = false)
 	private Discriminator discriminator;
 
 	public String getEmail() {

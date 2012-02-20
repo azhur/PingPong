@@ -1,8 +1,9 @@
 package com.pingpong.domain;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 
 /**
@@ -19,7 +20,7 @@ public class Authority  extends AbstractEntity {
 		ROLE_PLAYER_USER
 	}
 	
-	@Column
+	@Enumerated(EnumType.STRING)
 	private Name name;
 
 	@ManyToOne(cascade = CascadeType.ALL)
