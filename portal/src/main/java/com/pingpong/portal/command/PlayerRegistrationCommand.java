@@ -4,6 +4,8 @@
 package com.pingpong.portal.command;
 
 import com.pingpong.shared.registration.PlayerRegistrationData;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * @author Artur Zhurat
@@ -13,6 +15,8 @@ import com.pingpong.shared.registration.PlayerRegistrationData;
 
 public class PlayerRegistrationCommand extends PlayerRegistrationData{
 	private static final long serialVersionUID = -686792982450583340L;
+	@NotBlank(message = "{playerRegistrationCommand.blank.password}")
+	@Length(min = 6, max = 50, message = "{playerRegistrationCommand.blank.password.size}")
 	private String pass1;
 	private String pass2;
 

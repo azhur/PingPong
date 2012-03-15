@@ -28,27 +28,15 @@
     </bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename" value="/WEB-INF/config/messages"/>
+        <property name="basename" value="/WEB-INF/config/errors"/>
     </bean>
 
-    <bean id="emailValidator" class="org.hibernate.validator.constraints.impl.EmailValidator"/>
-
-
-    <!--<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-        <property name="webBindingInitializer">
-            &lt;!&ndash; Configures Spring MVC DataBinder instances &ndash;&gt;
-            <bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
-                <property name="validator" ref="validator"/>
-            </bean>
-        </property>
+    <!--Creates the JSR-303 Validator-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="validationMessageSource" ref="messageSource"/>
     </bean>
 
-    &lt;!&ndash; Creates the JSR-303 Validator &ndash;&gt;
-    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
--->
-    <bean class="com.pingpong.portal.converter.StringToJodaDateConverter"/>
-
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven validator="validator"/>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
 </beans>

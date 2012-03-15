@@ -3,6 +3,7 @@ package com.pingpong.domain;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -17,7 +18,7 @@ import javax.persistence.Table;
 public class PlayerAccount extends Account {
 	private static final long serialVersionUID = 1504312397288000421L;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Player player;
 
 	public PlayerAccount() {

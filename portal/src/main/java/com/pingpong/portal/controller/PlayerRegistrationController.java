@@ -5,14 +5,20 @@ package com.pingpong.portal.controller;
 
 import com.pingpong.domain.enumeration.Gender;
 import com.pingpong.portal.command.PlayerRegistrationCommand;
+import com.pingpong.portal.editor.LocalDatePropertyEditorSupport;
 import com.pingpong.portal.validator.PlayerRegistrationValidator;
 import com.pingpong.shared.AppService;
+import com.pingpong.shared.exception.NotUniqueEmailException;
 import com.pingpong.shared.registration.PlayerRegistrationData;
+import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,8 +33,8 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/registration")
-public class RegistrationController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);
+public class PlayerRegistrationController extends AbstractBaseController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(PlayerRegistrationController.class);
 
 	@Autowired
 	private AppService appService;
@@ -36,31 +42,43 @@ public class RegistrationController {
 	private PlayerRegistrationValidator validator;
 
 
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(LocalDate.class, new LocalDatePropertyEditorSupport());
+	}
+
 	@RequestMapping(method = RequestMethod.GET)
 	public String showRegistrationForm(Map model) {
 		model.put("registration", new PlayerRegistrationCommand());
-		model.put("genders", Gender.values());
-
 		return "registration/registration";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String processRegistration(@ModelAttribute("registration") @Valid PlayerRegistrationCommand command, BindingResult result, Map model) {
+	public String processRegistration(@ModelAttribute("registration") @Valid PlayerRegistrationCommand command, BindingResult result, Model model) {
 		validator.validate(command, result);
 
 		if(result.hasErrors()) {
-			model.put("genders", Gender.values());
 			return "registration/registration";
 		}
 
 		try {
 			appService.register(populateData(command));
+		} catch(NotUniqueEmailException emailException){
+			LOGGER.error("Not unique", emailException);
+			model.addAttribute(ERROR_MSG_VAR, emailException.getMessage());
+			return "registration/registration";
 		} catch(Exception e) {
 			LOGGER.error("ERROR", e);
-			throw new RuntimeException(e);
+			model.addAttribute(ERROR_MSG_VAR, "Couldn't register player, try again please");
+			return "registration/registration";
 		}
 
 		return "registration/success";
+	}
+
+	@ModelAttribute("genderItems")
+	public Gender[] populateGenderItems() {
+	    return Gender.values();
 	}
 
 	private PlayerRegistrationData populateData(PlayerRegistrationCommand command) {

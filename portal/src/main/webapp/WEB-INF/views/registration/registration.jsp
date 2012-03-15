@@ -1,5 +1,6 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <h1 class="page-header">
     Registration form
     <small>Please complete the form below</small>
@@ -78,7 +79,7 @@
                 <form:errors path="gender"/>
             </div>
             <div class="radio">
-                <form:radiobuttons path="gender" items="${genders}"/>
+                <form:radiobuttons path="gender" items="${genderItems}"/>
             </div>
         </div>
     </div>
@@ -94,7 +95,7 @@
                 <span class="add-on">
                     <i class="icon-calendar"></i>
                 </span>
-                <form:input path="birth" readonly="true"/>
+                <form:input path="birth"/>
             </div>
         </div>
     </div>

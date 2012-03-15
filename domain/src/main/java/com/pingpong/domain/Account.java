@@ -39,7 +39,6 @@ public class Account extends AbstractEntity {
 	@Column
 	private boolean enabled;
 	@Enumerated(value = EnumType.STRING)
-	//@Column(insertable = false, updatable = false)
 	private Discriminator discriminator;
 
 	public String getEmail() {

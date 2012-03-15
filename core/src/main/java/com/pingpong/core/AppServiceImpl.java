@@ -37,9 +37,4 @@ public class AppServiceImpl implements AppService {
 	public void register(@NotNull PlayerRegistrationData registrationData) {
 		playerBO.register(registrationData);
 	}
-
-	@Override
-	public boolean isEmailUnique(@NotNull String email) {
-		return accountBO.getByEmail(email) == null;
-	}
 }

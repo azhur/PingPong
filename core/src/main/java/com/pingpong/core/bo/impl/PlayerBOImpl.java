@@ -3,13 +3,16 @@
  */
 package com.pingpong.core.bo.impl;
 
+import com.pingpong.core.bo.AccountBO;
 import com.pingpong.core.bo.PlayerBO;
 import com.pingpong.core.dao.AuthorityDAO;
 import com.pingpong.core.dao.PlayerAccountDAO;
 import com.pingpong.core.dao.PlayerDAO;
+import com.pingpong.domain.Account;
 import com.pingpong.domain.Authority;
 import com.pingpong.domain.Player;
 import com.pingpong.domain.PlayerAccount;
+import com.pingpong.shared.exception.NotUniqueEmailException;
 import com.pingpong.shared.registration.PlayerRegistrationData;
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.guard.Guarded;
@@ -28,10 +31,18 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 	private PlayerAccountDAO playerAccountDAO;
 	@Autowired
 	private AuthorityDAO authorityDAO;
+	@Autowired
+	private AccountBO accountBO;
 
 	@Override
 	@Transactional(readOnly = false)
 	public void register(@NotNull PlayerRegistrationData registrationData) {
+		final Account emailAccount = accountBO.getByEmail(registrationData.getEmail());
+
+		if (emailAccount != null) {
+			throw new NotUniqueEmailException("Not unique email!");
+		}
+
 		final Player player = new Player();
 		player.setStatus(Player.Status.REGISTRATION);
 		player.setBirth(registrationData.getBirth());

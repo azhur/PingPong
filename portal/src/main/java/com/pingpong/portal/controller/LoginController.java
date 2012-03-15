@@ -21,19 +21,20 @@ import java.util.Map;
  * @since 01/02/2012
  */
 @Controller
-public class LoginController {
+@RequestMapping("/login")
+public class LoginController extends AbstractBaseController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 	@Autowired
 	private AppService appService;
 
-	@RequestMapping("/login")
-	public String login(Map model) {
+	@RequestMapping(method = RequestMethod.GET)
+	public String showLoginForm(Map model) {
 		model.put("login", new LoginCommand());
 		return "login/login";
 	}
 
-	@RequestMapping(value = "/signIn", method = RequestMethod.POST)
-	public String signIn(@ModelAttribute("login") LoginCommand command) {
+	@RequestMapping(method = RequestMethod.POST)
+	public String login(@ModelAttribute("login") LoginCommand command) {
 		return "redirect:/";
 	}
 }

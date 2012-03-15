@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -36,6 +37,12 @@
 <script src="${pageContext.servletContext.contextPath}/resources/js/jquery/jquery-ui-1.8.17.datepicker.min.js"></script>
 <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 <div id="content" class="container">
+    <c:if test="${not empty error}">
+        <div class="alert alert-error">
+            <a class="close" data-dismiss="alert">×</a>
+                ${error}
+        </div>
+    </c:if>
     <tiles:insertAttribute name="content"/>
 </div>
 </body>

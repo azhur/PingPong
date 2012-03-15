@@ -20,6 +20,4 @@ public interface AppService {
 	Integer insertPlayer(@NotNull Player player);
 
 	void register(@NotNull PlayerRegistrationData registrationData);
-
-	boolean isEmailUnique(@NotNull String email);
 }

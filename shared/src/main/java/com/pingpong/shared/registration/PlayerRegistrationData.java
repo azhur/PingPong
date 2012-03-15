@@ -4,9 +4,13 @@
 package com.pingpong.shared.registration;
 
 import com.pingpong.domain.enumeration.Gender;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.io.Serializable;
 
 /**
@@ -17,12 +21,17 @@ import java.io.Serializable;
 
 public class PlayerRegistrationData  implements Serializable {
 	private static final long serialVersionUID = 3518498214315728437L;
-
+	@NotBlank(message = "{playerRegistrationCommand.blank.name}")
 	private String name;
+	@NotBlank(message = "{playerRegistrationCommand.blank.email}")
+	@Email(message = "{playerRegistrationCommand.blank.emailFormat}")
 	private String email;
 	private String password;
+	@NotNull(message = "{playerRegistrationCommand.blank.gender}")
 	private Gender gender;
 	@DateTimeFormat(pattern = "dd/mm/yy")
+	@NotNull(message = "{playerRegistrationCommand.blank.birth}")
+	@Past
 	private LocalDate birth;
 
 	public String getName() {
