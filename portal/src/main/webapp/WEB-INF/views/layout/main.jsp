@@ -38,10 +38,28 @@
 <script src="${pageContext.servletContext.contextPath}/resources/js/jquery/jquery-ui-1.8.17.datepicker.min.js"></script>
 <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 <div id="content" class="container">
-    <c:if test="${not empty error}">
+    <c:if test="${not empty errorMsg}">
         <div class="alert alert-error">
             <a class="close" data-dismiss="alert">×</a>
-                ${error}
+                ${errorMsg}
+        </div>
+    </c:if>
+    <c:if test="${not empty infoMsg}">
+        <div class="alert alert-info">
+            <a class="close" data-dismiss="alert">×</a>
+                ${infoMsg}
+        </div>
+    </c:if>
+    <c:if test="${not empty successMsg}">
+        <div class="alert alert-success">
+            <a class="close" data-dismiss="alert">×</a>
+                ${successMsg}
+        </div>
+    </c:if>
+    <c:if test="${not empty warningMsg}">
+        <div class="alert alert-block">
+            <a class="close" data-dismiss="alert">×</a>
+                ${warningMsg}
         </div>
     </c:if>
     <tiles:insertAttribute name="content"/>

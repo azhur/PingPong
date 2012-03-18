@@ -10,6 +10,9 @@ package com.pingpong.portal.controller;
  */
 
 public abstract class AbstractBaseController {
-	protected static final String ERROR_MSG_VAR = "error";
+	protected static final String ERROR_MSG_VAR = "errorMsg";
+	protected static final String INFO_MSG_VAR = "infoMsg";
+	protected static final String WARNING_MSG_VAR = "warningMsg";
+	protected static final String SUCCESS_MSG_VAR = "successMsg";
 
 }
