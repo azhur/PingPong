@@ -31,7 +31,6 @@ public class PlayerRegistrationData  implements Serializable {
 	private Gender gender;
 	@DateTimeFormat(pattern = "dd/mm/yy")
 	@NotNull(message = "{playerRegistrationCommand.blank.birth}")
-	@Past
 	private LocalDate birth;
 
 	public String getName() {
