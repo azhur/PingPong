@@ -109,16 +109,9 @@
 
 <script type="text/javascript">
     jQuery(document).ready(function () {
-        $("#birth").datepicker({ dateFormat:'dd/mm/yy' });
-        //getter
-        var dateFormat = $("#birth").datepicker("option", "dateFormat");
-        //setter
-        $("#birth").datepicker("option", "dateFormat", 'dd/mm/yy');
-
-        $("#birth").datepicker({ maxDate:'+0d' });
-        //getter
-        var maxDate = $("#birth").datepicker("option", "maxDate");
-        //setter
-        $("#birth").datepicker("option", "maxDate", '+0d');
+        $("#birth").datepicker({
+            dateFormat:'dd/mm/yy',
+            maxDate:'+0d'
+        });
     });
 </script>
