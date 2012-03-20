@@ -74,7 +74,8 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 		account.setEmail(registrationData.getEmail());
 		account.setEnabled(true);
 		account.setPassword(registrationData.getPassword());
-		account.setSalt("salt");
+
+		accountBO.encodePassword(account);
 
 		playerAccountDAO.insert(account);
 

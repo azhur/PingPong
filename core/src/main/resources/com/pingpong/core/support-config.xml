@@ -2,9 +2,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <import resource="placeholder-config.xml"/>
-    <import resource="aop-config.xml"/>
-    <import resource="core-config.xml"/>
-    <import resource="support-config.xml"/>
-    <import resource="persistence-config.xml"/>
+
+    <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>
 </beans>

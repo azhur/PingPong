@@ -14,4 +14,6 @@ import net.sf.oval.constraint.NotNull;
 
 public interface AccountBO extends BO<Integer, Account>{
 	Account getByEmail(@NotNull String email);
+
+	void encodePassword(@NotNull Account account);
 }
