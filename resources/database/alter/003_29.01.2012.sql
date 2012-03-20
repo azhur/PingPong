@@ -4,18 +4,18 @@
  CREATE SEQUENCE account_seq INCREMENT 1 START 1;
 
  CREATE TABLE account (
-     id INTEGER CONSTRAINT NN_id NOT NULL default nextval('account_seq'),
+     id id NOT NULL default nextval('account_seq'),
      discriminator CHARACTER VARYING(20) not null,
-     email CHARACTER VARYING (30) not null,
-     password CHARACTER VARYING (50) not null,
+     email email not null,
+     password password not null,
      salt CHARACTER VARYING (20) not null,
      enabled boolean not null default true,
-     version TIMESTAMP CONSTRAINT NN_version NOT NULL default now(),
+     version version NOT NULL default now(),
      CONSTRAINT pk_account_id PRIMARY KEY (id)
  );
 
  CREATE TABLE admin_account (
-      id INTEGER CONSTRAINT NN_id NOT NULL,
+      id id NOT NULL,
       CONSTRAINT pk_admin_account_id PRIMARY KEY (id)
   );
 
@@ -24,8 +24,8 @@
  FOREIGN KEY (id) REFERENCES account(id);
 
  CREATE TABLE player_account (
-       id INTEGER NOT NULL,
-       player_id INTEGER NOT NULL,
+       id id NOT NULL,
+       player_id id NOT NULL,
        CONSTRAINT pk_player_account_id PRIMARY KEY (id)
    );
 
@@ -41,10 +41,10 @@
   CREATE SEQUENCE authority_seq INCREMENT 1 START 1;
 
   CREATE TABLE authority (
-         id INTEGER NOT NULL default nextval('authority_seq'),
-         account_id INTEGER not null,
+         id id NOT NULL default nextval('authority_seq'),
+         account_id id not null,
          name character varying(20) not null,
-         version TIMESTAMP CONSTRAINT NN_version NOT NULL default now(),
+         version version NOT NULL default now(),
          CONSTRAINT pk_authority_id PRIMARY KEY (id)
      );
 

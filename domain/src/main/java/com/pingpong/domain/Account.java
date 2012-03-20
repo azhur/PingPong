@@ -1,14 +1,9 @@
 package com.pingpong.domain;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.DiscriminatorValue;
+import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Artur Zhurat
@@ -40,6 +35,8 @@ public class Account extends AbstractEntity {
 	private boolean enabled;
 	@Enumerated(value = EnumType.STRING)
 	private Discriminator discriminator;
+	@OneToMany(orphanRemoval = true, mappedBy = "account")
+	private Set<Authority> authorities = new HashSet<Authority>();
 
 	public String getEmail() {
 		return email;
@@ -79,5 +76,9 @@ public class Account extends AbstractEntity {
 
 	public void setDiscriminator(Discriminator discriminator) {
 		this.discriminator = discriminator;
+	}
+
+	public Set<Authority> getAuthorities() {
+		return authorities;
 	}
 }
