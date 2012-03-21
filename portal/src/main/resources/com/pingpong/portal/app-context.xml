@@ -6,7 +6,6 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     <import resource="placeholder-config.xml"/>
-    <import resource="security-config.xml"/>
 
     <bean id="log4j" class="com.pingpong.shared.util.Log4jConfigurer">
         <property name="location" value="${log4j.location}"/>

@@ -25,7 +25,7 @@ public class Account extends AbstractEntity {
 		ADMIN_ACCOUNT,
 		PLAYER_ACCOUNT
 	}
-	@Column
+	@Column(unique = true)
 	private String email;
 	@Column
 	private String password;

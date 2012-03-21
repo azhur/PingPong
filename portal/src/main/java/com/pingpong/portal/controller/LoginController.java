@@ -29,7 +29,7 @@ public class LoginController extends AbstractBaseController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 	@Autowired
 	private AppService appService;
-	@Autowired
+	//@Autowired
 	private UserDetailsService userDetailsService;
 
 	@RequestMapping(method = RequestMethod.GET)
