@@ -9,6 +9,7 @@ import com.pingpong.core.dao.PlayerAccountDAO;
 import com.pingpong.domain.PlayerAccount;
 import com.pingpong.shared.util.HibernateUtils;
 import net.sf.oval.constraint.NotNull;
+import net.sf.oval.guard.Guarded;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -16,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @version 3.0
  * @since 20/03/2012
  */
-
+@Guarded
 public class PlayerAccountBOImpl extends AbstractBO<Integer, PlayerAccount, PlayerAccountDAO> implements PlayerAccountBO {
 	@Autowired
 	private AccountBO accountBO;

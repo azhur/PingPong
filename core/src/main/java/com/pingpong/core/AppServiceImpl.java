@@ -9,6 +9,7 @@ import com.pingpong.shared.registration.PlayerRegistrationData;
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.guard.Guarded;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
  * @since 25/01/2012
  */
 @Guarded
+@Service
 public class AppServiceImpl implements AppService {
 	@Autowired
 	private PlayerBO playerBO;
