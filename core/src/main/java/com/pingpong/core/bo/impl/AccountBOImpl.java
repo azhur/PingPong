@@ -31,7 +31,7 @@ public class AccountBOImpl extends AbstractBO<Integer, Account, AccountDAO> impl
 
 	@Override
 	public void encodePassword(@NotNull Account account) {
-		final String salt = RandomStringUtils.randomAlphabetic(SALT_LENGTH);
+		final String salt = RandomStringUtils.randomAlphanumeric(SALT_LENGTH);
 		final String encodedPassword = passwordEncoder.encodePassword(account.getPassword(), salt);
 
 		account.setPassword(encodedPassword);
