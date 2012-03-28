@@ -8,6 +8,7 @@ import com.pingpong.core.bo.PlayerBO;
 import com.pingpong.core.dao.AuthorityDAO;
 import com.pingpong.core.dao.PlayerAccountDAO;
 import com.pingpong.core.dao.PlayerDAO;
+import com.pingpong.core.mail.Mailer;
 import com.pingpong.domain.Account;
 import com.pingpong.domain.Authority;
 import com.pingpong.domain.Player;
@@ -16,8 +17,13 @@ import com.pingpong.shared.exception.NotUniqueEmailException;
 import com.pingpong.shared.registration.PlayerRegistrationData;
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.guard.Guarded;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
 
 /**
  * @author Artur Zhurat
@@ -26,6 +32,10 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Guarded
 public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> implements PlayerBO {
+	private static final Logger LOG = LoggerFactory.getLogger(PlayerBOImpl.class);
+
+	@Value("${mail.group.admin}")
+	private String adminEmails;
 
 	@Autowired
 	private PlayerAccountDAO playerAccountDAO;
@@ -33,6 +43,8 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 	private AuthorityDAO authorityDAO;
 	@Autowired
 	private AccountBO accountBO;
+	@Autowired
+	private Mailer mailer;
 
 	@Override
 	@Transactional(readOnly = false)
@@ -56,6 +68,8 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 
 		//create authorities
 		createAuthority(account);
+
+		notifyOfRegistration(registrationData);
 	}
 
 	private Authority createAuthority(PlayerAccount account) {
@@ -80,5 +94,17 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 		playerAccountDAO.insert(account);
 
 		return account;
+	}
+	
+	
+	private void notifyOfRegistration(final PlayerRegistrationData registrationData) {
+		final String toAddress = adminEmails;
+		final String subject = "Register new player";
+
+		mailer.sendEmail(Mailer.EmailTemplate.PLAYER_REGISTRATION, new HashMap<String, Object>() {{
+			put("form", registrationData);
+		}}, toAddress, subject, null, null, false);
+
+		LOG.info("Sending email about creating new player...");
 	}
 }

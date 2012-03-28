@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jms="http://www.springframework.org/schema/jms" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+    <bean class="org.apache.activemq.xbean.XBeanBrokerService">
+        <property name="transportConnectors">
+            <bean class="org.apache.activemq.broker.TransportConnector">
+                <property name="uri" value="${amq.broker.transportConnector.uri}"/>
+            </bean>
+        </property>
+        <property name="start" value="true"/>
+        <property name="persistent" value="${amq.persistent}"/>
+        <property name="dataDirectory" value="${amq.dataDirectory}"/>
+        <property name="enableStatistics" value="${amq.enableStatistics}"/>
+        <property name="useJmx" value="${amq.useJmx}"/>
+    </bean>
+
+    <bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="${amq.brokerURL}"/>
+        <property name="redeliveryPolicy">
+            <bean class="org.apache.activemq.RedeliveryPolicy">
+                <property name="useExponentialBackOff" value="true"/>
+                <property name="maximumRedeliveries" value="10"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="cachedConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <property name="targetConnectionFactory" ref="amqConnectionFactory"/>
+        <property name="sessionCacheSize" value="20"/>
+    </bean>
+
+    <bean id="mailerJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="cachedConnectionFactory"/>
+        <property name="sessionTransacted" value="true"/>
+        <property name="deliveryPersistent" value="true"/>
+    </bean>
+
+    <bean id="mailerDestination" class="org.apache.activemq.command.ActiveMQQueue">
+        <property name="physicalName" value="MAILER_QUEUE"/>
+    </bean>
+
+
+    <context:component-scan base-package="com.pingpong.core">
+        <context:include-filter type="assignable" expression="com.pingpong.core.listener.AbstractMessageListener"/>
+    </context:component-scan>
+
+    <jms:listener-container container-type="simple" connection-factory="cachedConnectionFactory" acknowledge="transacted" cache="consumer">
+        <jms:listener destination="MAILER_QUEUE" ref="mailerListener" method="onMessage"/>
+    </jms:listener-container>
+
+</beans>
