@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>com.pingpong</groupId>
-        <artifactId>all</artifactId>
+        <artifactId>pp-all</artifactId>
         <version>1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>domain</artifactId>
+    <artifactId>pp-domain</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
