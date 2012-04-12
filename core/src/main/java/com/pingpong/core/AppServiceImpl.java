@@ -1,5 +1,6 @@
 package com.pingpong.core;
 
+import com.pingpong.core.bo.AccountBO;
 import com.pingpong.core.bo.PlayerAccountBO;
 import com.pingpong.core.bo.PlayerBO;
 import com.pingpong.domain.Player;
@@ -11,6 +12,7 @@ import net.sf.oval.guard.Guarded;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 /**
@@ -25,6 +27,8 @@ public class AppServiceImpl implements AppService {
 	private PlayerBO playerBO;
 	@Autowired
 	private PlayerAccountBO playerAccountBO;
+	@Autowired
+	private AccountBO accountBO;
 
 	@Override
 	public List<Player> listPlayers() {
@@ -44,5 +48,16 @@ public class AppServiceImpl implements AppService {
 	@Override
 	public PlayerAccount getAccountByEmail(@NotNull String email) {
 		return playerAccountBO.getByEmail(email);
+	}
+
+	@Override
+	public void requestForgotPassword(@NotNull String email) {
+		final PlayerAccount playerAccount = playerAccountBO.getByEmail(email);
+
+		if (playerAccount == null) {
+			throw new EntityNotFoundException();
+		}
+
+		accountBO.requestForgotPassword(email);
 	}
 }

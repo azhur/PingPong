@@ -16,4 +16,6 @@ public interface AccountBO extends BO<Integer, Account>{
 	void encodePassword(@NotNull Account account);
 
 	Account getByEmail(@NotNull String email);
+
+	void requestForgotPassword(@NotNull String email);
 }

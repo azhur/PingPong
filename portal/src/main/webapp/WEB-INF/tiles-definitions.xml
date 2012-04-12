@@ -23,9 +23,22 @@
         <put-attribute name="content" value="/WEB-INF/views/registration/success.jsp"/>
     </definition>
 
-    <definition name="login/login" extends="main">
-        <put-attribute name="title" value="PingPong registration"/>
-        <put-attribute name="content" value="/WEB-INF/views/login/login.jsp"/>
+    <definition name="auth/login" extends="main">
+        <put-attribute name="title" value="PingPong login"/>
+        <put-attribute name="content" value="/WEB-INF/views/auth/login.jsp"/>
+    </definition>
+    <definition name="account/forgotPassword" extends="main">
+        <put-attribute name="title" value="PingPong forgot password"/>
+        <put-attribute name="content" value="/WEB-INF/views/account/forgotPassword.jsp"/>
+    </definition>
+    <definition name="account/forgotPasswordThanks" extends="main">
+        <put-attribute name="title" value="PingPong forgot password"/>
+        <put-attribute name="content" value="/WEB-INF/views/account/forgotPasswordThanks.jsp"/>
+    </definition>
+
+    <definition name="error/deny" extends="main">
+        <put-attribute name="title" value="PingPong deny access"/>
+        <put-attribute name="content" value="/WEB-INF/views/error/deny.jsp"/>
     </definition>
 
 </tiles-definitions>

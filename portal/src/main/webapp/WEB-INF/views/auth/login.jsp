@@ -43,7 +43,7 @@
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Login</button>
             &nbsp;or&nbsp;
-            <a href="forgot_password">Forgot password</a>
+            <a href="account/forgot_password">Forgot password</a>
         </div>
     </fieldset>
 </form>

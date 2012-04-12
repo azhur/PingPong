@@ -5,3 +5,7 @@ body {
 .centered_text {
 	text-align: center;
 }
+
+.warning_text {
+    color: #c09853;
+}

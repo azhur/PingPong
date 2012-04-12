@@ -22,4 +22,6 @@ public interface AppService {
 	void register(@NotNull PlayerRegistrationData registrationData);
 	
 	PlayerAccount getAccountByEmail(@NotNull String email);
+
+	void requestForgotPassword(@NotNull String email);
 }

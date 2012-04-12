@@ -4,4 +4,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>
+
+    <bean class="com.pingpong.core.web.UrlResolver">
+        <property name="adminUrl" value="${admin.url}"/>
+        <property name="portalUrl" value="${portal.url}"/>
+    </bean>
 </beans>

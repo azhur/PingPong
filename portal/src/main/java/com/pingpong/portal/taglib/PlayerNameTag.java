@@ -3,8 +3,7 @@
  */
 package com.pingpong.portal.taglib;
 
-import com.pingpong.portal.security.AuthUser;
-import org.springframework.security.core.context.SecurityContextHolder;
+import com.pingpong.portal.security.SpringSecurityUtils;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -21,7 +20,7 @@ public class PlayerNameTag extends SimpleTagSupport {
 	@Override
 	public void doTag() throws JspException, IOException {
 		JspWriter out = getJspContext().getOut();
-		final String name = ((AuthUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName();
+		final String name = SpringSecurityUtils.getCurrentUser().getName();
 		out.print(name);
 	}
 }
