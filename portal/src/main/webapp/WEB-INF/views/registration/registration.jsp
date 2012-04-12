@@ -91,11 +91,11 @@
             <div class="alert-error">
                 <form:errors path="birth"/>
             </div>
-            <div class="input-prepend">
+            <div class="input-prepend date">
                 <span class="add-on">
                     <i class="icon-calendar"></i>
                 </span>
-                <form:input path="birth"/>
+                <form:input path="birth" placeholder="example: 20/12/2000"/>
             </div>
         </div>
     </div>
@@ -108,10 +108,9 @@
 </form:form>
 
 <script type="text/javascript">
-    jQuery(document).ready(function () {
-        $("#birth").datepicker({
-            dateFormat:'dd/mm/yy',
-            maxDate:'+0d'
-        });
-    });
+   jQuery(document).ready(function () {
+       $("#birth").datepicker({
+           format: 'dd/mm/yyyy'
+       });
+   });
 </script>

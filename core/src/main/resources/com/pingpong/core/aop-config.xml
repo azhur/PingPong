@@ -12,7 +12,7 @@
     <aop:aspectj-autoproxy/>
 
     <aop:config>
-        <aop:advisor advice-ref="ovalGuardInterceptor" pointcut="bean(*Service) || bean(*DAO) || bean(*BO)" order="10"/>
+        <aop:advisor advice-ref="ovalGuardInterceptor" pointcut="bean(*Service) || bean(*DAOImpl) || bean(*BOImpl)" order="10"/>
     </aop:config>
 
     <bean id="ovalGuardInterceptor" class="net.sf.oval.guard.GuardInterceptor">

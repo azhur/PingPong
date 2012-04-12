@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%--<%@ taglib uri="/WEB-INF/tlds/pp-taglib.tld" prefix="pp" %>--%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -11,7 +13,17 @@
     <link rel="shortcut icon" href="${pageContext.servletContext.contextPath}/resources/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/bootstrap.min.css" type="text/css"/>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/main.css" type="text/css"/>
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/jquery-ui-1.8.17.datepicker.css" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/datepicker.css" type="text/css"/>
+
+    <%--jquery--%>
+    <script src="${pageContext.servletContext.contextPath}/resources/js/jquery/jquery-1.7.1.min.js"></script>
+
+    <%--bootstrap--%>
+    <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-alert.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-modal.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-datepicker.js"></script>
 </head>
 <body>
 <div class="navbar navbar-fixed-top">
@@ -25,17 +37,57 @@
             <a class="brand" href="${pageContext.servletContext.contextPath}/index">PingPong Portal</a>
 
             <div class="nav-collapse">
-                <ul class="nav">
-                    <li><a href="login">Login</a></li>
-                    <li><a href="registration">Register</a></li>
-                </ul>
+                <sec:authorize access="isAnonymous()">
+                    <ul class="nav">
+                        <li><a href="login">Login</a></li>
+                        <li><a href="registration">Register</a></li>
+                    </ul>
+                </sec:authorize>
+                <sec:authorize access="hasRole('ROLE_PLAYER_USER')">
+                    <ul class="nav pull-right">
+                        <li>
+                            <a>
+                                <span class="add-on">
+                                  <i class="icon-user icon-white"></i>
+                               </span>
+                                    <%--<pp:playerName/>--%>Player name &#x2023;</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><sec:authentication property="principal.username"/><b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#">
+                                        <span class="add-on">
+                                             <i class="icon-cog"></i>
+                                       </span>
+                                        Change Profile
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="add-on">
+                                           <i class="icon-pencil"></i>
+                                        </span>
+                                        Change Password
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="${pageContext.servletContext.contextPath}/logout">
+                                    <span class="add-on">
+                                     <i class="icon-remove"></i>
+                                    </span>
+                                        Log out
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </sec:authorize>
             </div>
         </div>
     </div>
 </div>
-<script src="${pageContext.servletContext.contextPath}/resources/js/jquery/jquery-1.7.1.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/resources/js/jquery/jquery-ui-1.8.17.datepicker.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 <div id="content" class="container">
     <c:if test="${not empty errorMsg}">
         <div class="alert alert-error">

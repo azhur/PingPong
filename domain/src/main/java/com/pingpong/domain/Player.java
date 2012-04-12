@@ -35,8 +35,6 @@ public class Player extends AbstractEntity {
 	private LocalDate birth;
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
-	@Column
-	private boolean enabled;
 	@Enumerated(EnumType.STRING)
 	private Status status;
 
@@ -63,14 +61,6 @@ public class Player extends AbstractEntity {
 
 	public void setGender(Gender gender) {
 		this.gender = gender;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
 	}
 
 	public Status getStatus() {

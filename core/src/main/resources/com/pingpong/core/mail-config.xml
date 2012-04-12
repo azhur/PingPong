@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="${mail.sender.host}"/>
+        <property name="protocol" value="${mail.sender.protocol}"/>
+        <property name="username" value="${mail.sender.username}"/>
+        <property name="password" value="${mail.sender.password}"/>
+        <property name="defaultEncoding" value="${mail.sender.defaultEncoding}"/>
+        <property name="javaMailProperties">
+            <props>
+                <!-- Use SMTP-AUTH to authenticate to SMTP server -->
+                <prop key="mail.smtp.auth">${mail.sender.smtp.auth}</prop>
+                <!-- Use TLS to encrypt communication with SMTP server -->
+                <prop key="mail.smtp.starttls.enable">${mail.sender.smtp.auth}</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="mailer" class="com.pingpong.core.mail.Mailer">
+        <property name="defaultFromAddress" value="${mail.from.address}"/>
+        <property name="defaultFromName" value="${mail.from.name}"/>
+        <property name="subjectPrefix" value="${mail.subject.prefix}"/>
+        <property name="enabled" value="${mail.enabled}"/>
+    </bean>
+
+    <bean id="freemarkerConfiguration" class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+        <property name="templateLoaderPath" value="classpath:/com/pingpong/core/template/"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+</beans>

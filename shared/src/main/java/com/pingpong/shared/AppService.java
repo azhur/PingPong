@@ -1,9 +1,9 @@
 package com.pingpong.shared;
 
 import com.pingpong.domain.Player;
+import com.pingpong.domain.PlayerAccount;
 import com.pingpong.shared.registration.PlayerRegistrationData;
 import net.sf.oval.constraint.NotNull;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -20,4 +20,6 @@ public interface AppService {
 	Integer insertPlayer(@NotNull Player player);
 
 	void register(@NotNull PlayerRegistrationData registrationData);
+	
+	PlayerAccount getAccountByEmail(@NotNull String email);
 }

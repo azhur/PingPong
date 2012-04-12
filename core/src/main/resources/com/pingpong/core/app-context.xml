@@ -5,5 +5,8 @@
     <import resource="placeholder-config.xml"/>
     <import resource="aop-config.xml"/>
     <import resource="core-config.xml"/>
+    <import resource="support-config.xml"/>
     <import resource="persistence-config.xml"/>
+    <import resource="mail-config.xml"/>
+    <import resource="amq-config.xml"/>
 </beans>

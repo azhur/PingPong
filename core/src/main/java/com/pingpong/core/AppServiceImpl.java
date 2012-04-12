@@ -1,13 +1,15 @@
 package com.pingpong.core;
 
-import com.pingpong.core.bo.AccountBO;
+import com.pingpong.core.bo.PlayerAccountBO;
 import com.pingpong.core.bo.PlayerBO;
 import com.pingpong.domain.Player;
+import com.pingpong.domain.PlayerAccount;
 import com.pingpong.shared.AppService;
 import com.pingpong.shared.registration.PlayerRegistrationData;
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.guard.Guarded;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -17,11 +19,12 @@ import java.util.List;
  * @since 25/01/2012
  */
 @Guarded
+@Service
 public class AppServiceImpl implements AppService {
 	@Autowired
 	private PlayerBO playerBO;
 	@Autowired
-	private AccountBO accountBO;
+	private PlayerAccountBO playerAccountBO;
 
 	@Override
 	public List<Player> listPlayers() {
@@ -36,5 +39,10 @@ public class AppServiceImpl implements AppService {
 	@Override
 	public void register(@NotNull PlayerRegistrationData registrationData) {
 		playerBO.register(registrationData);
+	}
+
+	@Override
+	public PlayerAccount getAccountByEmail(@NotNull String email) {
+		return playerAccountBO.getByEmail(email);
 	}
 }

@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>all</artifactId>
+        <artifactId>pp-all</artifactId>
         <groupId>com.pingpong</groupId>
         <version>1.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -11,13 +11,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.pingpong</groupId>
-    <artifactId>shared</artifactId>
+    <artifactId>pp-shared</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>com.pingpong</groupId>
-            <artifactId>domain</artifactId>
+            <artifactId>pp-domain</artifactId>
         </dependency>
 
         <dependency>
@@ -45,6 +45,10 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
     </dependencies>
 </project>
