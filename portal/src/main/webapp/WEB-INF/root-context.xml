@@ -44,8 +44,6 @@
         <property name="userPropertyToUse" value="salt"/>
     </bean>
 
-    <!--<bean class="com.pingpong.portal.taglib.PingPongTag"/>-->
-
     <mvc:annotation-driven validator="validator"/>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 

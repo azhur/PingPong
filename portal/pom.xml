@@ -124,14 +124,10 @@
             <groupId>javassist</groupId>
             <artifactId>javassist</artifactId>
         </dependency>
-       <!-- <dependency>
+        <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
-        </dependency>-->
-       <!-- <dependency>
-            <groupId>taglibs</groupId>
-            <artifactId>standard</artifactId>
-        </dependency>-->
+        </dependency>
     </dependencies>
 
 </project>

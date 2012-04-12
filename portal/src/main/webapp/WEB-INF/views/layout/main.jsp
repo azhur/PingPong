@@ -2,7 +2,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%--<%@ taglib uri="/WEB-INF/tlds/pp-taglib.tld" prefix="pp" %>--%>
+<%@ taglib prefix="pp" uri="/WEB-INF/tlds/pp-taglib.tld" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -50,7 +50,7 @@
                                 <span class="add-on">
                                   <i class="icon-user icon-white"></i>
                                </span>
-                                    <%--<pp:playerName/>--%>Player name &#x2023;</a>
+                                    <pp:playerName/><%--Player name--%> &#x2023;</a>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><sec:authentication property="principal.username"/><b class="caret"></b></a>

@@ -18,15 +18,10 @@ import java.io.IOException;
  */
 
 public class PingPongTag extends SimpleTagSupport {
-	/*@Autowired
-	private AppService appService;*/
-
 	@Override
 	public void doTag() throws JspException, IOException {
 		JspWriter out = getJspContext().getOut();
-		final String username = ((AuthUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-		//final PlayerAccount playerAccount = appService.getAccountByEmail(username);
-		//out.print(playerAccount.getPlayer().getName());
-		out.print(username);
+		final String name = ((AuthUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName();
+		out.print(name);
 	}
 }

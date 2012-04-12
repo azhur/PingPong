@@ -18,13 +18,19 @@ public class AuthUser extends User {
 	private static final long serialVersionUID = -7827961343899065936L;
 	
 	private String salt;
+	private String name;
 
-	public AuthUser(String username, String password, boolean enabled, String salt, Collection<SimpleGrantedAuthority> authorities){
+	public AuthUser(String username, String password, boolean enabled, String salt, String name, Collection<SimpleGrantedAuthority> authorities){
 		super(username, password, enabled, true, true, true, authorities);
 		this.salt = salt;
+		this.name = name;
 	}
 
 	public String getSalt() {
 		return salt;
+	}
+
+	public String getName() {
+		return name;
 	}
 }
