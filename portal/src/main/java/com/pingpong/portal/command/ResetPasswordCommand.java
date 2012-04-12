@@ -4,22 +4,35 @@
 package com.pingpong.portal.command;
 
 import com.pingpong.portal.Constants;
-import com.pingpong.shared.registration.PlayerRegistrationData;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * @author Artur Zhurat
  * @version 3.0
- * @since 31/01/2012
+ * @since 12/04/2012
  */
 
-public class PlayerRegistrationCommand extends PlayerRegistrationData{
-	private static final long serialVersionUID = -686792982450583340L;
+public class ResetPasswordCommand implements Serializable {
+	private static final long serialVersionUID = -8218153121321844058L;
+
+	@NotNull
+	private String forgotPasswordId;
 	@NotBlank(message = "{password.blank.error}")
 	@Length(min = Constants.MIN_PASSWORD_LENGTH, max = Constants.MAX_PASSWORD_LENGTH, message = "{password.length.error}")
 	private String pass1;
 	private String pass2;
+
+	public String getForgotPasswordId() {
+		return forgotPasswordId;
+	}
+
+	public void setForgotPasswordId(String forgotPasswordId) {
+		this.forgotPasswordId = forgotPasswordId;
+	}
 
 	public String getPass1() {
 		return pass1;

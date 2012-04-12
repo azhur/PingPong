@@ -3,6 +3,7 @@ package com.pingpong.core;
 import com.pingpong.core.bo.AccountBO;
 import com.pingpong.core.bo.PlayerAccountBO;
 import com.pingpong.core.bo.PlayerBO;
+import com.pingpong.domain.Account;
 import com.pingpong.domain.Player;
 import com.pingpong.domain.PlayerAccount;
 import com.pingpong.shared.AppService;
@@ -59,5 +60,15 @@ public class AppServiceImpl implements AppService {
 		}
 
 		accountBO.requestForgotPassword(email);
+	}
+
+	@Override
+	public Account getAccountByForgotPasswordId(@NotNull String forgotPasswordId) {
+		return accountBO.getAccountByForgotPasswordId(forgotPasswordId);
+	}
+
+	@Override
+	public void resetForgottenPassword(@NotNull String forgotPasswordId, @NotNull String newPassword) {
+		accountBO.resetForgottenPassword(forgotPasswordId, newPassword);
 	}
 }

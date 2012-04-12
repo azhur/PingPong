@@ -18,4 +18,10 @@ public interface AccountBO extends BO<Integer, Account>{
 	Account getByEmail(@NotNull String email);
 
 	void requestForgotPassword(@NotNull String email);
+
+	void resetForgottenPassword(@NotNull String forgotPasswordId, @NotNull String newPassword);
+
+	Account getAccountByForgotPasswordId(@NotNull String forgotPasswordId);
+
+	void changePassword(@NotNull Integer accountId, @NotNull String oldPassword, @NotNull String newPassword);
 }

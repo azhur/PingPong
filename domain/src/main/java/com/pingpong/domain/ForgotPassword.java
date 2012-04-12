@@ -7,7 +7,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,7 +38,7 @@ public class ForgotPassword extends AbstractVersionableEntity<String> {
 	@Column(nullable = false, name = "valid_till")
 	@Type(type="org.joda.time.contrib.hibernate.PersistentLocalDateTime")
 	private LocalDateTime validTill;
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Account account;
 
 	@Override

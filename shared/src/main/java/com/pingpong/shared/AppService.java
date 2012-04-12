@@ -1,5 +1,6 @@
 package com.pingpong.shared;
 
+import com.pingpong.domain.Account;
 import com.pingpong.domain.Player;
 import com.pingpong.domain.PlayerAccount;
 import com.pingpong.shared.registration.PlayerRegistrationData;
@@ -24,4 +25,8 @@ public interface AppService {
 	PlayerAccount getAccountByEmail(@NotNull String email);
 
 	void requestForgotPassword(@NotNull String email);
+
+	Account getAccountByForgotPasswordId(@NotNull String forgotPasswordId);
+
+	void resetForgottenPassword(@NotNull String forgotPasswordId, @NotNull String newPassword);
 }

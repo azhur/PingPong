@@ -31,6 +31,18 @@
         <put-attribute name="title" value="PingPong forgot password"/>
         <put-attribute name="content" value="/WEB-INF/views/account/forgotPassword.jsp"/>
     </definition>
+    <definition name="account/resetPassword" extends="main">
+        <put-attribute name="title" value="PingPong reset password"/>
+        <put-attribute name="content" value="/WEB-INF/views/account/resetPassword.jsp"/>
+    </definition>
+    <definition name="account/resetPasswordSuccess" extends="main">
+        <put-attribute name="title" value="PingPong reset password"/>
+        <put-attribute name="content" value="/WEB-INF/views/account/resetPasswordSuccess.jsp"/>
+    </definition>
+    <definition name="account/resetPasswordError" extends="main">
+        <put-attribute name="title" value="PingPong reset password error"/>
+        <put-attribute name="content" value="/WEB-INF/views/account/resetPasswordError.jsp"/>
+    </definition>
     <definition name="account/forgotPasswordThanks" extends="main">
         <put-attribute name="title" value="PingPong forgot password"/>
         <put-attribute name="content" value="/WEB-INF/views/account/forgotPasswordThanks.jsp"/>

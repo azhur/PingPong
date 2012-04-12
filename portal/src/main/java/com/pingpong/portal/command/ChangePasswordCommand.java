@@ -3,6 +3,10 @@
  */
 package com.pingpong.portal.command;
 
+import com.pingpong.portal.Constants;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
 import java.io.Serializable;
 
 /**
@@ -12,7 +16,11 @@ import java.io.Serializable;
  */
 
 public class ChangePasswordCommand implements Serializable {
+	@NotBlank(message = "{password.blank.error}")
+	@Length(min = Constants.MIN_PASSWORD_LENGTH, max = Constants.MAX_PASSWORD_LENGTH, message = "{password.length.error}")
 	private String oldPass;
+	@NotBlank(message = "{password.blank.error}")
+	@Length(min = Constants.MIN_PASSWORD_LENGTH, max = Constants.MAX_PASSWORD_LENGTH, message = "{password.length.error}")
 	private String newPass1;
 	private String newPass2;
 

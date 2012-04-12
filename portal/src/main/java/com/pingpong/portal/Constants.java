@@ -7,4 +7,6 @@ package com.pingpong.portal;
  */
 
 public interface Constants {
+	int MIN_PASSWORD_LENGTH = 6;
+	int MAX_PASSWORD_LENGTH = 50;
 }

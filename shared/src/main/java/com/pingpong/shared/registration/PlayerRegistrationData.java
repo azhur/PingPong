@@ -22,8 +22,8 @@ public class PlayerRegistrationData  implements Serializable {
 	private static final long serialVersionUID = 3518498214315728437L;
 	@NotBlank(message = "{playerRegistrationCommand.blank.name}")
 	private String name;
-	@NotBlank(message = "{playerRegistrationCommand.blank.email}")
-	@Email(message = "{playerRegistrationCommand.blank.emailFormat}")
+	@NotBlank(message = "{email.blank.error}")
+	@Email(message = "{email.format.error}")
 	private String email;
 	private String password;
 	@NotNull(message = "{playerRegistrationCommand.blank.gender}")
