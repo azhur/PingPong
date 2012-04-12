@@ -13,17 +13,19 @@
     <link rel="shortcut icon" href="${pageContext.servletContext.contextPath}/resources/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/bootstrap.min.css" type="text/css"/>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/main.css" type="text/css"/>
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/jquery-ui-1.8.17.datepicker.css" type="text/css"/>
+   <%-- <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/jquery-ui-1.8.17.datepicker.css" type="text/css"/>--%>
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/datepicker.css" type="text/css"/>
 
     <%--jquery--%>
     <script src="${pageContext.servletContext.contextPath}/resources/js/jquery/jquery-1.7.1.min.js"></script>
-    <script src="${pageContext.servletContext.contextPath}/resources/js/jquery/jquery-ui-1.8.17.datepicker.min.js"></script>
+    <%--<script src="${pageContext.servletContext.contextPath}/resources/js/jquery/jquery-ui-1.8.17.datepicker.min.js"></script>--%>
 
     <%--bootstrap--%>
     <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-alert.js"></script>
     <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-dropdown.js"></script>
     <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-modal.js"></script>
     <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-datepicker.js"></script>
 </head>
 <body>
 <div class="navbar navbar-fixed-top">
