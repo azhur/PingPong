@@ -85,9 +85,11 @@ public class AccountController extends AbstractBaseController {
 		} catch(EntityNotFoundException enfe) {
 			LOG.error("Not found account", enfe);
 			model.addAttribute(ERROR_MSG_VAR, "Can't find such account");
+			model.addAttribute("account", account);
 			return "account/resetPassword";
 		} catch(Exception e) {
 			LOG.error("ERROR", e);
+			model.addAttribute("account", account);
 			model.addAttribute(ERROR_MSG_VAR, "Couldn't send request about forgot password, try again please");
 			return "account/resetPassword";
 		}
