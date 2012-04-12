@@ -17,7 +17,7 @@ import java.io.IOException;
  * @since 11/04/2012
  */
 
-public class PingPongTag extends SimpleTagSupport {
+public class PlayerNameTag extends SimpleTagSupport {
 	@Override
 	public void doTag() throws JspException, IOException {
 		JspWriter out = getJspContext().getOut();

@@ -9,7 +9,7 @@
     <tag>
         <description>Player name</description>
         <name>playerName</name>
-        <tag-class>com.pingpong.portal.taglib.PingPongTag</tag-class>
+        <tag-class>com.pingpong.portal.taglib.PlayerNameTag</tag-class>
         <body-content>empty</body-content>
     </tag>
 </taglib>
