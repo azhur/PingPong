@@ -95,7 +95,7 @@
                 <span class="add-on">
                     <i class="icon-calendar"></i>
                 </span>
-                <form:input path="birth" readonly="true" />
+                <form:input path="birth" placeholder="example: 20/12/2000"/>
             </div>
         </div>
     </div>
