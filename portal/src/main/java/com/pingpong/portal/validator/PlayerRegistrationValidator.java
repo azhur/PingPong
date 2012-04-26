@@ -10,8 +10,8 @@ import org.springframework.validation.Validator;
 
 /**
  * @author Artur Zhurat
- * @version 3.0
- * @since 18/02/2012
+ * @version 1.0
+ * @since 12/04/2012
  */
 
 @Component
@@ -27,7 +27,7 @@ public class PlayerRegistrationValidator implements Validator {
 		final PlayerRegistrationCommand command = (PlayerRegistrationCommand)target;
 
 		if(errors.getFieldErrorCount("pass1") == 0 && !(command.getPass1()).equals(command.getPass2())) {
-			errors.rejectValue("pass1", "playerRegistrationCommand.matchingPassword.password");
+			errors.rejectValue("pass1", "password.matching.error");
 		}
 	}
 }

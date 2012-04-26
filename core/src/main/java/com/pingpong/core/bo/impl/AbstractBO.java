@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * @author Artur Zhurat
- * @version 3.0
+ * @version 1.0
  * @since 20/02/2012
  */
 @Transactional(propagation = Propagation.REQUIRED, readOnly = true)

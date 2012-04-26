@@ -3,7 +3,6 @@
  */
 package com.pingpong.portal.controller;
 
-import com.pingpong.portal.command.LoginCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -19,19 +18,17 @@ import java.util.Map;
  * @since 01/02/2012
  */
 @Controller
-public class LoginController extends AbstractBaseController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
+public class AuthController extends AbstractBaseController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLoginForm(Map model) {
-		model.put("login", new LoginCommand());
-		return "login/login";
+		return "auth/login";
 	}
 
 	@RequestMapping(value="/loginFailed", method = RequestMethod.GET)
 	public String loginError(ModelMap model) {
 		model.addAttribute(ERROR_MSG_VAR, "Couldn't find player with specified data, try again please");
-		return "login/login";
-
+		return "auth/login";
 	}
 }

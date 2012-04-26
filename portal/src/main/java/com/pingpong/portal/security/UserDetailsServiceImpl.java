@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * @author Artur Zhurat
- * @version 3.0
+ * @version 1.0
  * @since 20/03/2012
  */
 
@@ -58,6 +58,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	protected UserDetails createUserDetails(PlayerAccount account, Collection<SimpleGrantedAuthority> authorities) {
 		final boolean enabled = account.getPlayer().getStatus() == Player.Status.ACTIVE && account.isEnabled();
 
-		return new AuthUser(account.getEmail(), account.getPassword(), enabled, account.getSalt(), account.getPlayer().getName(), authorities);
+		return new AuthUser(account.getEmail(), account.getPassword(), enabled, account.getSalt(), account.getPlayer().getName(), account.getId(), authorities);
 	}
 }

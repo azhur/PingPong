@@ -26,7 +26,7 @@ import static com.google.common.base.Preconditions.checkState;
 
 /**
  * @author Artur Zhurat
- * @version 3.0
+ * @version 1.0
  * @since 28/03/2012
  */
 
@@ -53,7 +53,8 @@ public class Mailer {
 	private Configuration configuration;
 
 	public static enum EmailTemplate {
-		PLAYER_REGISTRATION("player-registration.ftl");
+		PLAYER_REGISTRATION("player-registration.ftl"),
+		FORGOT_PASSWORD("forgot-password.ftl");
 
 		private String value;
 

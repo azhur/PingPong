@@ -39,8 +39,8 @@
             <div class="nav-collapse">
                 <sec:authorize access="isAnonymous()">
                     <ul class="nav">
-                        <li><a href="login">Login</a></li>
-                        <li><a href="registration">Register</a></li>
+                        <li><a href="${pageContext.servletContext.contextPath}/login">Login</a></li>
+                        <li><a href="${pageContext.servletContext.contextPath}/registration">Register</a></li>
                     </ul>
                 </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_PLAYER_USER')">
@@ -50,7 +50,8 @@
                                 <span class="add-on">
                                   <i class="icon-user icon-white"></i>
                                </span>
-                                    <pp:playerName/><%--Player name--%> &#x2023;</a>
+                               <pp:playerName/>&#x2023;
+                            </a>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><sec:authentication property="principal.username"/><b class="caret"></b></a>

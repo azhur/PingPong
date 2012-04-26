@@ -14,12 +14,16 @@
         <security:form-login login-page="/login"
                              authentication-failure-url="/loginFailed"
                              default-target-url="/"/>
-        <security:access-denied-handler error-page="/denied"/>
+        <security:access-denied-handler error-page="/error/deny"/>
         <security:remember-me/>
         <security:logout invalidate-session="true"
-                         logout-success-url="/login"
+                         logout-success-url="/index"
                          logout-url="/logout"/>
+
+        <security:intercept-url pattern='/login' access='isAnonymous()' />
+        <security:intercept-url pattern='/registration' access='isAnonymous()' />
     </security:http>
+
 
     <security:global-method-security secured-annotations="enabled"/>
 
