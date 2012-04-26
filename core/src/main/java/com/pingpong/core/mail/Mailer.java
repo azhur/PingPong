@@ -26,7 +26,7 @@ import static com.google.common.base.Preconditions.checkState;
 
 /**
  * @author Artur Zhurat
- * @version 3.0
+ * @version 1.0
  * @since 28/03/2012
  */
 

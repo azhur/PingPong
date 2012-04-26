@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author Artur Zhurat
- * @version 3.0
+ * @version 1.0
  * @since 27/12/2011
  */
 

@@ -10,7 +10,7 @@ import org.springframework.validation.Validator;
 
 /**
  * @author Artur Zhurat
- * @version 3.0
+ * @version 1.0
  * @since 18/02/2012
  */
 

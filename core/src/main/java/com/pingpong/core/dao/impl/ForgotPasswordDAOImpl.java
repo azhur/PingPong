@@ -9,7 +9,7 @@ import net.sf.oval.guard.Guarded;
 
 /**
  * @author Artur Zhurat
- * @version 3.0
+ * @version 1.0
  * @since 12/04/2012
  */
 @Guarded

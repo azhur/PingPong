@@ -8,7 +8,7 @@ import net.sf.oval.constraint.NotNull;
 
 /**
  * @author Artur Zhurat
- * @version 3.0
+ * @version 1.0
  * @since 20/03/2012
  */
 
