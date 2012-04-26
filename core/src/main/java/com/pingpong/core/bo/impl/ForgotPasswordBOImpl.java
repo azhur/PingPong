@@ -38,4 +38,10 @@ public class ForgotPasswordBOImpl extends AbstractBO<String, ForgotPassword, For
 
 		return insert(remindPassword);
 	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public void cleanup() {
+		getDao().cleanup();
+	}
 }

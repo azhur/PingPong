@@ -9,4 +9,5 @@ import com.pingpong.domain.ForgotPassword;
  */
 
 public interface ForgotPasswordDAO extends DAO<String, ForgotPassword> {
+	void cleanup();
 }

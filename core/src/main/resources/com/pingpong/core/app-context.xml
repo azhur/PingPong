@@ -9,4 +9,5 @@
     <import resource="persistence-config.xml"/>
     <import resource="mail-config.xml"/>
     <import resource="amq-config.xml"/>
+    <import resource="schedule-config.xml"/>
 </beans>

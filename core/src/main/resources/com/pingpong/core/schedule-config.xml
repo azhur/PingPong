@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<context:annotation-config/>
+
+	<bean id="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="forgotPasswordCleanupTrigger"/>
+			</list>
+		</property>
+		<property name="autoStartup" value="${schedule.enable}"/>
+	</bean>
+
+	<bean id="forgotPasswordCleanupJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.pingpong.core.quartz.ForgotPasswordCleanupJob"/>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="forgotPasswordBO" value-ref="forgotPasswordBOImpl"/>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="forgotPasswordCleanupTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="forgotPasswordCleanupJob"/>
+		<property name="startDelay" value="0"/>
+		<property name="cronExpression" value="${forgotPasswordCleanupTrigger.cronExpression}"/>
+	</bean>
+</beans>

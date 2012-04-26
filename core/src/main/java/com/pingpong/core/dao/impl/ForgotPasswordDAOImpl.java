@@ -6,6 +6,7 @@ package com.pingpong.core.dao.impl;
 import com.pingpong.core.dao.ForgotPasswordDAO;
 import com.pingpong.domain.ForgotPassword;
 import net.sf.oval.guard.Guarded;
+import org.joda.time.LocalDateTime;
 
 /**
  * @author Artur Zhurat
@@ -16,5 +17,12 @@ import net.sf.oval.guard.Guarded;
 public class ForgotPasswordDAOImpl extends AbstractDAO<String, ForgotPassword> implements ForgotPasswordDAO {
 	public ForgotPasswordDAOImpl() {
 		super(ForgotPassword.class);
+	}
+
+	@Override
+	public void cleanup() {
+		getCurrentSession().createQuery("delete from ForgotPassword fp where fp.validTill <= :now")
+				.setParameter("now", new LocalDateTime())
+		        .executeUpdate();
 	}
 }

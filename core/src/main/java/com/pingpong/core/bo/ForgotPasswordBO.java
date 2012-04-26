@@ -15,4 +15,9 @@ import net.sf.oval.constraint.NotNull;
 public interface ForgotPasswordBO extends BO<String, ForgotPassword> {
 	@NotNull
 	String createForAccount(@NotNull Integer accountId);
+
+	/**
+	 * cleanups old forgot password records
+	 */
+	void cleanup();
 }
