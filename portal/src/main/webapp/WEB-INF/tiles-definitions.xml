@@ -47,6 +47,10 @@
         <put-attribute name="title" value="PingPong forgot password"/>
         <put-attribute name="content" value="/WEB-INF/views/account/forgotPasswordThanks.jsp"/>
     </definition>
+    <definition name="account/changePassword" extends="main">
+        <put-attribute name="title" value="PingPong change password"/>
+        <put-attribute name="content" value="/WEB-INF/views/account/changePassword.jsp"/>
+    </definition>
 
     <definition name="error/deny" extends="main">
         <put-attribute name="title" value="PingPong deny access"/>

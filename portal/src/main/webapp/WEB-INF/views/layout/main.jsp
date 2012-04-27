@@ -65,7 +65,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="${pageContext.servletContext.contextPath}/account/changePassword">
                                         <span class="add-on">
                                            <i class="icon-pencil"></i>
                                         </span>

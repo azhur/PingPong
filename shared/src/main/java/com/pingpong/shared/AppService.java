@@ -29,4 +29,6 @@ public interface AppService {
 	Account getAccountByForgotPasswordId(@NotNull String forgotPasswordId);
 
 	void resetForgottenPassword(@NotNull String forgotPasswordId, @NotNull String newPassword);
+
+	void changePassword(@NotNull Integer accountId, @NotNull String oldPassword, @NotNull String newPassword);
 }

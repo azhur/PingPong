@@ -71,4 +71,9 @@ public class AppServiceImpl implements AppService {
 	public void resetForgottenPassword(@NotNull String forgotPasswordId, @NotNull String newPassword) {
 		accountBO.resetForgottenPassword(forgotPasswordId, newPassword);
 	}
+
+	@Override
+	public void changePassword(@NotNull Integer accountId, @NotNull String oldPassword, @NotNull String newPassword) {
+		accountBO.changePassword(accountId, oldPassword, newPassword);
+	}
 }
