@@ -57,7 +57,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><sec:authentication property="principal.username"/><b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="#">
+                                    <a href="${pageContext.servletContext.contextPath}/account/changeProfile">
                                         <span class="add-on">
                                              <i class="icon-cog"></i>
                                        </span>

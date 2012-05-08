@@ -2,7 +2,6 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <h1 class="page-header">
     Change password form
-    <small>Please complete the form below</small>
 </h1>
 <%
     final String passwordMinLength ="Should be at least " +  Constraints.MIN_PASSWORD_LENGTH + " characters length";

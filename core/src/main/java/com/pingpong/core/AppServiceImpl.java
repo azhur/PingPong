@@ -76,4 +76,9 @@ public class AppServiceImpl implements AppService {
 	public void changePassword(@NotNull Integer accountId, @NotNull String oldPassword, @NotNull String newPassword) {
 		accountBO.changePassword(accountId, oldPassword, newPassword);
 	}
+
+	@Override
+	public void updatePlayer(@NotNull Player player) {
+		playerBO.update(player);
+	}
 }

@@ -1,10 +1,9 @@
 /**
  * Copyright U-wiss
  */
-package com.pingpong.shared.registration;
+package com.pingpong.portal.command;
 
 import com.pingpong.domain.enumeration.Gender;
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,18 +13,16 @@ import java.io.Serializable;
 
 /**
  * @author Artur Zhurat
- * @version 1.0
- * @since 29/01/2012
+ * @version 3.0
+ * @since 08/05/2012
  */
 
-public class PlayerRegistrationData  implements Serializable {
-	private static final long serialVersionUID = 3518498214315728437L;
+public class ChangeProfileCommand implements Serializable {
+	private static final long serialVersionUID = 3044145919531356150L;
+
+	private String email;
 	@NotBlank(message = "{playerRegistrationCommand.blank.name}")
 	private String name;
-	@NotBlank(message = "{email.blank.error}")
-	@Email(message = "{email.format.error}")
-	private String email;
-	private String password;
 	@NotNull(message = "{playerRegistrationCommand.blank.gender}")
 	private Gender gender;
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -38,22 +35,6 @@ public class PlayerRegistrationData  implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public Gender getGender() {
@@ -70,5 +51,13 @@ public class PlayerRegistrationData  implements Serializable {
 
 	public void setBirth(LocalDate birth) {
 		this.birth = birth;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

@@ -4,10 +4,14 @@
 package com.pingpong.portal.controller;
 
 import com.pingpong.domain.Account;
+import com.pingpong.domain.Player;
+import com.pingpong.domain.enumeration.Gender;
 import com.pingpong.portal.command.ChangePasswordCommand;
+import com.pingpong.portal.command.ChangeProfileCommand;
 import com.pingpong.portal.command.ForgotPasswordCommand;
 import com.pingpong.portal.command.ResetPasswordCommand;
 import com.pingpong.portal.security.AuthUser;
+import com.pingpong.portal.security.SpringSecurityUtils;
 import com.pingpong.portal.validator.ChangePasswordValidator;
 import com.pingpong.portal.validator.ResetPasswordValidator;
 import com.pingpong.shared.AppService;
@@ -16,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,6 +46,7 @@ public class AccountController extends AbstractBaseController {
 	private static final String RESET_PASSWORD_ERROR_REDIRECT = "account/resetPasswordError";
 	private static final String RESET_PASSWORD_REDIRECT = "account/resetPassword";
 	private static final String CHANGE_PASSWORD_REDIRECT = "account/changePassword";
+	private static final String CHANGE_PROFILE_REDIRECT = "account/changeProfile";
 
 
 	@Autowired
@@ -140,7 +144,7 @@ public class AccountController extends AbstractBaseController {
 	@RequestMapping(value = "/changePasswordProcess", method = RequestMethod.POST)
 	@Secured({"ROLE_PLAYER_USER"})
 	public String changePasswordProcess(@ModelAttribute("command") @Valid ChangePasswordCommand command, BindingResult result, Model model) {
-		final AuthUser authUser = (AuthUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		final AuthUser authUser = SpringSecurityUtils.getCurrentUser();
 
 		changePasswordValidator.validate(command, result);
 
@@ -182,5 +186,57 @@ public class AccountController extends AbstractBaseController {
 	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
 	public String showResetPasswordSuccess() {
 		return "account/resetPasswordSuccess";
+	}
+
+	@RequestMapping(value = "/changeProfile", method = RequestMethod.GET)
+	@Secured({"ROLE_PLAYER_USER"})
+	public String showChangeProfileForm(Map model) {
+		populateModel(model);
+		return CHANGE_PROFILE_REDIRECT;
+	}
+
+	private void populateModel(Map model) {
+		final Player player = appService.getAccountByEmail(SpringSecurityUtils.getCurrentUser().getUsername()).getPlayer();
+		final ChangeProfileCommand command = new ChangeProfileCommand();
+		command.setEmail(SpringSecurityUtils.getCurrentUser().getUsername());
+		command.setName(player.getName());
+		command.setGender(player.getGender());
+		command.setBirth(player.getBirth());
+
+		model.put("command", command);
+	}
+
+	@RequestMapping(value = "/changeProfileProcess", method = RequestMethod.POST)
+	@Secured({"ROLE_PLAYER_USER"})
+	public String changeProfileProcess(@ModelAttribute("command") @Valid ChangeProfileCommand command, BindingResult result, Model model) {
+		if(result.hasErrors()) {
+			command.setEmail(SpringSecurityUtils.getCurrentUser().getUsername());
+			model.addAttribute("command", command);
+			return CHANGE_PROFILE_REDIRECT;
+		}
+
+		try {
+			final Player player = appService.getAccountByEmail(SpringSecurityUtils.getCurrentUser().getUsername()).getPlayer();
+
+			player.setName(command.getName());
+			player.setGender(command.getGender());
+			player.setBirth(command.getBirth());
+
+			appService.updatePlayer(player);
+			model.addAttribute(SUCCESS_MSG_VAR, "Profile was changed successfully");
+		} catch(Exception e) {
+			LOG.error("ERROR", e);
+			command.setEmail(SpringSecurityUtils.getCurrentUser().getUsername());
+			model.addAttribute("command", command);
+			model.addAttribute(ERROR_MSG_VAR, "Couldn't change profile, try again please");
+			return CHANGE_PROFILE_REDIRECT;
+		}
+		return "index";
+
+	}
+
+	@ModelAttribute("genderItems")
+	public Gender[] populateGenderItems() {
+		return Gender.values();
 	}
 }

@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <h1 class="page-header">
     Registration form
-    <small>Please complete the form below</small>
 </h1>
 <form:form method="post" action="registration" commandName="registration" cssClass="form-horizontal">
     <div class="alert alert-info centered_text">

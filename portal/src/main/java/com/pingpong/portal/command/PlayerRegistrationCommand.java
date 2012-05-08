@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * @since 31/01/2012
  */
 
-public class PlayerRegistrationCommand extends PlayerRegistrationData{
+public class PlayerRegistrationCommand extends PlayerRegistrationData {
 	private static final long serialVersionUID = -686792982450583340L;
 	@NotBlank(message = "{password.blank.error}")
 	@Length(min = Constraints.MIN_PASSWORD_LENGTH, max = Constraints.MAX_PASSWORD_LENGTH, message = "{password.length.error}")
