@@ -53,14 +53,14 @@ public class AccountController extends AbstractBaseController {
 	private ChangePasswordValidator changePasswordValidator;
 
 	@RequestMapping(value = "/forgot_password", method = RequestMethod.GET)
-	@Secured(value = "IS_AUTHENTICATED_ANONYMOUSLY")
+	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
 	public String showForgotPasswordForm(Map model) {
 		model.put("command", new ForgotPasswordCommand());
 		return FORGOT_PASSWORD_REDIRECT;
 	}
 
 	@RequestMapping(value = "/reset_password/{id}", method = RequestMethod.GET)
-	@Secured(value = "IS_AUTHENTICATED_ANONYMOUSLY")
+	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
 	public String showResetPasswordForm(@PathVariable("id") String id, Map model) {
 		final ResetPasswordCommand command = new ResetPasswordCommand();
 		command.setForgotPasswordId(id);
@@ -83,7 +83,7 @@ public class AccountController extends AbstractBaseController {
 	}
 
 	@RequestMapping(value = "reset_password/resetPasswordProcess", method = RequestMethod.POST)
-	@Secured(value = "IS_AUTHENTICATED_ANONYMOUSLY")
+	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
 	public String resetPasswordProcess(@ModelAttribute("command") @Valid ResetPasswordCommand command, BindingResult result, Model model) {
 		final Account account = appService.getAccountByForgotPasswordId(command.getForgotPasswordId());
 
@@ -111,7 +111,7 @@ public class AccountController extends AbstractBaseController {
 	}
 
 	@RequestMapping(value = "/forgotPasswordProcess", method = RequestMethod.POST)
-	@Secured(value = "IS_AUTHENTICATED_ANONYMOUSLY")
+	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
 	public String forgotPasswordProcess(@ModelAttribute("command") @Valid ForgotPasswordCommand command, BindingResult result, Model model) {
 		if(result.hasErrors()) {
 			return FORGOT_PASSWORD_REDIRECT;
@@ -132,13 +132,13 @@ public class AccountController extends AbstractBaseController {
 
 
 	@RequestMapping(value = "/changePassword", method = RequestMethod.GET)
-	@Secured(value = "ROLE_PLAYER_USER")
+	@Secured({"ROLE_PLAYER_USER"})
 	public String showChangePasswordForm(Map model) {
 		model.put("command", new ChangePasswordCommand());
 		return CHANGE_PASSWORD_REDIRECT;
 	}
 	@RequestMapping(value = "/changePasswordProcess", method = RequestMethod.POST)
-	@Secured(value = "ROLE_PLAYER_USER")
+	@Secured({"ROLE_PLAYER_USER"})
 	public String changePasswordProcess(@ModelAttribute("command") @Valid ChangePasswordCommand command, BindingResult result, Model model) {
 		final AuthUser authUser = (AuthUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -167,19 +167,19 @@ public class AccountController extends AbstractBaseController {
 	}
 
 	@RequestMapping(value = "/forgotPasswordThanks", method = RequestMethod.GET)
-	@Secured(value = "IS_AUTHENTICATED_ANONYMOUSLY")
+	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
 	public String showForgotPasswordThanks() {
 		return "account/forgotPasswordThanks";
 	}
 
 	@RequestMapping(value = "/resetPasswordError", method = RequestMethod.GET)
-	@Secured(value = "IS_AUTHENTICATED_ANONYMOUSLY")
+	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
 	public String showResetPasswordError() {
 		return RESET_PASSWORD_ERROR_REDIRECT;
 	}
 
 	@RequestMapping(value = "/resetPasswordSuccess", method = RequestMethod.GET)
-	@Secured(value = "IS_AUTHENTICATED_ANONYMOUSLY")
+	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
 	public String showResetPasswordSuccess() {
 		return "account/resetPasswordSuccess";
 	}

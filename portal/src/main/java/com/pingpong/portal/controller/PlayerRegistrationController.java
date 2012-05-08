@@ -49,14 +49,14 @@ public class PlayerRegistrationController extends AbstractBaseController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	@Secured(value = "IS_AUTHENTICATED_ANONYMOUSLY")
+	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
 	public String showRegistrationForm(Map model) {
 		model.put("registration", new PlayerRegistrationCommand());
 		return "registration/registration";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	@Secured(value = "IS_AUTHENTICATED_ANONYMOUSLY")
+	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
 	public String processRegistration(@ModelAttribute("registration") @Valid PlayerRegistrationCommand command, BindingResult result, Model model) {
 		validator.validate(command, result);
 

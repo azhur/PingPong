@@ -109,6 +109,7 @@ public class AccountBOImpl extends AbstractBO<Integer, Account, AccountDAO> impl
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public void changePassword(@NotNull Integer accountId, @NotNull String oldPassword, @NotNull String newPassword) {
 		final Account account = getDao().getById(accountId);
 
