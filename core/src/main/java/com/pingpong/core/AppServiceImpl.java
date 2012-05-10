@@ -1,9 +1,11 @@
 package com.pingpong.core;
 
 import com.pingpong.core.bo.AccountBO;
+import com.pingpong.core.bo.AdminAccountBO;
 import com.pingpong.core.bo.PlayerAccountBO;
 import com.pingpong.core.bo.PlayerBO;
 import com.pingpong.domain.Account;
+import com.pingpong.domain.AdminAccount;
 import com.pingpong.domain.Player;
 import com.pingpong.domain.PlayerAccount;
 import com.pingpong.shared.AppService;
@@ -29,6 +31,8 @@ public class AppServiceImpl implements AppService {
 	@Autowired
 	private PlayerAccountBO playerAccountBO;
 	@Autowired
+	private AdminAccountBO adminAccountBO;
+	@Autowired
 	private AccountBO accountBO;
 
 	@Override
@@ -47,15 +51,31 @@ public class AppServiceImpl implements AppService {
 	}
 
 	@Override
-	public PlayerAccount getAccountByEmail(@NotNull String email) {
+	public PlayerAccount getPlayerAccountByEmail(@NotNull String email) {
 		return playerAccountBO.getByEmail(email);
 	}
 
 	@Override
-	public void requestForgotPassword(@NotNull String email) {
+	public AdminAccount getAdminAccountByEmail(@NotNull String email) {
+		return (AdminAccount)accountBO.getByEmail(email);
+	}
+
+	@Override
+	public void requestPlayerForgotPassword(@NotNull String email) {
 		final PlayerAccount playerAccount = playerAccountBO.getByEmail(email);
 
 		if (playerAccount == null) {
+			throw new EntityNotFoundException();
+		}
+
+		accountBO.requestForgotPassword(email);
+	}
+
+	@Override
+	public void requestAdminForgotPassword(@NotNull String email) {
+		final AdminAccount adminAccount = (AdminAccount)accountBO.getByEmail(email);
+
+		if (adminAccount == null) {
 			throw new EntityNotFoundException();
 		}
 

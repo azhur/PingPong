@@ -1,52 +1,11 @@
-html, body {
-	height: 100%;
-}
-
 body {
-	padding: 0;
-}
-
-.page-header {
-	padding: 5px 0;
-}
-
-.page-header .btn,
-.page-header input,
-.page-header select {
-	vertical-align: middle;
+    padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
 }
 
 .centered_text {
 	text-align: center;
 }
 
-.memberRow {
-	height: 40px;
-}
-
-#content {
-	padding: 80px 0 !important;
-	min-height: 100%;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-/* Footer
--------------------------------------------------- */
-footer {
-	clear: both;
-	height: 32px;
-	width: 100%;
-	margin-top: -50px;
-	background-color: #EEE;
-	border-top: 1px solid #c2c2c2;
-	background-repeat: repeat-x;
-	-webkit-box-shadow: inset 0 5px 15px rgba(0, 0, 0, .025);
-	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-}
-
-.footer p {
-	color: #555;
+.warning_text {
+    color: #c09853;
 }

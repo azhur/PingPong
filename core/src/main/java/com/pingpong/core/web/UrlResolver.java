@@ -26,6 +26,10 @@ public class UrlResolver {
 		return String.format("%s/account/reset_password/%s", portalUrl, uid);
 	}
 
+	public String getAdminResetPasswordUrl(String uid) {
+		return String.format("%s/account/reset_password/%s", adminUrl, uid);
+	}
+
 
 	public void setAdminUrl(String adminUrl) {
 		this.adminUrl = adminUrl;

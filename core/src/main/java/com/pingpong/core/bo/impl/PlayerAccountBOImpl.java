@@ -27,7 +27,6 @@ public class PlayerAccountBOImpl extends AbstractBO<Integer, PlayerAccount, Play
 		final PlayerAccount entity = (PlayerAccount)accountBO.getByEmail(email);
 		if(entity != null) {
 			HibernateUtils.initializeAndUnproxy(entity.getPlayer());
-			HibernateUtils.initializeAndUnproxy(entity.getAuthorities());
 		}
 		return entity;
 	}

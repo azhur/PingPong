@@ -1,11 +1,10 @@
 /**
  * Copyright U-wiss
  */
-package com.pingpong.portal.security;
+package com.pingpong.admin.security;
 
+import com.pingpong.domain.AdminAccount;
 import com.pingpong.domain.Authority;
-import com.pingpong.domain.Player;
-import com.pingpong.domain.PlayerAccount;
 import com.pingpong.shared.AppService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		final PlayerAccount account = appService.getPlayerAccountByEmail(username);
+		final AdminAccount account = appService.getAdminAccountByEmail(username);
 
 		if(account == null) {
 			LOG.warn("User not found {}", username);
@@ -45,7 +44,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return createUserDetails(account, authorities);
 	}
 
-	protected Collection<SimpleGrantedAuthority> loadAuthorities(PlayerAccount account) {
+	protected Collection<SimpleGrantedAuthority> loadAuthorities(AdminAccount account) {
 		final List<SimpleGrantedAuthority> grantedAuthorities = new ArrayList<SimpleGrantedAuthority>();
 
 		for(Authority authority : account.getAuthorities()) {
@@ -55,9 +54,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return grantedAuthorities;
 	}
 
-	protected UserDetails createUserDetails(PlayerAccount account, Collection<SimpleGrantedAuthority> authorities) {
-		final boolean enabled = account.getPlayer().getStatus() == Player.Status.ACTIVE && account.isEnabled();
+	protected UserDetails createUserDetails(AdminAccount account, Collection<SimpleGrantedAuthority> authorities) {
+		final boolean enabled = account.isEnabled();
 
-		return new AuthUser(account.getEmail(), account.getPassword(), enabled, account.getSalt(), account.getPlayer().getName(), account.getId(), authorities);
+		return new AuthUser(account.getEmail(), account.getPassword(), enabled, account.getSalt(), account.getId(), authorities);
 	}
 }

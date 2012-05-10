@@ -10,7 +10,9 @@ import com.pingpong.core.mail.Mailer;
 import com.pingpong.core.web.UrlResolver;
 import com.pingpong.domain.Account;
 import com.pingpong.domain.ForgotPassword;
+import com.pingpong.domain.PlayerAccount;
 import com.pingpong.shared.exception.WrongPasswordException;
+import com.pingpong.shared.util.HibernateUtils;
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.guard.Guarded;
 import org.apache.commons.lang.RandomStringUtils;
@@ -45,7 +47,9 @@ public class AccountBOImpl extends AbstractBO<Integer, Account, AccountDAO> impl
 
 	@Override
 	public Account getByEmail(@NotNull String email) {
-		return getDao().getByEmail(email);
+		final Account account = getDao().getByEmail(email);
+		HibernateUtils.initializeAndUnproxy(account.getAuthorities());
+		return account;
 	}
 
 	@Override
@@ -66,7 +70,8 @@ public class AccountBOImpl extends AbstractBO<Integer, Account, AccountDAO> impl
 		}
 
 		final String uid = forgotPasswordBO.createForAccount(account.getId());
-		final String url = urlResolver.getPortalResetPasswordUrl(uid);
+
+		final String url = account instanceof PlayerAccount ? urlResolver.getPortalResetPasswordUrl(uid) : urlResolver.getAdminResetPasswordUrl(uid);
 
 		final String subject = "Forgot password";
 		mailer.sendEmail(Mailer.EmailTemplate.FORGOT_PASSWORD, new HashMap<String, Object>() {{

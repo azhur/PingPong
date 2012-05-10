@@ -1,21 +1,18 @@
 /**
  * Copyright U-wiss
  */
-package com.pingpong.portal.controller;
+package com.pingpong.admin.controller;
 
+import com.pingpong.admin.ErrorInfoMSG;
+import com.pingpong.admin.SuccessInfoMSG;
+import com.pingpong.admin.command.ChangePasswordCommand;
+import com.pingpong.admin.command.ForgotPasswordCommand;
+import com.pingpong.admin.command.ResetPasswordCommand;
+import com.pingpong.admin.security.AuthUser;
+import com.pingpong.admin.security.SpringSecurityUtils;
+import com.pingpong.admin.validator.ChangePasswordValidator;
+import com.pingpong.admin.validator.ResetPasswordValidator;
 import com.pingpong.domain.Account;
-import com.pingpong.domain.Player;
-import com.pingpong.domain.enumeration.Gender;
-import com.pingpong.portal.ErrorInfoMSG;
-import com.pingpong.portal.SuccessInfoMSG;
-import com.pingpong.portal.command.ChangePasswordCommand;
-import com.pingpong.portal.command.ChangeProfileCommand;
-import com.pingpong.portal.command.ForgotPasswordCommand;
-import com.pingpong.portal.command.ResetPasswordCommand;
-import com.pingpong.portal.security.AuthUser;
-import com.pingpong.portal.security.SpringSecurityUtils;
-import com.pingpong.portal.validator.ChangePasswordValidator;
-import com.pingpong.portal.validator.ResetPasswordValidator;
 import com.pingpong.shared.AppService;
 import com.pingpong.shared.exception.WrongPasswordException;
 import org.slf4j.Logger;
@@ -47,7 +44,6 @@ public class AccountController extends AbstractBaseController {
 	private static final String FORGOT_PASSWORD_REDIRECT = "account/forgotPassword";
 	private static final String RESET_PASSWORD_REDIRECT = "account/resetPassword";
 	private static final String CHANGE_PASSWORD_REDIRECT = "account/changePassword";
-	private static final String CHANGE_PROFILE_REDIRECT = "account/changeProfile";
 
 
 	@Autowired
@@ -124,7 +120,7 @@ public class AccountController extends AbstractBaseController {
 			return FORGOT_PASSWORD_REDIRECT;
 		}
 		try {
-			appService.requestPlayerForgotPassword(command.getUsername());
+			appService.requestAdminForgotPassword(command.getUsername());
 			model.addAttribute(SUCCESS_MSG_VAR, SuccessInfoMSG.FORGOT_PASSWORD);
 		} catch(EntityNotFoundException enfe) {
 			LOG.error(ErrorInfoMSG.NOT_FOUND_ACCOUNT, enfe);
@@ -140,13 +136,13 @@ public class AccountController extends AbstractBaseController {
 
 
 	@RequestMapping(value = "/changePassword", method = RequestMethod.GET)
-	@Secured({"ROLE_PLAYER_USER"})
+	@Secured({"ROLE_ADMIN_USER"})
 	public String showChangePasswordForm(Map model) {
 		model.put("command", new ChangePasswordCommand());
 		return CHANGE_PASSWORD_REDIRECT;
 	}
 	@RequestMapping(value = "/changePasswordProcess", method = RequestMethod.POST)
-	@Secured({"ROLE_PLAYER_USER"})
+	@Secured({"ROLE_ADMIN_USER"})
 	public String changePasswordProcess(@ModelAttribute("command") @Valid ChangePasswordCommand command, BindingResult result, Model model) {
 		final AuthUser authUser = SpringSecurityUtils.getCurrentUser();
 
@@ -172,57 +168,5 @@ public class AccountController extends AbstractBaseController {
 			return CHANGE_PASSWORD_REDIRECT;
 		}
 		return "index";
-	}
-
-	@RequestMapping(value = "/changeProfile", method = RequestMethod.GET)
-	@Secured({"ROLE_PLAYER_USER"})
-	public String showChangeProfileForm(Map model) {
-		populateModel(model);
-		return CHANGE_PROFILE_REDIRECT;
-	}
-
-	private void populateModel(Map model) {
-		final Player player = appService.getPlayerAccountByEmail(SpringSecurityUtils.getCurrentUser().getUsername()).getPlayer();
-		final ChangeProfileCommand command = new ChangeProfileCommand();
-		command.setEmail(SpringSecurityUtils.getCurrentUser().getUsername());
-		command.setName(player.getName());
-		command.setGender(player.getGender());
-		command.setBirth(player.getBirth());
-
-		model.put("command", command);
-	}
-
-	@RequestMapping(value = "/changeProfileProcess", method = RequestMethod.POST)
-	@Secured({"ROLE_PLAYER_USER"})
-	public String changeProfileProcess(@ModelAttribute("command") @Valid ChangeProfileCommand command, BindingResult result, Model model) {
-		if(result.hasErrors()) {
-			command.setEmail(SpringSecurityUtils.getCurrentUser().getUsername());
-			model.addAttribute("command", command);
-			return CHANGE_PROFILE_REDIRECT;
-		}
-
-		try {
-			final Player player = appService.getPlayerAccountByEmail(SpringSecurityUtils.getCurrentUser().getUsername()).getPlayer();
-
-			player.setName(command.getName());
-			player.setGender(command.getGender());
-			player.setBirth(command.getBirth());
-
-			appService.updatePlayer(player);
-			model.addAttribute(SUCCESS_MSG_VAR, SuccessInfoMSG.CHANGE_PROFILE);
-		} catch(Exception e) {
-			LOG.error(ErrorInfoMSG.UNKNOWN, e);
-			command.setEmail(SpringSecurityUtils.getCurrentUser().getUsername());
-			model.addAttribute("command", command);
-			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.CHANGE_PROFILE);
-			return CHANGE_PROFILE_REDIRECT;
-		}
-		return "index";
-
-	}
-
-	@ModelAttribute("genderItems")
-	public Gender[] populateGenderItems() {
-		return Gender.values();
 	}
 }
