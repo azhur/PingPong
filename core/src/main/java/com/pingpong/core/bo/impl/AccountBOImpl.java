@@ -48,7 +48,9 @@ public class AccountBOImpl extends AbstractBO<Integer, Account, AccountDAO> impl
 	@Override
 	public Account getByEmail(@NotNull String email) {
 		final Account account = getDao().getByEmail(email);
-		HibernateUtils.initializeAndUnproxy(account.getAuthorities());
+		if(account != null) {
+			HibernateUtils.initializeAndUnproxy(account.getAuthorities());
+		}
 		return account;
 	}
 
@@ -106,7 +108,7 @@ public class AccountBOImpl extends AbstractBO<Integer, Account, AccountDAO> impl
 	public Account getAccountByForgotPasswordId(@NotNull String forgotPasswordId) {
 		final ForgotPassword forgotPassword = forgotPasswordBO.getById(forgotPasswordId);
 
-		if (forgotPassword == null) {
+		if(forgotPassword == null) {
 			throw new EntityNotFoundException();
 		}
 
