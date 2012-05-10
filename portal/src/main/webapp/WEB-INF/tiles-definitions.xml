@@ -13,16 +13,10 @@
         <put-attribute name="title" value="PingPong portal"/>
         <put-attribute name="content" value="/WEB-INF/views/index.jsp"/>
     </definition>
-
     <definition name="registration/registration" extends="main">
         <put-attribute name="title" value="PingPong registration"/>
         <put-attribute name="content" value="/WEB-INF/views/registration/registration.jsp"/>
     </definition>
-    <definition name="registration/success" extends="main">
-        <put-attribute name="title" value="PingPong registration"/>
-        <put-attribute name="content" value="/WEB-INF/views/registration/success.jsp"/>
-    </definition>
-
     <definition name="auth/login" extends="main">
         <put-attribute name="title" value="PingPong login"/>
         <put-attribute name="content" value="/WEB-INF/views/auth/login.jsp"/>
@@ -35,18 +29,6 @@
         <put-attribute name="title" value="PingPong reset password"/>
         <put-attribute name="content" value="/WEB-INF/views/account/resetPassword.jsp"/>
     </definition>
-    <definition name="account/resetPasswordSuccess" extends="main">
-        <put-attribute name="title" value="PingPong reset password"/>
-        <put-attribute name="content" value="/WEB-INF/views/account/resetPasswordSuccess.jsp"/>
-    </definition>
-    <definition name="account/resetPasswordError" extends="main">
-        <put-attribute name="title" value="PingPong reset password error"/>
-        <put-attribute name="content" value="/WEB-INF/views/account/resetPasswordError.jsp"/>
-    </definition>
-    <definition name="account/forgotPasswordThanks" extends="main">
-        <put-attribute name="title" value="PingPong forgot password"/>
-        <put-attribute name="content" value="/WEB-INF/views/account/forgotPasswordThanks.jsp"/>
-    </definition>
     <definition name="account/changePassword" extends="main">
         <put-attribute name="title" value="PingPong change password"/>
         <put-attribute name="content" value="/WEB-INF/views/account/changePassword.jsp"/>
@@ -55,7 +37,6 @@
         <put-attribute name="title" value="PingPong change profile"/>
         <put-attribute name="content" value="/WEB-INF/views/account/changeProfile.jsp"/>
     </definition>
-
     <definition name="error/deny" extends="main">
         <put-attribute name="title" value="PingPong deny access"/>
         <put-attribute name="content" value="/WEB-INF/views/error/deny.jsp"/>

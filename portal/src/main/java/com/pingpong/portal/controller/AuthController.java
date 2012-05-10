@@ -3,15 +3,12 @@
  */
 package com.pingpong.portal.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.pingpong.portal.ErrorInfoMSG;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.Map;
 
 /**
  * @author Artur Zhurat
@@ -20,18 +17,17 @@ import java.util.Map;
  */
 @Controller
 public class AuthController extends AbstractBaseController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
-	public String showLoginForm(Map model) {
+	public String showLoginForm() {
 		return "auth/login";
 	}
 
 	@RequestMapping(value="/loginFailed", method = RequestMethod.GET)
 	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
 	public String loginError(ModelMap model) {
-		model.addAttribute(ERROR_MSG_VAR, "Couldn't find player with specified data, try again please");
+		model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.LOGIN);
 		return "auth/login";
 	}
 }

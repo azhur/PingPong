@@ -4,6 +4,8 @@
 package com.pingpong.portal.controller;
 
 import com.pingpong.domain.enumeration.Gender;
+import com.pingpong.portal.ErrorInfoMSG;
+import com.pingpong.portal.SuccessInfoMSG;
 import com.pingpong.portal.command.PlayerRegistrationCommand;
 import com.pingpong.portal.editor.LocalDatePropertyEditorSupport;
 import com.pingpong.portal.validator.PlayerRegistrationValidator;
@@ -72,11 +74,12 @@ public class PlayerRegistrationController extends AbstractBaseController {
 			return "registration/registration";
 		} catch(Exception e) {
 			LOGGER.error("ERROR", e);
-			model.addAttribute(ERROR_MSG_VAR, "Couldn't register player, try again please");
+			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.REGISTRATION);
 			return "registration/registration";
 		}
 
-		return "registration/success";
+		model.addAttribute(SUCCESS_MSG_VAR, SuccessInfoMSG.REGISTRATION);
+		return "index";
 	}
 
 	@ModelAttribute("genderItems")

@@ -6,6 +6,8 @@ package com.pingpong.portal.controller;
 import com.pingpong.domain.Account;
 import com.pingpong.domain.Player;
 import com.pingpong.domain.enumeration.Gender;
+import com.pingpong.portal.ErrorInfoMSG;
+import com.pingpong.portal.SuccessInfoMSG;
 import com.pingpong.portal.command.ChangePasswordCommand;
 import com.pingpong.portal.command.ChangeProfileCommand;
 import com.pingpong.portal.command.ForgotPasswordCommand;
@@ -43,7 +45,6 @@ public class AccountController extends AbstractBaseController {
 	private static final Logger LOG = LoggerFactory.getLogger(AccountController.class);
 
 	private static final String FORGOT_PASSWORD_REDIRECT = "account/forgotPassword";
-	private static final String RESET_PASSWORD_ERROR_REDIRECT = "account/resetPasswordError";
 	private static final String RESET_PASSWORD_REDIRECT = "account/resetPassword";
 	private static final String CHANGE_PASSWORD_REDIRECT = "account/changePassword";
 	private static final String CHANGE_PROFILE_REDIRECT = "account/changeProfile";
@@ -74,13 +75,13 @@ public class AccountController extends AbstractBaseController {
 			final Account account = appService.getAccountByForgotPasswordId(id);
 			model.put("account", account);
 		} catch (EntityNotFoundException enfe) {
-			LOG.error("Reset link is not valid anymore", enfe);
-			model.put(ERROR_MSG_VAR, "Reset link is not valid anymore");
-			return RESET_PASSWORD_ERROR_REDIRECT;
+			LOG.error(ErrorInfoMSG.RESET_PASSWORD_LINK, enfe);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.RESET_PASSWORD_LINK);
+			return "index";
 		} catch (Exception e) {
-			LOG.error("Unknown error", e);
-			model.put(ERROR_MSG_VAR, "Unknown error");
-			return RESET_PASSWORD_ERROR_REDIRECT;
+			LOG.error(ErrorInfoMSG.UNKNOWN, e);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.UNKNOWN);
+			return "index";
 		}
 
 		return RESET_PASSWORD_REDIRECT;
@@ -101,17 +102,19 @@ public class AccountController extends AbstractBaseController {
 		try {
 			appService.resetForgottenPassword(command.getForgotPasswordId(), command.getPass1());
 		} catch(EntityNotFoundException enfe) {
-			LOG.error("Not found account", enfe);
-			model.addAttribute(ERROR_MSG_VAR, "Can't find such account");
+			LOG.error(ErrorInfoMSG.NOT_FOUND_ACCOUNT, enfe);
+			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.NOT_FOUND_ACCOUNT);
 			model.addAttribute("account", account);
 			return RESET_PASSWORD_REDIRECT;
 		} catch(Exception e) {
-			LOG.error("ERROR", e);
+			LOG.error(ErrorInfoMSG.UNKNOWN, e);
 			model.addAttribute("account", account);
-			model.addAttribute(ERROR_MSG_VAR, "Couldn't send request about forgot password, try again please");
+			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.FORGOT_PASSWORD_NOT_SEND_REQUEST);
 			return RESET_PASSWORD_REDIRECT;
 		}
-		return "account/resetPasswordSuccess";
+
+		model.addAttribute(SUCCESS_MSG_VAR, SuccessInfoMSG.RESET_PASSWORD);
+		return "index";
 	}
 
 	@RequestMapping(value = "/forgotPasswordProcess", method = RequestMethod.POST)
@@ -122,16 +125,17 @@ public class AccountController extends AbstractBaseController {
 		}
 		try {
 			appService.requestForgotPassword(command.getUsername());
+			model.addAttribute(SUCCESS_MSG_VAR, SuccessInfoMSG.FORGOT_PASSWORD);
 		} catch(EntityNotFoundException enfe) {
-			LOG.error("Not found account", enfe);
-			model.addAttribute(ERROR_MSG_VAR, "Can't find such account");
+			LOG.error(ErrorInfoMSG.NOT_FOUND_ACCOUNT, enfe);
+			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.NOT_FOUND_ACCOUNT);
 			return FORGOT_PASSWORD_REDIRECT;
 		} catch(Exception e) {
-			LOG.error("ERROR", e);
-			model.addAttribute(ERROR_MSG_VAR, "Couldn't send request about forgot password, try again please");
+			LOG.error(ErrorInfoMSG.UNKNOWN, e);
+			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.FORGOT_PASSWORD_NOT_SEND_REQUEST);
 			return FORGOT_PASSWORD_REDIRECT;
 		}
-		return "account/forgotPasswordThanks";
+		return "index";
 	}
 
 
@@ -155,37 +159,19 @@ public class AccountController extends AbstractBaseController {
 
 		try {
 			appService.changePassword(authUser.getId(), command.getOldPass(), command.getNewPass1());
-			model.addAttribute(SUCCESS_MSG_VAR, "Password was changed successfully");
+			model.addAttribute(SUCCESS_MSG_VAR, SuccessInfoMSG.CHANGE_PASSWORD);
 		} catch(WrongPasswordException wpe) {
-			LOG.error("Wrong old password", wpe);
-			model.addAttribute(ERROR_MSG_VAR, "Wrong old password");
+			LOG.error(ErrorInfoMSG.WRONG_OLD_PASSWORD, wpe);
+			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.WRONG_OLD_PASSWORD);
 			model.addAttribute("command", new ChangePasswordCommand());
 			return CHANGE_PASSWORD_REDIRECT;
 		} catch(Exception e) {
-			LOG.error("ERROR", e);
+			LOG.error(ErrorInfoMSG.UNKNOWN, e);
 			model.addAttribute("command", new ChangePasswordCommand());
-			model.addAttribute(ERROR_MSG_VAR, "Couldn't change password, try again please");
+			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.CHANGE_PASSWORD);
 			return CHANGE_PASSWORD_REDIRECT;
 		}
 		return "index";
-	}
-
-	@RequestMapping(value = "/forgotPasswordThanks", method = RequestMethod.GET)
-	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
-	public String showForgotPasswordThanks() {
-		return "account/forgotPasswordThanks";
-	}
-
-	@RequestMapping(value = "/resetPasswordError", method = RequestMethod.GET)
-	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
-	public String showResetPasswordError() {
-		return RESET_PASSWORD_ERROR_REDIRECT;
-	}
-
-	@RequestMapping(value = "/resetPasswordSuccess", method = RequestMethod.GET)
-	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
-	public String showResetPasswordSuccess() {
-		return "account/resetPasswordSuccess";
 	}
 
 	@RequestMapping(value = "/changeProfile", method = RequestMethod.GET)
@@ -223,12 +209,12 @@ public class AccountController extends AbstractBaseController {
 			player.setBirth(command.getBirth());
 
 			appService.updatePlayer(player);
-			model.addAttribute(SUCCESS_MSG_VAR, "Profile was changed successfully");
+			model.addAttribute(SUCCESS_MSG_VAR, SuccessInfoMSG.CHANGE_PROFILE);
 		} catch(Exception e) {
-			LOG.error("ERROR", e);
+			LOG.error(ErrorInfoMSG.UNKNOWN, e);
 			command.setEmail(SpringSecurityUtils.getCurrentUser().getUsername());
 			model.addAttribute("command", command);
-			model.addAttribute(ERROR_MSG_VAR, "Couldn't change profile, try again please");
+			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.CHANGE_PROFILE);
 			return CHANGE_PROFILE_REDIRECT;
 		}
 		return "index";
