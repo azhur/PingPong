@@ -4,7 +4,6 @@
 </h1>
 
 <form method="post" action="j_spring_security_check" class="form-horizontal">
-    <fieldset>
         <div class="control-group ">
             <label class="control-label" for="j_username">Email:</label>
 
@@ -30,11 +29,11 @@
             </div>
         </div>
         <div class="control-group ">
-            <label class="control-label" for="_spring_security_remember_me"></label>
+            <label class="control-label" ></label>
 
             <div class="controls">
                 <label class="checkbox">
-                    <input type="checkbox" name="_spring_security_remember_me" id="_spring_security_remember_me" value="_spring_security_remember_me"/>
+                    <input type="checkbox" name="_spring_security_remember_me" checked/>
                     Remember me
                 </label>
             </div>
@@ -45,5 +44,4 @@
             &nbsp;or&nbsp;
             <a href="account/forgot_password">Forgot password</a>
         </div>
-    </fieldset>
 </form>
