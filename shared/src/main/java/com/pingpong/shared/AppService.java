@@ -18,14 +18,19 @@ public interface AppService {
 	@NotNull
 	List<Player> listPlayers();
 
-	@NotNull
-	Integer insertPlayer(@NotNull Player player);
-
 	void register(@NotNull PlayerRegistrationData registrationData);
-	
+
 	PlayerAccount getPlayerAccountByEmail(@NotNull String email);
 
 	AdminAccount getAdminAccountByEmail(@NotNull String email);
+
+	AdminAccount getAdminAccountById(@NotNull Integer id);
+
+	void blockAdminAccount(@NotNull Integer adminAccountId);
+
+	void unblockAdminAccount(@NotNull Integer adminAccountId);
+
+	void deleteAdminAccount(@NotNull Integer adminAccountId);
 
 	void requestPlayerForgotPassword(@NotNull String email);
 
@@ -42,4 +47,13 @@ public interface AppService {
 	Player getPlayerById(@NotNull Integer id);
 
 	void activatePlayer(@NotNull Integer playerId);
+
+	void blockPlayer(@NotNull Integer playerId);
+
+	void unblockPlayer(@NotNull Integer playerId);
+
+	void deletePlayer(@NotNull Integer playerId);
+
+	@NotNull
+	List<AdminAccount> listAdminAccounts();
 }

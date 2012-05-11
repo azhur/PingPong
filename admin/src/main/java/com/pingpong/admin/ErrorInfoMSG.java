@@ -18,4 +18,10 @@ public interface ErrorInfoMSG {
 	String CHANGE_PASSWORD = "Couldn't change password, try again please";
 	String LOGIN = "Couldn't find player with specified data, try again please";
 	String PLAYER_ACTIVATION = "Can't activate player.";
+	String PLAYER_BLOCKING = "Can't block player.";
+	String PLAYER_UNBLOCKING = "Can't unblock player.";
+	String PLAYER_DELETING = "Can't delete player.";
+	String ADMIN_BLOCKING = "Can't block admin.";
+	String ADMIN_UNBLOCKING = "Can't unblock admin.";
+	String ADMIN_DELETING = "Can't delete admin.";
 }

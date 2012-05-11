@@ -13,7 +13,9 @@ import com.pingpong.admin.security.SpringSecurityUtils;
 import com.pingpong.admin.validator.ChangePasswordValidator;
 import com.pingpong.admin.validator.ResetPasswordValidator;
 import com.pingpong.domain.Account;
+import com.pingpong.domain.AdminAccount;
 import com.pingpong.shared.AppService;
+import com.pingpong.shared.exception.UnknownEntityException;
 import com.pingpong.shared.exception.WrongPasswordException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,11 +72,11 @@ public class AccountController extends AbstractBaseController {
 		try {
 			final Account account = appService.getAccountByForgotPasswordId(id);
 			model.put("account", account);
-		} catch (EntityNotFoundException enfe) {
+		} catch(EntityNotFoundException enfe) {
 			LOG.error(ErrorInfoMSG.RESET_PASSWORD_LINK, enfe);
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.RESET_PASSWORD_LINK);
 			return "index";
-		} catch (Exception e) {
+		} catch(Exception e) {
 			LOG.error(ErrorInfoMSG.UNKNOWN, e);
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.UNKNOWN);
 			return "index";
@@ -141,6 +143,7 @@ public class AccountController extends AbstractBaseController {
 		model.put("command", new ChangePasswordCommand());
 		return CHANGE_PASSWORD_REDIRECT;
 	}
+
 	@RequestMapping(value = "/changePasswordProcess", method = RequestMethod.POST)
 	@Secured({"ROLE_ADMIN_USER"})
 	public String changePasswordProcess(@ModelAttribute("command") @Valid ChangePasswordCommand command, BindingResult result, Model model) {
@@ -168,5 +171,72 @@ public class AccountController extends AbstractBaseController {
 			return CHANGE_PASSWORD_REDIRECT;
 		}
 		return "index";
+	}
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@Secured({"ROLE_ADMIN_USER"})
+	public String showListForm(Map model) {
+		model.put("admins", appService.listAdminAccounts());
+		return "account/list";
+	}
+
+	@RequestMapping(value = "/{id}/block", method = RequestMethod.GET)
+	@Secured({"ROLE_ADMIN_USER"})
+	public String block(@PathVariable("id") String id, Map model) {
+		try {
+			final int accountId = Integer.parseInt(id);
+			final AdminAccount admin = appService.getAdminAccountById(accountId);
+			appService.blockAdminAccount(accountId);
+			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.ADMIN_BLOCKING, admin.getEmail()));
+		} catch(UnknownEntityException uee) {
+			model.put(ERROR_MSG_VAR, uee.getMessage());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.ADMIN_BLOCKING);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.ADMIN_BLOCKING);
+		}
+
+		model.put("admins", appService.listAdminAccounts());
+
+		return "account/list";
+	}
+
+	@RequestMapping(value = "/{id}/unblock", method = RequestMethod.GET)
+	@Secured({"ROLE_ADMIN_USER"})
+	public String unblock(@PathVariable("id") String id, Map model) {
+		try {
+			final int accountId = Integer.parseInt(id);
+			final AdminAccount admin = appService.getAdminAccountById(accountId);
+			appService.unblockAdminAccount(accountId);
+			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.ADMIN_UNBLOCKING, admin.getEmail()));
+		} catch(UnknownEntityException uee) {
+			model.put(ERROR_MSG_VAR, uee.getMessage());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.ADMIN_UNBLOCKING);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.ADMIN_UNBLOCKING);
+		}
+
+		model.put("admins", appService.listAdminAccounts());
+
+		return "account/list";
+	}
+
+	@RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
+	@Secured({"ROLE_ADMIN_USER"})
+	public String delete(@PathVariable("id") String id, Map model) {
+		try {
+			final int accountId = Integer.parseInt(id);
+			final AdminAccount admin = appService.getAdminAccountById(accountId);
+			appService.deleteAdminAccount(accountId);
+			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.ADMIN_DELETING, admin.getEmail()));
+		} catch(UnknownEntityException uee) {
+			model.put(ERROR_MSG_VAR, uee.getMessage());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.ADMIN_DELETING);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.ADMIN_DELETING);
+		}
+
+		model.put("admins", appService.listAdminAccounts());
+
+		return "account/list";
 	}
 }

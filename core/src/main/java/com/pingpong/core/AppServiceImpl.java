@@ -41,11 +41,6 @@ public class AppServiceImpl implements AppService {
 	}
 
 	@Override
-	public Integer insertPlayer(@NotNull Player player) {
-		return playerBO.insert(player);
-	}
-
-	@Override
 	public void register(@NotNull PlayerRegistrationData registrationData) {
 		playerBO.register(registrationData);
 	}
@@ -58,6 +53,26 @@ public class AppServiceImpl implements AppService {
 	@Override
 	public AdminAccount getAdminAccountByEmail(@NotNull String email) {
 		return (AdminAccount)accountBO.getByEmail(email);
+	}
+
+	@Override
+	public AdminAccount getAdminAccountById(@NotNull Integer id) {
+		return adminAccountBO.getById(id);
+	}
+
+	@Override
+	public void blockAdminAccount(@NotNull Integer adminAccountId) {
+		adminAccountBO.block(adminAccountId);
+	}
+
+	@Override
+	public void unblockAdminAccount(@NotNull Integer adminAccountId) {
+		adminAccountBO.unblock(adminAccountId);
+	}
+
+	@Override
+	public void deleteAdminAccount(@NotNull Integer adminAccountId) {
+		adminAccountBO.deleteById(adminAccountId);
 	}
 
 	@Override
@@ -110,5 +125,25 @@ public class AppServiceImpl implements AppService {
 	@Override
 	public void activatePlayer(@NotNull Integer playerId) {
 		playerBO.activate(playerId);
+	}
+
+	@Override
+	public void blockPlayer(@NotNull Integer playerId) {
+		playerBO.block(playerId);
+	}
+
+	@Override
+	public void unblockPlayer(@NotNull Integer playerId) {
+		playerBO.unblock(playerId);
+	}
+
+	@Override
+	public void deletePlayer(@NotNull Integer playerId) {
+		playerBO.deleteById(playerId);
+	}
+
+	@Override
+	public List<AdminAccount> listAdminAccounts() {
+		return adminAccountBO.list();
 	}
 }

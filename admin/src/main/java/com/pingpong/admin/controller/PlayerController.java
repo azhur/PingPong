@@ -59,4 +59,64 @@ public class PlayerController extends AbstractBaseController {
 
 		return "player/list";
 	}
+
+	@RequestMapping(value = "/{id}/block", method = RequestMethod.GET)
+	@Secured({"ROLE_ADMIN_USER"})
+	public String block(@PathVariable("id") String id, Map model) {
+		try {
+			final int playerId = Integer.parseInt(id);
+			final Player player = appService.getPlayerById(playerId);
+			appService.blockPlayer(playerId);
+			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.PLAYER_BLOCKING, player.getName()));
+		} catch(UnknownEntityException uee) {
+			model.put(ERROR_MSG_VAR, uee.getMessage());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.PLAYER_BLOCKING);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.PLAYER_BLOCKING);
+		}
+
+		model.put("players", appService.listPlayers());
+
+		return "player/list";
+	}
+
+	@RequestMapping(value = "/{id}/unblock", method = RequestMethod.GET)
+	@Secured({"ROLE_ADMIN_USER"})
+	public String unblock(@PathVariable("id") String id, Map model) {
+		try {
+			final int playerId = Integer.parseInt(id);
+			final Player player = appService.getPlayerById(playerId);
+			appService.unblockPlayer(playerId);
+			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.PLAYER_UNBLOCKING, player.getName()));
+		} catch(UnknownEntityException uee) {
+			model.put(ERROR_MSG_VAR, uee.getMessage());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.PLAYER_UNBLOCKING);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.PLAYER_UNBLOCKING);
+		}
+
+		model.put("players", appService.listPlayers());
+
+		return "player/list";
+	}
+
+	@RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
+	@Secured({"ROLE_ADMIN_USER"})
+	public String delete(@PathVariable("id") String id, Map model) {
+		try {
+			final int playerId = Integer.parseInt(id);
+			final Player player = appService.getPlayerById(playerId);
+			appService.deletePlayer(playerId);
+			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.PLAYER_DELETING, player.getName()));
+		} catch(UnknownEntityException uee) {
+			model.put(ERROR_MSG_VAR, uee.getMessage());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.PLAYER_DELETING);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.PLAYER_DELETING);
+		}
+
+		model.put("players", appService.listPlayers());
+
+		return "player/list";
+	}
 }

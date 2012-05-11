@@ -17,4 +17,8 @@ public interface PlayerBO extends BO<Integer, Player>{
 	void register(@NotNull PlayerRegistrationData registrationData);
 
 	void activate(@NotNull Integer playerId);
+
+	void block(@NotNull Integer playerId);
+
+	void unblock(@NotNull Integer playerId);
 }

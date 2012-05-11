@@ -90,6 +90,26 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 		notifyOfActivation(player);
 	}
 
+	@Override
+	@Transactional(readOnly = false)
+	public void block(@NotNull Integer playerId) {
+		final Player player = getDao().loadById(playerId, true);
+
+		checkStatus(player, Player.Status.ACTIVE);
+
+		player.setStatus(Player.Status.BLOCKED);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public void unblock(@NotNull Integer playerId) {
+		final Player player = getDao().loadById(playerId, true);
+
+		checkStatus(player, Player.Status.BLOCKED);
+
+		player.setStatus(Player.Status.ACTIVE);
+	}
+
 	private Authority createAuthority(PlayerAccount account) {
 		final Authority authority = new Authority();
 		authority.setAccount(account);

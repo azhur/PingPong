@@ -42,6 +42,7 @@
                         <li><a href="${pageContext.servletContext.contextPath}/login">Login</a></li>
                     </sec:authorize>
                     <sec:authorize access="hasRole('ROLE_ADMIN_USER')">
+                        <li><a href="${pageContext.servletContext.contextPath}/account/list">Administrators</a></li>
                         <li><a href="${pageContext.servletContext.contextPath}/player/list">Players</a></li>
                     </sec:authorize>
                 </ul>
