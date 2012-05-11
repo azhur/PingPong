@@ -22,9 +22,10 @@
     <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-dropdown.js"></script>
     <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-modal.js"></script>
     <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-scrollspy.js"></script>
     <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-datepicker.js"></script>
 </head>
-<body>
+<body data-spy="scroll">
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
@@ -41,7 +42,7 @@
                         <li><a href="${pageContext.servletContext.contextPath}/login">Login</a></li>
                     </sec:authorize>
                     <sec:authorize access="hasRole('ROLE_ADMIN_USER')">
-                        <li><a href="${pageContext.servletContext.contextPath}/players">Players</a></li>
+                        <li><a href="${pageContext.servletContext.contextPath}/player/list">Players</a></li>
                     </sec:authorize>
                 </ul>
 

@@ -17,4 +17,5 @@ public interface ErrorInfoMSG {
 	String WRONG_OLD_PASSWORD = "Wrong old password";
 	String CHANGE_PASSWORD = "Couldn't change password, try again please";
 	String LOGIN = "Couldn't find player with specified data, try again please";
+	String PLAYER_ACTIVATION = "Can't activate player.";
 }

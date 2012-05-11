@@ -43,14 +43,14 @@ public class HibernateManager extends HibernateTemplate {
 		return id;
 	}
 
-	public Entity<? extends Serializable> getEntityById(Class<? extends Entity<? extends Serializable>> entityType, Serializable id) throws HibernateException {
+	public Entity<? extends Serializable> getEntityById(Class<? extends Entity<? extends Serializable>> entityType, Serializable id, boolean lock) throws HibernateException {
 		checkNotNull(entityType);
 		checkNotNull(id);
 
 		Entity<? extends Serializable> entity;
 		Session session = obtainSession();
 		try {
-			entity = (Entity<? extends Serializable>)session.get(entityType, id);
+			entity = (Entity<? extends Serializable>)session.get(entityType, id, lock ? LockOptions.UPGRADE : LockOptions.NONE);
 
 			LOGGER.info("Got entity by id = '{}'", id);
 		} finally {
@@ -58,6 +58,10 @@ public class HibernateManager extends HibernateTemplate {
 		}
 
 		return entity;
+	}
+
+	public Entity<? extends Serializable> getEntityById(Class<? extends Entity<? extends Serializable>> entityType, Serializable id) throws HibernateException {
+		return getEntityById(entityType, id, false);
 	}
 
 	public void updateEntity(Entity<? extends Serializable> entity) throws HibernateException {

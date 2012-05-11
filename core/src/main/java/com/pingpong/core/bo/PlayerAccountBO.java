@@ -14,4 +14,6 @@ import net.sf.oval.constraint.NotNull;
 
 public interface PlayerAccountBO extends BO<Integer, PlayerAccount>{
 	PlayerAccount getByEmail(@NotNull String email);
+
+	PlayerAccount getByPlayer(@NotNull Integer playerId);
 }

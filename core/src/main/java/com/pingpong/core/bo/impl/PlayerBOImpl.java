@@ -9,6 +9,7 @@ import com.pingpong.core.dao.AuthorityDAO;
 import com.pingpong.core.dao.PlayerAccountDAO;
 import com.pingpong.core.dao.PlayerDAO;
 import com.pingpong.core.mail.Mailer;
+import com.pingpong.core.web.UrlResolver;
 import com.pingpong.domain.Account;
 import com.pingpong.domain.Authority;
 import com.pingpong.domain.Player;
@@ -17,6 +18,7 @@ import com.pingpong.shared.exception.NotUniqueEmailException;
 import com.pingpong.shared.registration.PlayerRegistrationData;
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.guard.Guarded;
+import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+
+import static com.google.common.base.Preconditions.checkState;
 
 /**
  * @author Artur Zhurat
@@ -45,13 +49,15 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 	private AccountBO accountBO;
 	@Autowired
 	private Mailer mailer;
+	@Autowired
+	private UrlResolver urlResolver;
 
 	@Override
 	@Transactional(readOnly = false)
 	public void register(@NotNull PlayerRegistrationData registrationData) {
 		final Account emailAccount = accountBO.getByEmail(registrationData.getEmail());
 
-		if (emailAccount != null) {
+		if(emailAccount != null) {
 			throw new NotUniqueEmailException("Not unique email!");
 		}
 
@@ -70,6 +76,18 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 		createAuthority(account);
 
 		notifyOfRegistration(registrationData);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public void activate(@NotNull Integer playerId) {
+		final Player player = getDao().loadById(playerId, true);
+
+		checkStatus(player, Player.Status.REGISTRATION);
+
+		player.setStatus(Player.Status.ACTIVE);
+
+		notifyOfActivation(player);
 	}
 
 	private Authority createAuthority(PlayerAccount account) {
@@ -95,8 +113,7 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 
 		return account;
 	}
-	
-	
+
 	private void notifyOfRegistration(final PlayerRegistrationData registrationData) {
 		final String toAddress = adminEmails;
 		final String subject = "Register new player";
@@ -106,5 +123,23 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 		}}, toAddress, subject, null, null, false);
 
 		LOG.info("Sending email about creating new player...");
+	}
+
+	private void notifyOfActivation(final Player player) {
+		final PlayerAccount account = playerAccountDAO.getByPlayer(player.getId());
+
+		final String toAddress = account.getEmail();
+		final String subject = "Player activation";
+
+		mailer.sendEmail(Mailer.EmailTemplate.PLAYER_ACTIVATION, new HashMap<String, Object>() {{
+			put("playerName", player.getName());
+			put("url", urlResolver.getPortalUrl());
+		}}, toAddress, subject, null, null, false);
+
+		LOG.info("Sending email about player activation...");
+	}
+
+	private void checkStatus(Player entity, Player.Status... statuses) {
+		checkState(ArrayUtils.contains(statuses, entity.getStatus()));
 	}
 }

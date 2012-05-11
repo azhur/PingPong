@@ -30,4 +30,9 @@ public class PlayerAccountBOImpl extends AbstractBO<Integer, PlayerAccount, Play
 		}
 		return entity;
 	}
+
+	@Override
+	public PlayerAccount getByPlayer(@NotNull Integer playerId) {
+		return getDao().getByPlayer(playerId);
+	}
 }

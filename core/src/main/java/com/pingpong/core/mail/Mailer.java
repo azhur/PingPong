@@ -54,6 +54,7 @@ public class Mailer {
 
 	public static enum EmailTemplate {
 		PLAYER_REGISTRATION("player-registration.ftl"),
+		PLAYER_ACTIVATION("player-activation.ftl"),
 		FORGOT_PASSWORD("forgot-password.ftl");
 
 		private String value;

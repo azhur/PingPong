@@ -15,4 +15,5 @@ public interface SuccessInfoMSG {
 	 String CHANGE_PROFILE = "Profile was changed successfully.";
 	 String REGISTRATION = "Thank you for registration... We will contact with you soon!";
 	 String FORGOT_PASSWORD = "On your email was sent email with link for password reset. If it does not arrive, contact your administrator.";
+	 String PLAYER_ACTIVATION = "Player '%s' was successfully activated.";
 }

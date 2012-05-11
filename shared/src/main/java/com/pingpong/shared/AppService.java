@@ -38,4 +38,8 @@ public interface AppService {
 	void changePassword(@NotNull Integer accountId, @NotNull String oldPassword, @NotNull String newPassword);
 
 	void updatePlayer(@NotNull Player player);
+
+	Player getPlayerById(@NotNull Integer id);
+
+	void activatePlayer(@NotNull Integer playerId);
 }

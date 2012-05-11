@@ -19,6 +19,12 @@ public interface DAO<ID extends Serializable, E extends Entity<ID>> {
 
 	E getById(@NotNull ID id);
 
+	E getById(@NotNull ID id, boolean lock);
+
+	E loadById(@NotNull ID id);
+
+	E loadById(@NotNull ID id, boolean lock);
+
 	void update(@NotNull E entity);
 
 	@NotNull

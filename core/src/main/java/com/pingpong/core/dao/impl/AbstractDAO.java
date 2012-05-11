@@ -2,6 +2,7 @@ package com.pingpong.core.dao.impl;
 
 import com.pingpong.core.dao.DAO;
 import com.pingpong.core.hibernate.HibernateManager;
+import com.pingpong.shared.exception.UnknownEntityException;
 import com.pingpong.domain.Entity;
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.guard.Guarded;
@@ -43,6 +44,27 @@ public abstract class AbstractDAO<ID extends Serializable, E extends Entity<ID>>
 	@SuppressWarnings("unchecked")
 	public E getById(@NotNull ID id) {
 		return (E)manager.getEntityById(clazz, id);
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public E getById(@NotNull ID id, boolean lock) {
+		return (E)manager.getEntityById(clazz, id, lock);
+	}
+
+	@Override
+	public E loadById(@NotNull ID id) {
+		return loadById(id, false);
+	}
+
+	@Override
+	public E loadById(@NotNull ID id, boolean lock) {
+		final E entity = getById(id, lock);
+
+		if (entity == null) {
+			throw new UnknownEntityException(clazz, id);
+		}
+		return entity;
 	}
 
 	@Override

@@ -101,4 +101,14 @@ public class AppServiceImpl implements AppService {
 	public void updatePlayer(@NotNull Player player) {
 		playerBO.update(player);
 	}
+
+	@Override
+	public Player getPlayerById(@NotNull Integer id) {
+		return playerBO.getById(id);
+	}
+
+	@Override
+	public void activatePlayer(@NotNull Integer playerId) {
+		playerBO.activate(playerId);
+	}
 }
