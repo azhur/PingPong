@@ -43,11 +43,6 @@ import java.util.Map;
 public class AccountController extends AbstractBaseController {
 	private static final Logger LOG = LoggerFactory.getLogger(AccountController.class);
 
-	private static final String FORGOT_PASSWORD_REDIRECT = "account/forgotPassword";
-	private static final String RESET_PASSWORD_REDIRECT = "account/resetPassword";
-	private static final String CHANGE_PASSWORD_REDIRECT = "account/changePassword";
-
-
 	@Autowired
 	private AppService appService;
 	@Autowired
@@ -59,7 +54,7 @@ public class AccountController extends AbstractBaseController {
 	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
 	public String showForgotPasswordForm(Map model) {
 		model.put("command", new ForgotPasswordCommand());
-		return FORGOT_PASSWORD_REDIRECT;
+		return "account/forgotPassword";
 	}
 
 	@RequestMapping(value = "/reset_password/{id}", method = RequestMethod.GET)
@@ -82,7 +77,7 @@ public class AccountController extends AbstractBaseController {
 			return "index";
 		}
 
-		return RESET_PASSWORD_REDIRECT;
+		return "account/resetPassword";
 	}
 
 	@RequestMapping(value = "reset_password/resetPasswordProcess", method = RequestMethod.POST)
@@ -94,7 +89,7 @@ public class AccountController extends AbstractBaseController {
 
 		if(result.hasErrors()) {
 			model.addAttribute("account", account);
-			return RESET_PASSWORD_REDIRECT;
+			return "account/resetPassword";
 		}
 
 		try {
@@ -103,12 +98,12 @@ public class AccountController extends AbstractBaseController {
 			LOG.error(ErrorInfoMSG.NOT_FOUND_ACCOUNT, enfe);
 			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.NOT_FOUND_ACCOUNT);
 			model.addAttribute("account", account);
-			return RESET_PASSWORD_REDIRECT;
+			return "account/resetPassword";
 		} catch(Exception e) {
 			LOG.error(ErrorInfoMSG.UNKNOWN, e);
 			model.addAttribute("account", account);
 			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.FORGOT_PASSWORD_NOT_SEND_REQUEST);
-			return RESET_PASSWORD_REDIRECT;
+			return "account/resetPassword";
 		}
 
 		model.addAttribute(SUCCESS_MSG_VAR, SuccessInfoMSG.RESET_PASSWORD);
@@ -119,7 +114,7 @@ public class AccountController extends AbstractBaseController {
 	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
 	public String forgotPasswordProcess(@ModelAttribute("command") @Valid ForgotPasswordCommand command, BindingResult result, Model model) {
 		if(result.hasErrors()) {
-			return FORGOT_PASSWORD_REDIRECT;
+			return "account/forgotPassword";
 		}
 		try {
 			appService.requestAdminForgotPassword(command.getUsername());
@@ -127,11 +122,11 @@ public class AccountController extends AbstractBaseController {
 		} catch(EntityNotFoundException enfe) {
 			LOG.error(ErrorInfoMSG.NOT_FOUND_ACCOUNT, enfe);
 			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.NOT_FOUND_ACCOUNT);
-			return FORGOT_PASSWORD_REDIRECT;
+			return "account/forgotPassword";
 		} catch(Exception e) {
 			LOG.error(ErrorInfoMSG.UNKNOWN, e);
 			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.FORGOT_PASSWORD_NOT_SEND_REQUEST);
-			return FORGOT_PASSWORD_REDIRECT;
+			return "account/forgotPassword";
 		}
 		return "index";
 	}
@@ -141,7 +136,7 @@ public class AccountController extends AbstractBaseController {
 	@Secured({"ROLE_ADMIN_USER"})
 	public String showChangePasswordForm(Map model) {
 		model.put("command", new ChangePasswordCommand());
-		return CHANGE_PASSWORD_REDIRECT;
+		return "account/changePassword";
 	}
 
 	@RequestMapping(value = "/changePasswordProcess", method = RequestMethod.POST)
@@ -153,7 +148,7 @@ public class AccountController extends AbstractBaseController {
 
 		if(result.hasErrors()) {
 			model.addAttribute("command", command);
-			return CHANGE_PASSWORD_REDIRECT;
+			return "account/changePassword";
 		}
 
 		try {
@@ -163,12 +158,12 @@ public class AccountController extends AbstractBaseController {
 			LOG.error(ErrorInfoMSG.WRONG_OLD_PASSWORD, wpe);
 			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.WRONG_OLD_PASSWORD);
 			model.addAttribute("command", new ChangePasswordCommand());
-			return CHANGE_PASSWORD_REDIRECT;
+			return "account/changePassword";
 		} catch(Exception e) {
 			LOG.error(ErrorInfoMSG.UNKNOWN, e);
 			model.addAttribute("command", new ChangePasswordCommand());
 			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.CHANGE_PASSWORD);
-			return CHANGE_PASSWORD_REDIRECT;
+			return "account/changePassword";
 		}
 		return "index";
 	}
