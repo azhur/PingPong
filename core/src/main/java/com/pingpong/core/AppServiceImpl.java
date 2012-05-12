@@ -146,4 +146,9 @@ public class AppServiceImpl implements AppService {
 	public List<AdminAccount> listAdminAccounts() {
 		return adminAccountBO.list();
 	}
+
+	@Override
+	public void createAdminAccount(@NotNull AdminAccount account) {
+		adminAccountBO.create(account);
+	}
 }

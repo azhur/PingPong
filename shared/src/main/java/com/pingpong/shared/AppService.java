@@ -56,4 +56,6 @@ public interface AppService {
 
 	@NotNull
 	List<AdminAccount> listAdminAccounts();
+
+	void createAdminAccount(@NotNull AdminAccount account);
 }

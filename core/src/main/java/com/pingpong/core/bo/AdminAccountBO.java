@@ -16,4 +16,6 @@ public interface AdminAccountBO extends BO<Integer, AdminAccount>{
 	void unblock(@NotNull Integer id);
 
 	void block(@NotNull Integer id);
+
+	void create(@NotNull AdminAccount account);
 }

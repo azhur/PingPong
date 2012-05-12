@@ -33,6 +33,10 @@
         <put-attribute name="title" value="PingPong admins"/>
         <put-attribute name="content" value="/WEB-INF/views/account/list.jsp"/>
     </definition>
+    <definition name="account/create" extends="main">
+        <put-attribute name="title" value="Create account"/>
+        <put-attribute name="content" value="/WEB-INF/views/account/create.jsp"/>
+    </definition>
     <definition name="player/list" extends="main">
         <put-attribute name="title" value="PingPong player"/>
         <put-attribute name="content" value="/WEB-INF/views/player/list.jsp"/>

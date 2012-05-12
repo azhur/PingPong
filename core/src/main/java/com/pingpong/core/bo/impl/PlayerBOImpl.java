@@ -73,7 +73,7 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 		final PlayerAccount account = createAccount(registrationData, player);
 
 		//create authorities
-		createAuthority(account);
+		authorityDAO.create(account, Authority.Name.ROLE_PLAYER_USER);
 
 		notifyOfRegistration(registrationData);
 	}
@@ -108,16 +108,6 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 		checkStatus(player, Player.Status.BLOCKED);
 
 		player.setStatus(Player.Status.ACTIVE);
-	}
-
-	private Authority createAuthority(PlayerAccount account) {
-		final Authority authority = new Authority();
-		authority.setAccount(account);
-		authority.setName(Authority.Name.ROLE_PLAYER_USER);
-
-		authorityDAO.insert(authority);
-
-		return authority;
 	}
 
 	private PlayerAccount createAccount(PlayerRegistrationData registrationData, Player player) {

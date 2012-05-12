@@ -12,8 +12,6 @@ package com.pingpong.admin;
 public interface SuccessInfoMSG {
 	String RESET_PASSWORD = "Your password was reset successfully.";
 	String CHANGE_PASSWORD = "Password was changed successfully.";
-	String CHANGE_PROFILE = "Profile was changed successfully.";
-	String REGISTRATION = "Thank you for registration... We will contact with you soon!";
 	String FORGOT_PASSWORD = "On your email was sent email with link for password reset. If it does not arrive, contact your administrator.";
 	String PLAYER_ACTIVATION = "Player '%s' was successfully activated.";
 	String PLAYER_BLOCKING = "Player '%s' was successfully blocked.";
@@ -22,4 +20,5 @@ public interface SuccessInfoMSG {
 	String ADMIN_BLOCKING = "Admin '%s' was successfully blocked.";
 	String ADMIN_UNBLOCKING = "Admin '%s' was successfully unblocked.";
 	String ADMIN_DELETING = "Admin '%s' was successfully deleted.";
+	String CREATE_ACCOUNT = "Account '%s' was successfully created.";
 }

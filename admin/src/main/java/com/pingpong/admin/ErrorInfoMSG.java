@@ -24,4 +24,5 @@ public interface ErrorInfoMSG {
 	String ADMIN_BLOCKING = "Can't block admin.";
 	String ADMIN_UNBLOCKING = "Can't unblock admin.";
 	String ADMIN_DELETING = "Can't delete admin.";
+	String CREATE_ACCOUNT = "Can't create account.";
 }

@@ -7,10 +7,12 @@ import com.pingpong.admin.ErrorInfoMSG;
 import com.pingpong.admin.SuccessInfoMSG;
 import com.pingpong.admin.command.ChangePasswordCommand;
 import com.pingpong.admin.command.ForgotPasswordCommand;
+import com.pingpong.admin.command.NewAccountCommand;
 import com.pingpong.admin.command.ResetPasswordCommand;
 import com.pingpong.admin.security.AuthUser;
 import com.pingpong.admin.security.SpringSecurityUtils;
 import com.pingpong.admin.validator.ChangePasswordValidator;
+import com.pingpong.admin.validator.NewAccountValidator;
 import com.pingpong.admin.validator.ResetPasswordValidator;
 import com.pingpong.domain.Account;
 import com.pingpong.domain.AdminAccount;
@@ -49,6 +51,8 @@ public class AccountController extends AbstractBaseController {
 	private ResetPasswordValidator resetPasswordValidator;
 	@Autowired
 	private ChangePasswordValidator changePasswordValidator;
+	@Autowired
+	private NewAccountValidator newAccountValidator;
 
 	@RequestMapping(value = "/forgot_password", method = RequestMethod.GET)
 	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
@@ -232,6 +236,45 @@ public class AccountController extends AbstractBaseController {
 
 		model.put("admins", appService.listAdminAccounts());
 
+		return "account/list";
+	}
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	@Secured({"ROLE_ADMIN_USER"})
+	public String showCreateForm(Map model) {
+		model.put("command", new NewAccountCommand());
+		return "account/create";
+	}
+
+	@RequestMapping(value = "/createProcess", method = RequestMethod.POST)
+	@Secured({"ROLE_ADMIN_USER"})
+	public String createProcess(@ModelAttribute("command") @Valid NewAccountCommand command, BindingResult result, Model model) {
+		newAccountValidator.validate(command, result);
+
+		if(result.hasErrors()) {
+			model.addAttribute("command", command);
+			return "account/create";
+		}
+
+		try {
+			final AdminAccount account = new AdminAccount();
+			account.setEnabled(true);
+			account.setEmail(command.getEmail());
+			account.setPassword(command.getPass1());
+			appService.createAdminAccount(account);
+			model.addAttribute(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.CREATE_ACCOUNT, account.getEmail()));
+		} catch(WrongPasswordException wpe) {
+			LOG.error(ErrorInfoMSG.CREATE_ACCOUNT, wpe);
+			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.CREATE_ACCOUNT);
+			model.addAttribute("command", new NewAccountCommand());
+			return "account/create";
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.UNKNOWN, e);
+			model.addAttribute("command", new NewAccountCommand());
+			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.CREATE_ACCOUNT);
+			return "account/create";
+		}
+		model.addAttribute("admins", appService.listAdminAccounts());
 		return "account/list";
 	}
 }

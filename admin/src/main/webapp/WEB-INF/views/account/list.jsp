@@ -1,7 +1,8 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <h1 class="page-header">
-    Administrators
+    Administrators &nbsp;
+    <a href="${pageContext.servletContext.contextPath}/account/create" class="btn btn-primary">Create new</a>
 </h1>
 <table class="table table-bordered">
     <thead>
@@ -29,12 +30,12 @@
             <td>${admin.email}</td>
             <td>
                 <c:choose>
-                <c:when test="${admin.enabled == true}">
-                    <a href="${pageContext.servletContext.contextPath}/account/${admin.id}/block">block</a>
-                </c:when>
-                <c:otherwise>
-                    <a href="${pageContext.servletContext.contextPath}/account/${admin.id}/unblock">unblock</a>
-                </c:otherwise>
+                    <c:when test="${admin.enabled == true}">
+                        <a href="${pageContext.servletContext.contextPath}/account/${admin.id}/block">block</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${pageContext.servletContext.contextPath}/account/${admin.id}/unblock">unblock</a>
+                    </c:otherwise>
                 </c:choose>
                 <a href="${pageContext.servletContext.contextPath}/account/${admin.id}/delete">delete</a>
             </td>

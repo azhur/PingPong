@@ -3,11 +3,15 @@
  */
 package com.pingpong.core.bo.impl;
 
+import com.pingpong.core.bo.AccountBO;
 import com.pingpong.core.bo.AdminAccountBO;
 import com.pingpong.core.dao.AdminAccountDAO;
+import com.pingpong.core.dao.AuthorityDAO;
 import com.pingpong.domain.AdminAccount;
+import com.pingpong.domain.Authority;
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.guard.Guarded;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -17,6 +21,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Guarded
 public class AdminAccountBOImpl extends AbstractBO<Integer, AdminAccount, AdminAccountDAO> implements AdminAccountBO {
+	@Autowired
+	private AccountBO accountBO;
+	@Autowired
+	private AuthorityDAO authorityDAO;
+
 	@Override
 	@Transactional(readOnly = false)
 	public void unblock(@NotNull Integer id) {
@@ -39,5 +48,15 @@ public class AdminAccountBOImpl extends AbstractBO<Integer, AdminAccount, AdminA
 		}
 
 		entity.setEnabled(false);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public void create(@NotNull AdminAccount account) {
+		accountBO.encodePassword(account);
+
+		insert(account);
+
+		authorityDAO.create(account, Authority.Name.ROLE_ADMIN_USER);
 	}
 }

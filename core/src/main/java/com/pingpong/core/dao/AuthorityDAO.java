@@ -1,6 +1,8 @@
 package com.pingpong.core.dao;
 
+import com.pingpong.domain.Account;
 import com.pingpong.domain.Authority;
+import net.sf.oval.constraint.NotNull;
 
 /**
  * @author Artur Zhurat
@@ -9,4 +11,6 @@ import com.pingpong.domain.Authority;
  */
 
 public interface AuthorityDAO extends DAO<Integer,Authority> {
+	@NotNull
+	Authority create(@NotNull Account account, @NotNull Authority.Name name);
 }
