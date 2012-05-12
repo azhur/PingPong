@@ -1,5 +1,5 @@
 /**
- * Copyright U-wiss
+ * Without Copyright
  */
 package com.pingpong.admin.editor;
 

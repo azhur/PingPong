@@ -1,5 +1,5 @@
 /**
- * Copyright U-wiss
+ * Without Copyright
  */
 package com.pingpong.admin.controller;
 
@@ -223,10 +223,16 @@ public class AccountController extends AbstractBaseController {
 	@Secured({"ROLE_ADMIN_USER"})
 	public String delete(@PathVariable("id") String id, Map model) {
 		try {
+			final AuthUser authUser = SpringSecurityUtils.getCurrentUser();
 			final int accountId = Integer.parseInt(id);
-			final AdminAccount admin = appService.getAdminAccountById(accountId);
-			appService.deleteAdminAccount(accountId);
-			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.ADMIN_DELETING, admin.getEmail()));
+
+			if(accountId == authUser.getId()) {
+				model.put(ERROR_MSG_VAR, SuccessInfoMSG.ADMIN_DELETING_YOURSELF);
+			} else {
+				final AdminAccount admin = appService.getAdminAccountById(accountId);
+				appService.deleteAdminAccount(accountId);
+				model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.ADMIN_DELETING, admin.getEmail()));
+			}
 		} catch(UnknownEntityException uee) {
 			model.put(ERROR_MSG_VAR, uee.getMessage());
 		} catch(Exception e) {

@@ -1,5 +1,5 @@
 /**
- * Copyright U-wiss
+ * Without Copyright
  */
 package com.pingpong.admin;
 
@@ -21,4 +21,5 @@ public interface SuccessInfoMSG {
 	String ADMIN_UNBLOCKING = "Admin '%s' was successfully unblocked.";
 	String ADMIN_DELETING = "Admin '%s' was successfully deleted.";
 	String CREATE_ACCOUNT = "Account '%s' was successfully created.";
+	String ADMIN_DELETING_YOURSELF = "You can't delete your own account";
 }
