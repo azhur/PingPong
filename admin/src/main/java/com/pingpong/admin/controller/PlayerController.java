@@ -8,7 +8,6 @@ import com.pingpong.admin.SuccessInfoMSG;
 import com.pingpong.domain.Player;
 import com.pingpong.shared.AppService;
 import com.pingpong.shared.exception.UnknownEntityException;
-import com.pingpong.shared.hibernate.ListResult;
 import com.pingpong.shared.hibernate.PatternSearchData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,8 +37,8 @@ public class PlayerController extends AbstractBaseController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
 	public String showListForm(Map model) {
-		final ListResult<Player> list = appService.listPlayers(new PatternSearchData<Player>(new Player()));
-		model.put("players", list.getItems());
+		final Player player = new Player();
+		model.put("players", appService.listPlayers(new PatternSearchData<Player>(player)).getItems());
 		return "player/list";
 	}
 
@@ -58,7 +57,7 @@ public class PlayerController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.PLAYER_ACTIVATION);
 		}
 
-		model.put("players", appService.listPlayers());
+		model.put("players", appService.listPlayers(new PatternSearchData<Player>(new Player())).getItems());
 
 		return "player/list";
 	}
@@ -78,7 +77,7 @@ public class PlayerController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.PLAYER_BLOCKING);
 		}
 
-		model.put("players", appService.listPlayers());
+		model.put("players", appService.listPlayers(new PatternSearchData<Player>(new Player())).getItems());
 
 		return "player/list";
 	}
@@ -98,7 +97,7 @@ public class PlayerController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.PLAYER_UNBLOCKING);
 		}
 
-		model.put("players", appService.listPlayers());
+		model.put("players", appService.listPlayers(new PatternSearchData<Player>(new Player())).getItems());
 
 		return "player/list";
 	}
@@ -118,7 +117,7 @@ public class PlayerController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.PLAYER_DELETING);
 		}
 
-		model.put("players", appService.listPlayers());
+		model.put("players", appService.listPlayers(new PatternSearchData<Player>(new Player())).getItems());
 
 		return "player/list";
 	}

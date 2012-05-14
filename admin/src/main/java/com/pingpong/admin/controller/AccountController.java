@@ -19,6 +19,7 @@ import com.pingpong.domain.AdminAccount;
 import com.pingpong.shared.AppService;
 import com.pingpong.shared.exception.UnknownEntityException;
 import com.pingpong.shared.exception.WrongPasswordException;
+import com.pingpong.shared.hibernate.PatternSearchData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -175,7 +176,7 @@ public class AccountController extends AbstractBaseController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
 	public String showListForm(Map model) {
-		model.put("admins", appService.listAdminAccounts());
+		model.put("admins", appService.listAdminAccounts(new PatternSearchData<AdminAccount>(new AdminAccount())).getItems());
 		return "account/list";
 	}
 
@@ -194,7 +195,7 @@ public class AccountController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.ADMIN_BLOCKING);
 		}
 
-		model.put("admins", appService.listAdminAccounts());
+		model.put("admins", appService.listAdminAccounts(new PatternSearchData<AdminAccount>(new AdminAccount())).getItems());
 
 		return "account/list";
 	}
@@ -214,7 +215,7 @@ public class AccountController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.ADMIN_UNBLOCKING);
 		}
 
-		model.put("admins", appService.listAdminAccounts());
+		model.put("admins", appService.listAdminAccounts(new PatternSearchData<AdminAccount>(new AdminAccount())).getItems());
 
 		return "account/list";
 	}
@@ -240,7 +241,7 @@ public class AccountController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.ADMIN_DELETING);
 		}
 
-		model.put("admins", appService.listAdminAccounts());
+		model.put("admins", appService.listAdminAccounts(new PatternSearchData<AdminAccount>(new AdminAccount())).getItems());
 
 		return "account/list";
 	}
@@ -280,7 +281,7 @@ public class AccountController extends AbstractBaseController {
 			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.CREATE_ACCOUNT);
 			return "account/create";
 		}
-		model.addAttribute("admins", appService.listAdminAccounts());
+		model.addAttribute("admins", appService.listAdminAccounts(new PatternSearchData<AdminAccount>(new AdminAccount())).getItems());
 		return "account/list";
 	}
 }

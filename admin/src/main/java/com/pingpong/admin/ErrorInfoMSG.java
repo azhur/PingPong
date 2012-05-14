@@ -25,4 +25,11 @@ public interface ErrorInfoMSG {
 	String ADMIN_UNBLOCKING = "Can't unblock admin.";
 	String ADMIN_DELETING = "Can't delete admin.";
 	String CREATE_ACCOUNT = "Can't create account.";
+	String CREATE_TOURNAMENT = "Can't create tournament.";
+	String DELETE_TOURNAMENT = "Can't delete tournament.";
+	String REGISTER_TOURNAMENT = "Can't register tournament.";
+	String ACTIVATE_TOURNAMENT = "Can't activate tournament.";
+	String BLOCK_TOURNAMENT = "Can't block tournament.";
+	String UNBLOCK_TOURNAMENT = "Can't unblock tournament.";
+	String CLOSE_TOURNAMENT = "Can't close tournament.";
 }

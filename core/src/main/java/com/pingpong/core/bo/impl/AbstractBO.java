@@ -57,7 +57,7 @@ public abstract class AbstractBO<ID extends Serializable, E extends Entity<ID>, 
 	}
 
 	@Override
-	public List<E> list() {
+	public List<E> findAll() {
 		return dao.list();
 	}
 
@@ -68,8 +68,12 @@ public abstract class AbstractBO<ID extends Serializable, E extends Entity<ID>, 
 	}
 
 	@Override
+	public ListResult<E> list(@NotNull PatternSearchData<E> searchData) {
+		return getListResult(getCriteria(), searchData);
+	}
+
 	@NotNull
-	public ListResult<E> toList(@NotNull PatternSearchData<E> searchData, @NotNull Criteria criteria) {
+	protected ListResult<E> toList(@NotNull PatternSearchData<E> searchData, @NotNull Criteria criteria) {
 		return getListResult(criteria, searchData);
 	}
 

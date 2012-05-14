@@ -44,6 +44,7 @@
                     <sec:authorize access="hasRole('ROLE_ADMIN_USER')">
                         <li><a href="${pageContext.servletContext.contextPath}/account/list">Administrators</a></li>
                         <li><a href="${pageContext.servletContext.contextPath}/player/list">Players</a></li>
+                        <li><a href="${pageContext.servletContext.contextPath}/tournament/list">Tournaments</a></li>
                     </sec:authorize>
                 </ul>
 

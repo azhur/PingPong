@@ -7,7 +7,6 @@ import com.pingpong.domain.Entity;
 import com.pingpong.shared.hibernate.ListResult;
 import com.pingpong.shared.hibernate.PatternSearchData;
 import net.sf.oval.constraint.NotNull;
-import org.hibernate.Criteria;
 
 import java.io.Serializable;
 import java.util.List;
@@ -27,10 +26,10 @@ public interface BO<ID extends Serializable, E extends Entity<ID>> {
 	void update(@NotNull E entity);
 
 	@NotNull
-	List<E> list();
+	List<E> findAll();
 
 	void deleteById(@NotNull ID id);
 
 	@NotNull
-	ListResult<E> toList(@NotNull PatternSearchData<E> searchData, @NotNull Criteria criteria);
+	ListResult<E> list(@NotNull PatternSearchData<E> searchData);
 }

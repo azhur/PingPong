@@ -22,4 +22,11 @@ public interface SuccessInfoMSG {
 	String ADMIN_DELETING = "Admin '%s' was successfully deleted.";
 	String CREATE_ACCOUNT = "Account '%s' was successfully created.";
 	String ADMIN_DELETING_YOURSELF = "You can't delete your own account";
+	String CREATE_TOURNAMENT = "Tournament '%s' was successfully created.";
+	String DELETE_TOURNAMENT = "Tournament '%s' was successfully deleted.";
+	String REGISTER_TOURNAMENT = "Tournament '%s' was successfully register. Players can register on it";
+	String ACTIVATE_TOURNAMENT = "Tournament '%s' was successfully activated.";
+	String BLOCK_TOURNAMENT = "Tournament '%s' was successfully blocked.";
+	String UNBLOCK_TOURNAMENT = "Tournament '%s' was successfully unblocked.";
+	String CLOSE_TOURNAMENT = "Tournament '%s' was successfully closed.";
 }

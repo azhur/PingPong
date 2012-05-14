@@ -45,5 +45,13 @@
         <put-attribute name="title" value="PingPong deny access"/>
         <put-attribute name="content" value="/WEB-INF/views/error/deny.jsp"/>
     </definition>
+    <definition name="tournament/list" extends="main">
+        <put-attribute name="title" value="PingPong tournaments"/>
+        <put-attribute name="content" value="/WEB-INF/views/tournament/list.jsp"/>
+    </definition>
+    <definition name="tournament/create" extends="main">
+        <put-attribute name="title" value="Create tournament"/>
+        <put-attribute name="content" value="/WEB-INF/views/tournament/create.jsp"/>
+    </definition>
 
 </tiles-definitions>

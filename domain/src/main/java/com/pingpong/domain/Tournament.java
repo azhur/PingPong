@@ -3,9 +3,6 @@
  */
 package com.pingpong.domain;
 
-import org.hibernate.annotations.Type;
-import org.joda.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -22,23 +19,19 @@ import javax.persistence.Table;
 public class Tournament extends AbstractEntity {
 	private static final long serialVersionUID = -3347818477622198553L;
 
-	public static enum Status {
+	public enum Status {
+		NEW,
 		REGISTRATION,
 		ACTIVE,
-		BLOCKED,
-		CLOSED
+		FINISHED
 	}
 
 	@Column
 	private String name;
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentLocalDate")
-	@Column(nullable = false, name = "begin_date")
-	private LocalDate beginDate;
-	@Type(type = "org.joda.time.contrib.hibernate.PersistentLocalDate")
-	@Column(nullable = false, name = "end_date")
-	private LocalDate endDate;
 	@Enumerated(EnumType.STRING)
 	private Status status;
+	@Column(name = "max_participants_count")
+	private Integer maxParticipantsCount;
 
 	public String getName() {
 		return name;
@@ -48,27 +41,19 @@ public class Tournament extends AbstractEntity {
 		this.name = name;
 	}
 
-	public LocalDate getBeginDate() {
-		return beginDate;
-	}
-
-	public void setBeginDate(LocalDate beginDate) {
-		this.beginDate = beginDate;
-	}
-
-	public LocalDate getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
-	}
-
 	public Status getStatus() {
 		return status;
 	}
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public Integer getMaxParticipantsCount() {
+		return maxParticipantsCount;
+	}
+
+	public void setMaxParticipantsCount(Integer maxParticipantsCount) {
+		this.maxParticipantsCount = maxParticipantsCount;
 	}
 }

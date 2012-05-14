@@ -4,12 +4,11 @@ import com.pingpong.domain.Account;
 import com.pingpong.domain.AdminAccount;
 import com.pingpong.domain.Player;
 import com.pingpong.domain.PlayerAccount;
+import com.pingpong.domain.Tournament;
 import com.pingpong.shared.hibernate.ListResult;
 import com.pingpong.shared.hibernate.PatternSearchData;
 import com.pingpong.shared.registration.PlayerRegistrationData;
 import net.sf.oval.constraint.NotNull;
-
-import java.util.List;
 
 /**
  * @author Artur Zhurat
@@ -17,8 +16,6 @@ import java.util.List;
  * @since 25/01/2012
  */
 public interface AppService {
-	@NotNull
-	List<Player> listPlayers();
 
 	@NotNull
 	ListResult<Player> listPlayers(@NotNull PatternSearchData<Player> searchData);
@@ -60,7 +57,23 @@ public interface AppService {
 	void deletePlayer(@NotNull Integer playerId);
 
 	@NotNull
-	List<AdminAccount> listAdminAccounts();
+	ListResult<AdminAccount> listAdminAccounts(@NotNull PatternSearchData<AdminAccount> searchData);
 
 	void createAdminAccount(@NotNull AdminAccount account);
+
+	@NotNull
+	Integer insertTournament(@NotNull Tournament tournament);
+
+	@NotNull
+	ListResult<Tournament> listTournaments(@NotNull PatternSearchData<Tournament> searchData);
+
+	void deleteTournament(@NotNull Integer tournamentId);
+
+	void transitTournamentToRegistrationStatus(@NotNull Integer tournamentId);
+
+	void transitTournamentToActiveStatus(@NotNull Integer tournamentId);
+
+	@NotNull Tournament getTournamentById(@NotNull Integer tournamentId);
+
+	void transitTournamentToFinishedStatus(@NotNull Integer tournamentId);
 }

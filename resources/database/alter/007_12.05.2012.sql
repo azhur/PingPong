@@ -2,12 +2,13 @@
 
  BEGIN;
 
+ CREATE SEQUENCE tournament_seq INCREMENT 1 START 1;
+
  CREATE TABLE tournament (
-   id id NOT NULL,
+   id id NOT NULL default nextval('tournament_seq'),
    version version NOT NULL default NOW(),
    name CHARACTER VARYING (255) not null,
-   begin_date timestamp without time zone NOT NULL,
-   end_date timestamp without time zone NOT NULL,
+   max_participants_count id not null,
    status CHARACTER VARYING (20) not null,
    PRIMARY KEY (id)
  );

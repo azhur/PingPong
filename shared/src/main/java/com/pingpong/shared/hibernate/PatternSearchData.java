@@ -8,6 +8,8 @@ import org.hibernate.criterion.Order;
 
 import java.io.Serializable;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * @author Artur Zhurat
  * @version 1.0
@@ -20,7 +22,7 @@ public class PatternSearchData<T extends Entity<? extends Serializable>> extends
 
 	public PatternSearchData(T pattern, Order order, Integer offset, Integer limit) {
 		super(order, offset, limit);
-		this.pattern = pattern;
+		this.pattern = checkNotNull(pattern);
 	}
 
 	public PatternSearchData(T pattern, Order order) {

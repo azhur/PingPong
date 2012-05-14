@@ -8,6 +8,7 @@ import com.pingpong.core.bo.PlayerBO;
 import com.pingpong.core.dao.AuthorityDAO;
 import com.pingpong.core.dao.PlayerAccountDAO;
 import com.pingpong.core.dao.PlayerDAO;
+import com.pingpong.core.hibernate.RestrictionsHelper;
 import com.pingpong.core.mail.Mailer;
 import com.pingpong.core.web.UrlResolver;
 import com.pingpong.domain.Account;
@@ -21,6 +22,7 @@ import com.pingpong.shared.registration.PlayerRegistrationData;
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.guard.Guarded;
 import org.apache.commons.lang.ArrayUtils;
+import org.hibernate.Criteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,7 +116,12 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 
 	@Override
 	public ListResult<Player> listPlayers(@NotNull PatternSearchData<Player> searchData) {
-		return toList(searchData, getCriteria());
+		final Criteria criteria = getCriteria();
+		final Player pattern = searchData.getPattern();
+
+		RestrictionsHelper.eqOpt(criteria, "status", pattern.getStatus());
+
+		return toList(searchData, criteria);
 	}
 
 	private PlayerAccount createAccount(PlayerRegistrationData registrationData, Player player) {

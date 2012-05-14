@@ -4,10 +4,12 @@ import com.pingpong.core.bo.AccountBO;
 import com.pingpong.core.bo.AdminAccountBO;
 import com.pingpong.core.bo.PlayerAccountBO;
 import com.pingpong.core.bo.PlayerBO;
+import com.pingpong.core.bo.TournamentBO;
 import com.pingpong.domain.Account;
 import com.pingpong.domain.AdminAccount;
 import com.pingpong.domain.Player;
 import com.pingpong.domain.PlayerAccount;
+import com.pingpong.domain.Tournament;
 import com.pingpong.shared.AppService;
 import com.pingpong.shared.hibernate.ListResult;
 import com.pingpong.shared.hibernate.PatternSearchData;
@@ -18,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
 
 /**
  * @author Artur Zhurat
@@ -36,11 +37,8 @@ public class AppServiceImpl implements AppService {
 	private AdminAccountBO adminAccountBO;
 	@Autowired
 	private AccountBO accountBO;
-
-	@Override
-	public List<Player> listPlayers() {
-		return playerBO.list();
-	}
+	@Autowired
+	private TournamentBO tournamentBO;
 
 	@Override
 	public ListResult<Player> listPlayers(@NotNull PatternSearchData<Player> searchData) {
@@ -150,12 +148,50 @@ public class AppServiceImpl implements AppService {
 	}
 
 	@Override
-	public List<AdminAccount> listAdminAccounts() {
-		return adminAccountBO.list();
+	@NotNull
+	public ListResult<AdminAccount> listAdminAccounts(@NotNull PatternSearchData<AdminAccount> searchData) {
+		return adminAccountBO.list(searchData);
 	}
 
 	@Override
 	public void createAdminAccount(@NotNull AdminAccount account) {
 		adminAccountBO.create(account);
+	}
+
+	@Override
+	@NotNull
+	public Integer insertTournament(@NotNull Tournament tournament) {
+		return tournamentBO.insert(tournament);
+	}
+
+	@Override
+	@NotNull
+	public ListResult<Tournament> listTournaments(@NotNull PatternSearchData<Tournament> searchData) {
+		return tournamentBO.list(searchData);
+	}
+
+	@Override
+	public void transitTournamentToRegistrationStatus(@NotNull Integer tournamentId) {
+		tournamentBO.transitToRegistrationStatus(tournamentId);
+	}
+
+	@Override
+	public void deleteTournament(@NotNull Integer tournamentId) {
+		tournamentBO.deleteById(tournamentId);
+	}
+
+	@Override
+	public void transitTournamentToActiveStatus(@NotNull Integer tournamentId) {
+		tournamentBO.transitToActiveStatus(tournamentId);
+	}
+
+	@Override
+	public Tournament getTournamentById(@NotNull Integer tournamentId) {
+		return tournamentBO.getById(tournamentId);
+	}
+
+	@Override
+	public void transitTournamentToFinishedStatus(@NotNull Integer tournamentId) {
+		tournamentBO.transitToFinishedStatus(tournamentId);
 	}
 }
