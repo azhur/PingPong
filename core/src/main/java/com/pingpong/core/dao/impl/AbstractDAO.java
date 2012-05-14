@@ -88,4 +88,9 @@ public abstract class AbstractDAO<ID extends Serializable, E extends Entity<ID>>
 	public HibernateManager getManager() {
 		return manager;
 	}
+
+	@Override
+	public Class<E> getEntityType() {
+		return clazz;
+	}
 }

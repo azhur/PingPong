@@ -4,6 +4,8 @@ import com.pingpong.domain.Account;
 import com.pingpong.domain.AdminAccount;
 import com.pingpong.domain.Player;
 import com.pingpong.domain.PlayerAccount;
+import com.pingpong.shared.hibernate.ListResult;
+import com.pingpong.shared.hibernate.PatternSearchData;
 import com.pingpong.shared.registration.PlayerRegistrationData;
 import net.sf.oval.constraint.NotNull;
 
@@ -17,6 +19,9 @@ import java.util.List;
 public interface AppService {
 	@NotNull
 	List<Player> listPlayers();
+
+	@NotNull
+	ListResult<Player> listPlayers(@NotNull PatternSearchData<Player> searchData);
 
 	void register(@NotNull PlayerRegistrationData registrationData);
 

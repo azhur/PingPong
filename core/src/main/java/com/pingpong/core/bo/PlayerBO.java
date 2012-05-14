@@ -4,6 +4,8 @@
 package com.pingpong.core.bo;
 
 import com.pingpong.domain.Player;
+import com.pingpong.shared.hibernate.ListResult;
+import com.pingpong.shared.hibernate.PatternSearchData;
 import com.pingpong.shared.registration.PlayerRegistrationData;
 import net.sf.oval.constraint.NotNull;
 
@@ -21,4 +23,6 @@ public interface PlayerBO extends BO<Integer, Player>{
 	void block(@NotNull Integer playerId);
 
 	void unblock(@NotNull Integer playerId);
+
+	ListResult<Player> listPlayers(@NotNull PatternSearchData<Player> searchData);
 }

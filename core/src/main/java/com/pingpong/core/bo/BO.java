@@ -4,7 +4,10 @@
 package com.pingpong.core.bo;
 
 import com.pingpong.domain.Entity;
+import com.pingpong.shared.hibernate.ListResult;
+import com.pingpong.shared.hibernate.PatternSearchData;
 import net.sf.oval.constraint.NotNull;
+import org.hibernate.Criteria;
 
 import java.io.Serializable;
 import java.util.List;
@@ -27,4 +30,7 @@ public interface BO<ID extends Serializable, E extends Entity<ID>> {
 	List<E> list();
 
 	void deleteById(@NotNull ID id);
+
+	@NotNull
+	ListResult<E> toList(@NotNull PatternSearchData<E> searchData, @NotNull Criteria criteria);
 }

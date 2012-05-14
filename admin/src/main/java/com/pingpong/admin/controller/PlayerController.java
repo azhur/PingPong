@@ -8,6 +8,8 @@ import com.pingpong.admin.SuccessInfoMSG;
 import com.pingpong.domain.Player;
 import com.pingpong.shared.AppService;
 import com.pingpong.shared.exception.UnknownEntityException;
+import com.pingpong.shared.hibernate.ListResult;
+import com.pingpong.shared.hibernate.PatternSearchData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,8 @@ public class PlayerController extends AbstractBaseController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
 	public String showListForm(Map model) {
-		model.put("players", appService.listPlayers());
+		final ListResult<Player> list = appService.listPlayers(new PatternSearchData<Player>(new Player()));
+		model.put("players", list.getItems());
 		return "player/list";
 	}
 

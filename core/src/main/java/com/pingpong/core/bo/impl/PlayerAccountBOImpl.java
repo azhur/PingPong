@@ -7,7 +7,7 @@ import com.pingpong.core.bo.AccountBO;
 import com.pingpong.core.bo.PlayerAccountBO;
 import com.pingpong.core.dao.PlayerAccountDAO;
 import com.pingpong.domain.PlayerAccount;
-import com.pingpong.shared.util.HibernateUtils;
+import com.pingpong.shared.hibernate.HibernateUtils;
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.guard.Guarded;
 import org.springframework.beans.factory.annotation.Autowired;

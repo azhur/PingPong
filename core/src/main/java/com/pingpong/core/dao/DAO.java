@@ -34,4 +34,6 @@ public interface DAO<ID extends Serializable, E extends Entity<ID>> {
 
 	@NotNull
 	HibernateManager getManager() ;
+
+	Class<E> getEntityType();
 }

@@ -1,7 +1,7 @@
 /**
  * Without Copyright
  */
-package com.pingpong.shared.util;
+package com.pingpong.shared.hibernate;
 
 import org.hibernate.Hibernate;
 import org.hibernate.proxy.HibernateProxy;

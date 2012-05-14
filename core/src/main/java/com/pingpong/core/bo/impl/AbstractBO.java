@@ -7,9 +7,15 @@ import com.pingpong.core.bo.BO;
 import com.pingpong.core.dao.DAO;
 import com.pingpong.core.hibernate.HibernateManager;
 import com.pingpong.domain.Entity;
+import com.pingpong.shared.hibernate.ListResult;
+import com.pingpong.shared.hibernate.PatternSearchData;
+import com.pingpong.shared.hibernate.SearchData;
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.guard.Guarded;
+import org.apache.commons.beanutils.BeanUtils;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,6 +67,12 @@ public abstract class AbstractBO<ID extends Serializable, E extends Entity<ID>, 
 		dao.deleteById(id);
 	}
 
+	@Override
+	@NotNull
+	public ListResult<E> toList(@NotNull PatternSearchData<E> searchData, @NotNull Criteria criteria) {
+		return getListResult(criteria, searchData);
+	}
+
 	/**
 	 * Wrapper for
 	 * {@link com.pingpong.core.dao.DAO#getManager()}
@@ -92,7 +104,7 @@ public abstract class AbstractBO<ID extends Serializable, E extends Entity<ID>, 
 	protected void releaseSession(@NotNull final Session session) {
 		getManager().releaseSession(session);
 	}
-	
+
 	protected void lockEntity(E entity) {
 		getManager().lockEntity(entity);
 	}
@@ -100,5 +112,39 @@ public abstract class AbstractBO<ID extends Serializable, E extends Entity<ID>, 
 	@NotNull
 	protected Dao getDao() {
 		return dao;
+	}
+
+	protected Criteria getCriteria() {
+		return getCurrentSession().createCriteria(dao.getEntityType());
+	}
+
+	@SuppressWarnings("unchecked")
+	private ListResult<E> getListResult(Criteria criteria, SearchData searchData) {
+
+		try {
+			final Criteria countCriteria = getCurrentSession().createCriteria(dao.getEntityType());
+			BeanUtils.copyProperties(countCriteria, criteria);
+			countCriteria.setProjection(Projections.count("id"));
+
+			final Integer totalCount = ((Long)countCriteria.uniqueResult()).intValue();
+
+			if(searchData.getOrder() != null) {
+				criteria.addOrder(searchData.getOrder());
+			}
+
+			if(searchData.getLimit() != null) {
+				criteria.setMaxResults(searchData.getLimit());
+			}
+
+			if(searchData.getOffset() != null) {
+				criteria.setFirstResult(searchData.getOffset());
+			}
+
+			final List<E> items = criteria.list();
+
+			return new ListResult<E>(items, totalCount);
+		} catch(Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

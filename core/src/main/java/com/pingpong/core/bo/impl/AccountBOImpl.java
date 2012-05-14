@@ -12,7 +12,7 @@ import com.pingpong.domain.Account;
 import com.pingpong.domain.ForgotPassword;
 import com.pingpong.domain.PlayerAccount;
 import com.pingpong.shared.exception.WrongPasswordException;
-import com.pingpong.shared.util.HibernateUtils;
+import com.pingpong.shared.hibernate.HibernateUtils;
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.guard.Guarded;
 import org.apache.commons.lang.RandomStringUtils;

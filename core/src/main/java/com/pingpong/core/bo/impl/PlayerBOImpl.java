@@ -15,6 +15,8 @@ import com.pingpong.domain.Authority;
 import com.pingpong.domain.Player;
 import com.pingpong.domain.PlayerAccount;
 import com.pingpong.shared.exception.NotUniqueEmailException;
+import com.pingpong.shared.hibernate.ListResult;
+import com.pingpong.shared.hibernate.PatternSearchData;
 import com.pingpong.shared.registration.PlayerRegistrationData;
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.guard.Guarded;
@@ -108,6 +110,11 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 		checkStatus(player, Player.Status.BLOCKED);
 
 		player.setStatus(Player.Status.ACTIVE);
+	}
+
+	@Override
+	public ListResult<Player> listPlayers(@NotNull PatternSearchData<Player> searchData) {
+		return toList(searchData, getCriteria());
 	}
 
 	private PlayerAccount createAccount(PlayerRegistrationData registrationData, Player player) {
