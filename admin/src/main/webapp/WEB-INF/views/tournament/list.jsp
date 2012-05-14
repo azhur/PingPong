@@ -21,7 +21,7 @@
                 <c:when test="${tournament.status == 'NEW'}">
                     <span class="label label-info">
                 </c:when>
-                <c:when test="${tournament.status == 'PENDING'}">
+                <c:when test="${tournament.status == 'REGISTRATION'}">
                     <span class="label label-warning">
                 </c:when>
                 <c:when test="${tournament.status == 'ACTIVE'}">
