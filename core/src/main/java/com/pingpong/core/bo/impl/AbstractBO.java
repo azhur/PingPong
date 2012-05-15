@@ -93,22 +93,6 @@ public abstract class AbstractBO<ID extends Serializable, E extends Entity<ID>, 
 		return getManager().getCurrentSession();
 	}
 
-	/**
-	 * Wrapper for
-	 * {@link com.pingpong.core.hibernate.HibernateManager#obtainSession()}
-	 */
-	protected Session obtainSession() {
-		return getManager().obtainSession();
-	}
-
-	/**
-	 * Wrapper for
-	 * {@link com.pingpong.core.hibernate.HibernateManager#releaseSession(org.hibernate.Session)}
-	 */
-	protected void releaseSession(@NotNull final Session session) {
-		getManager().releaseSession(session);
-	}
-
 	protected void lockEntity(E entity) {
 		getManager().lockEntity(entity);
 	}

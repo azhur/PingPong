@@ -27,6 +27,7 @@ public class Tournament extends AbstractEntity {
 		NEW,
 		REGISTRATION,
 		ACTIVE,
+		CANCELED,
 		FINISHED
 	}
 

@@ -31,7 +31,7 @@ public class Player extends AbstractEntity {
 	@Column
 	private String name;
 	@Column
-	@Type(type="org.joda.time.contrib.hibernate.PersistentLocalDate")
+	@Type(type="com.pingpong.shared.hibernate.PersistentLocalDate")
 	private LocalDate birth;
 	@Enumerated(EnumType.STRING)
 	private Gender gender;

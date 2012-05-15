@@ -196,6 +196,11 @@ public class AppServiceImpl implements AppService {
 	}
 
 	@Override
+	public void transitTournamentToCanceledStatus(@NotNull Integer tournamentId) {
+		tournamentBO.transitToCanceledStatus(tournamentId);
+	}
+
+	@Override
 	public void registerInTournament(@NotNull Integer playerId, @NotNull Integer tournamentId) {
 		tournamentBO.registerIn(playerId, tournamentId);
 	}

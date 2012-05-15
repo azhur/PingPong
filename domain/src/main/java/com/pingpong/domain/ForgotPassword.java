@@ -36,7 +36,7 @@ public class ForgotPassword extends AbstractVersionableEntity<String> {
 	@Column(name = "version")
 	private Timestamp version;
 	@Column(nullable = false, name = "valid_till")
-	@Type(type="org.joda.time.contrib.hibernate.PersistentLocalDateTime")
+	@Type(type="com.pingpong.shared.hibernate.PersistentLocalDateTime")
 	private LocalDateTime validTill;
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Account account;

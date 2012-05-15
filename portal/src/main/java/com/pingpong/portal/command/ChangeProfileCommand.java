@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 /**
  * @author Artur Zhurat
- * @version 3.0
+ * @version 1.0
  * @since 08/05/2012
  */
 

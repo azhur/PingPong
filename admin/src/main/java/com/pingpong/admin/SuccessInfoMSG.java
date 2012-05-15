@@ -5,7 +5,7 @@ package com.pingpong.admin;
 
 /**
  * @author Artur Zhurat
- * @version 3.0
+ * @version 1.0
  * @since 10/05/2012
  */
 
@@ -26,7 +26,6 @@ public interface SuccessInfoMSG {
 	String DELETE_TOURNAMENT = "Tournament '%s' was successfully deleted.";
 	String REGISTER_TOURNAMENT = "Tournament '%s' was successfully register. Players can register on it";
 	String ACTIVATE_TOURNAMENT = "Tournament '%s' was successfully activated.";
-	String BLOCK_TOURNAMENT = "Tournament '%s' was successfully blocked.";
-	String UNBLOCK_TOURNAMENT = "Tournament '%s' was successfully unblocked.";
-	String CLOSE_TOURNAMENT = "Tournament '%s' was successfully closed.";
+	String CANCEL_TOURNAMENT = "Tournament '%s' was successfully canceled.";
+	String FINISH_TOURNAMENT = "Tournament '%s' was successfully finished.";
 }

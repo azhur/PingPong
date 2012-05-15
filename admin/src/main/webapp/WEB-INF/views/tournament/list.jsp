@@ -27,7 +27,7 @@
                 <c:when test="${tournament.status == 'ACTIVE'}">
                     <span class="label label-success">
                 </c:when>
-                <c:when test="${tournament.status == 'BLOCKED'}">
+                <c:when test="${tournament.status == 'CANCELED'}">
                     <span class="label label-important">
                 </c:when>
                 <c:otherwise>
@@ -47,14 +47,11 @@
                 </c:when>
                 <c:when test="${tournament.status == 'REGISTRATION'}">
                     <a href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/activate">activate</a>
-                    <a href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/block">block</a>
+                    <a href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/cancel">cancel</a>
                 </c:when>
                 <c:when test="${tournament.status == 'ACTIVE'}">
-                    <a href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/close">close</a>
-                    <a href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/block">block</a>
-                </c:when>
-                <c:when test="${tournament.status == 'BLOCKED'}">
-                    <a href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/unblock">unblock</a>
+                    <a href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/finish">finish</a>
+                    <a href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/cancel">cancel</a>
                 </c:when>
                 </c:choose>
             </td>

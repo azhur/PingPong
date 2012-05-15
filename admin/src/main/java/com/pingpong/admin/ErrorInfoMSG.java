@@ -5,7 +5,7 @@ package com.pingpong.admin;
 
 /**
  * @author Artur Zhurat
- * @version 3.0
+ * @version 1.0
  * @since 10/05/2012
  */
 
@@ -29,7 +29,6 @@ public interface ErrorInfoMSG {
 	String DELETE_TOURNAMENT = "Can't delete tournament.";
 	String REGISTER_TOURNAMENT = "Can't register tournament.";
 	String ACTIVATE_TOURNAMENT = "Can't activate tournament.";
-	String BLOCK_TOURNAMENT = "Can't block tournament.";
-	String UNBLOCK_TOURNAMENT = "Can't unblock tournament.";
-	String CLOSE_TOURNAMENT = "Can't close tournament.";
+	String CANCEL_TOURNAMENT = "Can't cancel tournament.";
+	String FINISH_TOURNAMENT = "Can't finish tournament.";
 }

@@ -113,6 +113,16 @@ public class TournamentBOImpl extends AbstractBO<Integer, Tournament, Tournament
 
 	@Override
 	@Transactional(readOnly = false)
+	public void transitToCanceledStatus(@NotNull Integer id) {
+		final Tournament tournament = getDao().loadById(id, true);
+
+		checkStatus(tournament, Tournament.Status.ACTIVE, Tournament.Status.REGISTRATION);
+
+		tournament.setStatus(Tournament.Status.CANCELED);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
 	public void registerIn(@NotNull Integer playerId, @NotNull Integer tournamentId) {
 		final Player player = playerDAO.loadById(playerId);
 		final Tournament tournament = getDao().loadById(tournamentId);

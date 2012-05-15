@@ -37,7 +37,7 @@ public abstract class AbstractDAO<ID extends Serializable, E extends Entity<ID>>
 	}
 
 	protected Session getCurrentSession() {
-		return manager.getSessionFactory().getCurrentSession();
+		return manager.getCurrentSession();
 	}
 
 	@Override

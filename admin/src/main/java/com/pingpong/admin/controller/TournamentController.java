@@ -49,9 +49,9 @@ public class TournamentController extends AbstractBaseController {
 		return "tournament/list";
 	}
 
-	@RequestMapping(value = "/{id}/register", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}/registration", method = RequestMethod.GET)
 	 @Secured({"ROLE_ADMIN_USER"})
-	 public String register(@PathVariable("id") String id, Map model) {
+	 public String registration(@PathVariable("id") String id, Map model) {
 		try {
 			final int tournamentId = Integer.parseInt(id);
 			final Tournament tournament = appService.getTournamentById(tournamentId);
@@ -109,19 +109,39 @@ public class TournamentController extends AbstractBaseController {
 		return "tournament/list";
 	}
 
-	@RequestMapping(value = "/{id}/close", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}/finish", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
-	public String close(@PathVariable("id") String id, Map model) {
+	public String finish(@PathVariable("id") String id, Map model) {
 		try {
 			final int tournamentId = Integer.parseInt(id);
 			final Tournament tournament = appService.getTournamentById(tournamentId);
 			appService.transitTournamentToFinishedStatus(tournamentId);
-			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.CLOSE_TOURNAMENT, tournament.getName()));
+			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.FINISH_TOURNAMENT, tournament.getName()));
 		} catch(UnknownEntityException uee) {
 			model.put(ERROR_MSG_VAR, uee.getMessage());
 		} catch(Exception e) {
-			LOG.error(ErrorInfoMSG.CLOSE_TOURNAMENT);
-			model.put(ERROR_MSG_VAR, ErrorInfoMSG.CLOSE_TOURNAMENT);
+			LOG.error(ErrorInfoMSG.FINISH_TOURNAMENT);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.FINISH_TOURNAMENT);
+		}
+
+		model.put("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
+
+		return "tournament/list";
+	}
+
+	@RequestMapping(value = "/{id}/cancel", method = RequestMethod.GET)
+	@Secured({"ROLE_ADMIN_USER"})
+	public String cancel(@PathVariable("id") String id, Map model) {
+		try {
+			final int tournamentId = Integer.parseInt(id);
+			final Tournament tournament = appService.getTournamentById(tournamentId);
+			appService.transitTournamentToCanceledStatus(tournamentId);
+			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.CANCEL_TOURNAMENT, tournament.getName()));
+		} catch(UnknownEntityException uee) {
+			model.put(ERROR_MSG_VAR, uee.getMessage());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.CANCEL_TOURNAMENT);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.CANCEL_TOURNAMENT);
 		}
 
 		model.put("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
