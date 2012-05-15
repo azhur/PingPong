@@ -194,4 +194,9 @@ public class AppServiceImpl implements AppService {
 	public void transitTournamentToFinishedStatus(@NotNull Integer tournamentId) {
 		tournamentBO.transitToFinishedStatus(tournamentId);
 	}
+
+	@Override
+	public void registerInTournament(@NotNull Integer playerId, @NotNull Integer tournamentId) {
+		tournamentBO.registerIn(playerId, tournamentId);
+	}
 }

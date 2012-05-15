@@ -49,7 +49,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tournaments<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="${pageContext.servletContext.contextPath}/#">
+                                    <a href="${pageContext.servletContext.contextPath}/tournaments/registration">
                                         <span class="add-on">
                                              <i class="icon-pencil"></i>
                                        </span>
@@ -57,7 +57,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="${pageContext.servletContext.contextPath}/#">
+                                    <a href="${pageContext.servletContext.contextPath}/tournaments/active">
                                         <span class="add-on">
                                              <i class="icon-play-circle"></i>
                                        </span>
@@ -65,7 +65,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="${pageContext.servletContext.contextPath}/#">
+                                    <a href="${pageContext.servletContext.contextPath}/tournaments/finished">
                                         <span class="add-on">
                                              <i class="icon-check"></i>
                                        </span>

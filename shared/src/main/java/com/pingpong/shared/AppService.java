@@ -76,4 +76,6 @@ public interface AppService {
 	@NotNull Tournament getTournamentById(@NotNull Integer tournamentId);
 
 	void transitTournamentToFinishedStatus(@NotNull Integer tournamentId);
+
+	void registerInTournament(@NotNull Integer playerId, @NotNull Integer tournamentId);
 }

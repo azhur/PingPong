@@ -19,4 +19,6 @@ public interface TournamentBO extends BO<Integer, Tournament> {
 	void transitToActiveStatus(@NotNull Integer id);
 
 	void transitToFinishedStatus(@NotNull Integer id);
+
+	void registerIn(@NotNull Integer playerId, @NotNull Integer tournamentId);
 }

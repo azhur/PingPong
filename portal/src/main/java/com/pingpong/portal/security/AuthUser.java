@@ -20,12 +20,14 @@ public class AuthUser extends User {
 	private String salt;
 	private String name;
 	private Integer id;
+	private Integer playerId;
 
-	public AuthUser(String username, String password, boolean enabled, String salt, String name, Integer id, Collection<SimpleGrantedAuthority> authorities){
+	public AuthUser(String username, String password, boolean enabled, String salt, String name, Integer id, Integer playerId, Collection<SimpleGrantedAuthority> authorities){
 		super(username, password, enabled, true, true, true, authorities);
 		this.salt = salt;
 		this.name = name;
 		this.id = id;
+		this.playerId = playerId;
 	}
 
 	public String getSalt() {
@@ -38,5 +40,9 @@ public class AuthUser extends User {
 
 	public Integer getId() {
 		return id;
+	}
+
+	public Integer getPlayerId() {
+		return playerId;
 	}
 }

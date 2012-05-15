@@ -7,7 +7,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.Set;
 
 /**
  * @author Artur Zhurat
@@ -32,6 +36,15 @@ public class Tournament extends AbstractEntity {
 	private Status status;
 	@Column(name = "max_participants_count")
 	private Integer maxParticipantsCount;
+	@ManyToMany
+	@JoinTable(name = "player_tournament",
+			joinColumns = {
+					@JoinColumn(name = "tournament_id")
+			},
+			inverseJoinColumns = {
+					@JoinColumn(name = "player_id")
+			})
+	private Set<Player> participants;
 
 	public String getName() {
 		return name;
@@ -55,5 +68,13 @@ public class Tournament extends AbstractEntity {
 
 	public void setMaxParticipantsCount(Integer maxParticipantsCount) {
 		this.maxParticipantsCount = maxParticipantsCount;
+	}
+
+	public Set<Player> getParticipants() {
+		return participants;
+	}
+
+	public void setParticipants(Set<Player> participants) {
+		this.participants = participants;
 	}
 }

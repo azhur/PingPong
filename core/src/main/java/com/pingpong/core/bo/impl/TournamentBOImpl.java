@@ -6,6 +6,7 @@ package com.pingpong.core.bo.impl;
 import com.pingpong.core.bo.PlayerAccountBO;
 import com.pingpong.core.bo.PlayerBO;
 import com.pingpong.core.bo.TournamentBO;
+import com.pingpong.core.dao.PlayerDAO;
 import com.pingpong.core.dao.TournamentDAO;
 import com.pingpong.core.mail.Mailer;
 import com.pingpong.core.web.UrlResolver;
@@ -37,6 +38,8 @@ public class TournamentBOImpl extends AbstractBO<Integer, Tournament, Tournament
 
 	@Autowired
 	private PlayerBO playerBO;
+	@Autowired
+	private PlayerDAO playerDAO;
 	@Autowired
 	private PlayerAccountBO playerAccountBO;
 	@Autowired
@@ -106,6 +109,18 @@ public class TournamentBOImpl extends AbstractBO<Integer, Tournament, Tournament
 		checkStatus(tournament, Tournament.Status.ACTIVE);
 
 		tournament.setStatus(Tournament.Status.FINISHED);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public void registerIn(@NotNull Integer playerId, @NotNull Integer tournamentId) {
+		final Player player = playerDAO.loadById(playerId);
+		final Tournament tournament = getDao().loadById(tournamentId);
+
+		checkStatus(tournament, Tournament.Status.REGISTRATION);
+		checkState(Player.Status.ACTIVE == player.getStatus());
+
+		tournament.getParticipants().add(player);
 	}
 
 	private void checkStatus(Tournament entity, Tournament.Status... statuses) {
