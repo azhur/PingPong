@@ -44,6 +44,51 @@
                     </ul>
                 </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_PLAYER_USER')">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tournaments<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="${pageContext.servletContext.contextPath}/#">
+                                        <span class="add-on">
+                                             <i class="icon-pencil"></i>
+                                       </span>
+                                        Registration
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="${pageContext.servletContext.contextPath}/#">
+                                        <span class="add-on">
+                                             <i class="icon-play-circle"></i>
+                                       </span>
+                                        Active
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="${pageContext.servletContext.contextPath}/#">
+                                        <span class="add-on">
+                                             <i class="icon-check"></i>
+                                       </span>
+                                        Finished
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Statistics<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="${pageContext.servletContext.contextPath}/#">
+                                        <span class="add-on">
+                                             <i class="icon-list"></i>
+                                       </span>
+                                        Champions
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ul>
                     <ul class="nav pull-right">
                         <li>
                             <a>
