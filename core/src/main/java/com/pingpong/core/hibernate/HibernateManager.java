@@ -40,7 +40,7 @@ public class HibernateManager {
 		checkNotNull(entityType);
 		checkNotNull(id);
 
-		Entity<? extends Serializable> entity = (Entity<? extends Serializable>)getCurrentSession().get(entityType, id, lock ? LockOptions.UPGRADE : LockOptions.NONE);
+		final Entity<? extends Serializable> entity = (Entity<? extends Serializable>)getCurrentSession().get(entityType, id, lock ? LockOptions.UPGRADE : LockOptions.NONE);
 
 		LOGGER.info("Got entity by id = '{}'", id);
 
@@ -72,7 +72,7 @@ public class HibernateManager {
 	public List<? extends Entity<? extends Serializable>> list(Class<? extends Entity<? extends Serializable>> entityType) {
 		checkNotNull(entityType);
 
-		List<? extends Entity<? extends Serializable>> entities = getCurrentSession().createCriteria(entityType).list();
+		final List<? extends Entity<? extends Serializable>> entities = getCurrentSession().createCriteria(entityType).list();
 
 		LOGGER.info("List entities for type = '{}'", entityType.getName());
 
