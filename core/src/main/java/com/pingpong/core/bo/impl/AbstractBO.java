@@ -69,11 +69,11 @@ public abstract class AbstractBO<ID extends Serializable, E extends Entity<ID>, 
 
 	@Override
 	public ListResult<E> list(@NotNull PatternSearchData<E> searchData) {
-		return getListResult(getCriteria(), searchData);
+		return getListResult(createCriteria(), searchData);
 	}
 
 	@NotNull
-	protected ListResult<E> toList(@NotNull PatternSearchData<E> searchData, @NotNull Criteria criteria) {
+	protected ListResult<E> toList(@NotNull Criteria criteria, @NotNull PatternSearchData<E> searchData) {
 		return getListResult(criteria, searchData);
 	}
 
@@ -102,7 +102,7 @@ public abstract class AbstractBO<ID extends Serializable, E extends Entity<ID>, 
 		return dao;
 	}
 
-	protected Criteria getCriteria() {
+	protected Criteria createCriteria() {
 		return getCurrentSession().createCriteria(dao.getEntityType());
 	}
 

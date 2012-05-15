@@ -8,6 +8,7 @@ import com.pingpong.core.bo.PlayerBO;
 import com.pingpong.core.bo.TournamentBO;
 import com.pingpong.core.dao.PlayerDAO;
 import com.pingpong.core.dao.TournamentDAO;
+import com.pingpong.core.hibernate.RestrictionsHelper;
 import com.pingpong.core.mail.Mailer;
 import com.pingpong.core.web.UrlResolver;
 import com.pingpong.domain.Player;
@@ -17,6 +18,7 @@ import com.pingpong.shared.hibernate.PatternSearchData;
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.guard.Guarded;
 import org.apache.commons.lang.ArrayUtils;
+import org.hibernate.Criteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,17 @@ public class TournamentBOImpl extends AbstractBO<Integer, Tournament, Tournament
 	private Mailer mailer;
 	@Autowired
 	private UrlResolver urlResolver;
+
+
+	@Override
+	public ListResult<Tournament> list(@NotNull PatternSearchData<Tournament> searchData) {
+		final Tournament pattern = searchData.getPattern();
+		final Criteria criteria = createCriteria();
+
+		RestrictionsHelper.eqOpt(criteria, "status", pattern.getStatus());
+
+		return toList(criteria, searchData);
+	}
 
 	@Override
 	@Transactional(readOnly = false)

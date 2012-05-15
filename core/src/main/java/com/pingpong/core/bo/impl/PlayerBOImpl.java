@@ -116,12 +116,12 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 
 	@Override
 	public ListResult<Player> listPlayers(@NotNull PatternSearchData<Player> searchData) {
-		final Criteria criteria = getCriteria();
+		final Criteria criteria = createCriteria();
 		final Player pattern = searchData.getPattern();
 
 		RestrictionsHelper.eqOpt(criteria, "status", pattern.getStatus());
 
-		return toList(searchData, criteria);
+		return toList(criteria, searchData);
 	}
 
 	private PlayerAccount createAccount(PlayerRegistrationData registrationData, Player player) {
