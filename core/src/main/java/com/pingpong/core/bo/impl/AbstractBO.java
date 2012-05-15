@@ -77,18 +77,10 @@ public abstract class AbstractBO<ID extends Serializable, E extends Entity<ID>, 
 		return getListResult(criteria, searchData);
 	}
 
-	/**
-	 * Wrapper for
-	 * {@link com.pingpong.core.dao.DAO#getManager()}
-	 */
 	protected HibernateManager getManager() {
 		return dao.getManager();
 	}
 
-	/**
-	 * Wrapper for
-	 * {@link com.pingpong.core.hibernate.HibernateManager#getCurrentSession()}
-	 */
 	protected Session getCurrentSession() {
 		return getManager().getCurrentSession();
 	}

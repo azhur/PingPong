@@ -79,16 +79,6 @@ public class HibernateManager {
 		return entities;
 	}
 
-	/**
-	 * Obtain the {@link org.hibernate.LockMode#FORCE} lock level upon the given
-	 * entity, implicitly checking whether the corresponding database entry
-	 * still exists.
-	 *
-	 * @param entity entity which will be locked
-	 * @throws org.springframework.dao.DataAccessException
-	 *
-	 * @see org.hibernate.LockMode#UPGRADE
-	 */
 	public void lockEntity(final Entity<? extends Serializable> entity) throws DataAccessException {
 		checkNotNull(entity);
 
