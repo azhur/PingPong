@@ -31,4 +31,5 @@ public interface ErrorInfoMSG {
 	String ACTIVATE_TOURNAMENT = "Can't activate tournament.";
 	String CANCEL_TOURNAMENT = "Can't cancel tournament.";
 	String FINISH_TOURNAMENT = "Can't finish tournament.";
+	String SERVER_ERROR = "Server error. Try later.";
 }

@@ -88,16 +88,17 @@ public class AccountController extends AbstractBaseController {
 	@RequestMapping(value = "reset_password/resetPasswordProcess", method = RequestMethod.POST)
 	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
 	public String resetPasswordProcess(@ModelAttribute("command") @Valid ResetPasswordCommand command, BindingResult result, Model model) {
-		final Account account = appService.getAccountByForgotPasswordId(command.getForgotPasswordId());
-
-		resetPasswordValidator.validate(command, result);
-
-		if(result.hasErrors()) {
-			model.addAttribute("account", account);
-			return "account/resetPassword";
-		}
-
+		Account account = new Account();
 		try {
+			account = appService.getAccountByForgotPasswordId(command.getForgotPasswordId());
+
+			resetPasswordValidator.validate(command, result);
+
+			if(result.hasErrors()) {
+				model.addAttribute("account", account);
+				return "account/resetPassword";
+			}
+
 			appService.resetForgottenPassword(command.getForgotPasswordId(), command.getPass1());
 		} catch(EntityNotFoundException enfe) {
 			LOG.error(ErrorInfoMSG.NOT_FOUND_ACCOUNT, enfe);
@@ -176,8 +177,14 @@ public class AccountController extends AbstractBaseController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
 	public String showListForm(Map model) {
-		model.put("admins", appService.listAdminAccounts(new PatternSearchData<AdminAccount>(new AdminAccount())).getItems());
-		return "account/list";
+		try {
+			model.put("admins", appService.listAdminAccounts(new PatternSearchData<AdminAccount>(new AdminAccount())).getItems());
+			return "account/list";
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
+			return "index";
+		}
 	}
 
 	@RequestMapping(value = "/{id}/block", method = RequestMethod.GET)
@@ -195,7 +202,13 @@ public class AccountController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.ADMIN_BLOCKING);
 		}
 
-		model.put("admins", appService.listAdminAccounts(new PatternSearchData<AdminAccount>(new AdminAccount())).getItems());
+		try {
+			model.put("admins", appService.listAdminAccounts(new PatternSearchData<AdminAccount>(new AdminAccount())).getItems());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
+			return "index";
+		}
 
 		return "account/list";
 	}
@@ -215,7 +228,13 @@ public class AccountController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.ADMIN_UNBLOCKING);
 		}
 
-		model.put("admins", appService.listAdminAccounts(new PatternSearchData<AdminAccount>(new AdminAccount())).getItems());
+		try {
+			model.put("admins", appService.listAdminAccounts(new PatternSearchData<AdminAccount>(new AdminAccount())).getItems());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
+			return "index";
+		}
 
 		return "account/list";
 	}
@@ -241,7 +260,13 @@ public class AccountController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.ADMIN_DELETING);
 		}
 
-		model.put("admins", appService.listAdminAccounts(new PatternSearchData<AdminAccount>(new AdminAccount())).getItems());
+		try {
+			model.put("admins", appService.listAdminAccounts(new PatternSearchData<AdminAccount>(new AdminAccount())).getItems());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
+			return "index";
+		}
 
 		return "account/list";
 	}
@@ -281,7 +306,14 @@ public class AccountController extends AbstractBaseController {
 			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.CREATE_ACCOUNT);
 			return "account/create";
 		}
-		model.addAttribute("admins", appService.listAdminAccounts(new PatternSearchData<AdminAccount>(new AdminAccount())).getItems());
+		try {
+			model.addAttribute("admins", appService.listAdminAccounts(new PatternSearchData<AdminAccount>(new AdminAccount())).getItems());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
+			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
+			return "index";
+		}
+
 		return "account/list";
 	}
 }

@@ -19,4 +19,5 @@ public interface ErrorInfoMSG {
 	String CHANGE_PROFILE = "Couldn't change profile, try again please";
 	String LOGIN = "Couldn't find player with specified data, try again please";
 	String REGISTRATION = "Couldn't register player, try again please";
+	String SERVER_ERROR = "Server error. Try later";
 }

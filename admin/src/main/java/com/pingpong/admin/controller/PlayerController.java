@@ -37,8 +37,15 @@ public class PlayerController extends AbstractBaseController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
 	public String showListForm(Map model) {
-		final Player player = new Player();
-		model.put("players", appService.listPlayers(new PatternSearchData<Player>(player)).getItems());
+		try {
+			final Player player = new Player();
+			model.put("players", appService.listPlayers(new PatternSearchData<Player>(player)).getItems());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
+			return "index";
+		}
+
 		return "player/list";
 	}
 
@@ -57,7 +64,13 @@ public class PlayerController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.PLAYER_ACTIVATION);
 		}
 
-		model.put("players", appService.listPlayers(new PatternSearchData<Player>(new Player())).getItems());
+		try {
+			model.put("players", appService.listPlayers(new PatternSearchData<Player>(new Player())).getItems());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
+			return "index";
+		}
 
 		return "player/list";
 	}
@@ -77,7 +90,13 @@ public class PlayerController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.PLAYER_BLOCKING);
 		}
 
-		model.put("players", appService.listPlayers(new PatternSearchData<Player>(new Player())).getItems());
+		try {
+			model.put("players", appService.listPlayers(new PatternSearchData<Player>(new Player())).getItems());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
+			return "index";
+		}
 
 		return "player/list";
 	}
@@ -97,7 +116,13 @@ public class PlayerController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.PLAYER_UNBLOCKING);
 		}
 
-		model.put("players", appService.listPlayers(new PatternSearchData<Player>(new Player())).getItems());
+		try {
+			model.put("players", appService.listPlayers(new PatternSearchData<Player>(new Player())).getItems());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
+			return "index";
+		}
 
 		return "player/list";
 	}
@@ -116,8 +141,13 @@ public class PlayerController extends AbstractBaseController {
 			LOG.error(ErrorInfoMSG.PLAYER_DELETING);
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.PLAYER_DELETING);
 		}
-
-		model.put("players", appService.listPlayers(new PatternSearchData<Player>(new Player())).getItems());
+		try {
+			model.put("players", appService.listPlayers(new PatternSearchData<Player>(new Player())).getItems());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
+			return "index";
+		}
 
 		return "player/list";
 	}

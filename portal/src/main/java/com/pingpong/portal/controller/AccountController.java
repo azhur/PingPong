@@ -68,11 +68,11 @@ public class AccountController extends AbstractBaseController {
 		try {
 			final Account account = appService.getAccountByForgotPasswordId(id);
 			model.put("account", account);
-		} catch (EntityNotFoundException enfe) {
+		} catch(EntityNotFoundException enfe) {
 			LOG.error(ErrorInfoMSG.RESET_PASSWORD_LINK, enfe);
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.RESET_PASSWORD_LINK);
 			return "index";
-		} catch (Exception e) {
+		} catch(Exception e) {
 			LOG.error(ErrorInfoMSG.UNKNOWN, e);
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.UNKNOWN);
 			return "index";
@@ -84,16 +84,18 @@ public class AccountController extends AbstractBaseController {
 	@RequestMapping(value = "reset_password/resetPasswordProcess", method = RequestMethod.POST)
 	@Secured({"IS_AUTHENTICATED_ANONYMOUSLY"})
 	public String resetPasswordProcess(@ModelAttribute("command") @Valid ResetPasswordCommand command, BindingResult result, Model model) {
-		final Account account = appService.getAccountByForgotPasswordId(command.getForgotPasswordId());
 
-		resetPasswordValidator.validate(command, result);
-
-		if(result.hasErrors()) {
-			model.addAttribute("account", account);
-			return "account/resetPassword";
-		}
-
+		Account account = new Account();
 		try {
+			account = appService.getAccountByForgotPasswordId(command.getForgotPasswordId());
+
+			resetPasswordValidator.validate(command, result);
+
+			if(result.hasErrors()) {
+				model.addAttribute("account", account);
+				return "account/resetPassword";
+			}
+
 			appService.resetForgottenPassword(command.getForgotPasswordId(), command.getPass1());
 		} catch(EntityNotFoundException enfe) {
 			LOG.error(ErrorInfoMSG.NOT_FOUND_ACCOUNT, enfe);
@@ -139,6 +141,7 @@ public class AccountController extends AbstractBaseController {
 		model.put("command", new ChangePasswordCommand());
 		return "account/changePassword";
 	}
+
 	@RequestMapping(value = "/changePasswordProcess", method = RequestMethod.POST)
 	@Secured({"ROLE_PLAYER_USER"})
 	public String changePasswordProcess(@ModelAttribute("command") @Valid ChangePasswordCommand command, BindingResult result, Model model) {
@@ -171,19 +174,21 @@ public class AccountController extends AbstractBaseController {
 	@RequestMapping(value = "/changeProfile", method = RequestMethod.GET)
 	@Secured({"ROLE_PLAYER_USER"})
 	public String showChangeProfileForm(Map model) {
-		populateModel(model);
+		try {
+			final Player player = appService.getPlayerAccountByEmail(SpringSecurityUtils.getCurrentUser().getUsername()).getPlayer();
+			final ChangeProfileCommand command = new ChangeProfileCommand();
+			command.setEmail(SpringSecurityUtils.getCurrentUser().getUsername());
+			command.setName(player.getName());
+			command.setGender(player.getGender());
+			command.setBirth(player.getBirth());
+
+			model.put("command", command);
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
+			return "index";
+		}
 		return "account/changeProfile";
-	}
-
-	private void populateModel(Map model) {
-		final Player player = appService.getPlayerAccountByEmail(SpringSecurityUtils.getCurrentUser().getUsername()).getPlayer();
-		final ChangeProfileCommand command = new ChangeProfileCommand();
-		command.setEmail(SpringSecurityUtils.getCurrentUser().getUsername());
-		command.setName(player.getName());
-		command.setGender(player.getGender());
-		command.setBirth(player.getBirth());
-
-		model.put("command", command);
 	}
 
 	@RequestMapping(value = "/changeProfileProcess", method = RequestMethod.POST)
@@ -212,7 +217,6 @@ public class AccountController extends AbstractBaseController {
 			return "account/changeProfile";
 		}
 		return "index";
-
 	}
 
 	@ModelAttribute("genderItems")

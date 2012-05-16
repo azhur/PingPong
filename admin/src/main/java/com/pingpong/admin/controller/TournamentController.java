@@ -44,14 +44,20 @@ public class TournamentController extends AbstractBaseController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
 	public String showListForm(Map model) {
-		final ListResult<Tournament> list = appService.listTournaments(new PatternSearchData<Tournament>(new Tournament()));
-		model.put("tournaments", list.getItems());
+		try {
+			final ListResult<Tournament> list = appService.listTournaments(new PatternSearchData<Tournament>(new Tournament()));
+			model.put("tournaments", list.getItems());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
+			return "index";
+		}
 		return "tournament/list";
 	}
 
 	@RequestMapping(value = "/{id}/registration", method = RequestMethod.GET)
-	 @Secured({"ROLE_ADMIN_USER"})
-	 public String registration(@PathVariable("id") String id, Map model) {
+	@Secured({"ROLE_ADMIN_USER"})
+	public String registration(@PathVariable("id") String id, Map model) {
 		try {
 			final int tournamentId = Integer.parseInt(id);
 			final Tournament tournament = appService.getTournamentById(tournamentId);
@@ -63,9 +69,13 @@ public class TournamentController extends AbstractBaseController {
 			LOG.error(ErrorInfoMSG.REGISTER_TOURNAMENT);
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.REGISTER_TOURNAMENT);
 		}
-
-		model.put("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
-
+		try {
+			model.put("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
+			return "index";
+		}
 		return "tournament/list";
 	}
 
@@ -84,8 +94,13 @@ public class TournamentController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.ACTIVATE_TOURNAMENT);
 		}
 
-		model.put("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
-
+		try {
+			model.put("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
+			return "index";
+		}
 		return "tournament/list";
 	}
 
@@ -104,8 +119,13 @@ public class TournamentController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.DELETE_TOURNAMENT);
 		}
 
-		model.put("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
-
+		try {
+			model.put("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
+			return "index";
+		}
 		return "tournament/list";
 	}
 
@@ -124,8 +144,13 @@ public class TournamentController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.FINISH_TOURNAMENT);
 		}
 
-		model.put("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
-
+		try {
+			model.put("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
+			return "index";
+		}
 		return "tournament/list";
 	}
 
@@ -144,8 +169,13 @@ public class TournamentController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.CANCEL_TOURNAMENT);
 		}
 
-		model.put("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
-
+		try {
+			model.put("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
+			return "index";
+		}
 		return "tournament/list";
 	}
 
@@ -183,7 +213,13 @@ public class TournamentController extends AbstractBaseController {
 			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.CREATE_TOURNAMENT);
 			return "tournament/create";
 		}
-		model.addAttribute("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
+		try {
+			model.addAttribute("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
+		} catch(Exception e) {
+			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
+			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
+			return "index";
+		}
 		return "tournament/list";
 	}
 }
