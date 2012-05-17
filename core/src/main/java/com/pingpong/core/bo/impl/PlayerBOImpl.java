@@ -8,6 +8,7 @@ import com.pingpong.core.bo.PlayerBO;
 import com.pingpong.core.dao.AuthorityDAO;
 import com.pingpong.core.dao.PlayerAccountDAO;
 import com.pingpong.core.dao.PlayerDAO;
+import com.pingpong.core.dao.TournamentDAO;
 import com.pingpong.core.hibernate.RestrictionsHelper;
 import com.pingpong.core.mail.Mailer;
 import com.pingpong.core.web.UrlResolver;
@@ -15,7 +16,9 @@ import com.pingpong.domain.Account;
 import com.pingpong.domain.Authority;
 import com.pingpong.domain.Player;
 import com.pingpong.domain.PlayerAccount;
+import com.pingpong.domain.Tournament;
 import com.pingpong.shared.exception.NotUniqueEmailException;
+import com.pingpong.shared.exception.RepeatActionException;
 import com.pingpong.shared.hibernate.ListResult;
 import com.pingpong.shared.hibernate.PatternSearchData;
 import com.pingpong.shared.registration.PlayerRegistrationData;
@@ -49,6 +52,8 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 	private PlayerAccountDAO playerAccountDAO;
 	@Autowired
 	private AuthorityDAO authorityDAO;
+	@Autowired
+	private TournamentDAO tournamentDAO;
 	@Autowired
 	private AccountBO accountBO;
 	@Autowired
@@ -87,7 +92,7 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 	public void activate(@NotNull Integer playerId) {
 		final Player player = getDao().loadById(playerId, true);
 
-		checkStatus(player, Player.Status.REGISTRATION);
+		checkStatus(player.getStatus(), Player.Status.REGISTRATION);
 
 		player.setStatus(Player.Status.ACTIVE);
 
@@ -99,7 +104,7 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 	public void block(@NotNull Integer playerId) {
 		final Player player = getDao().loadById(playerId, true);
 
-		checkStatus(player, Player.Status.ACTIVE);
+		checkStatus(player.getStatus(), Player.Status.ACTIVE);
 
 		player.setStatus(Player.Status.BLOCKED);
 	}
@@ -109,7 +114,7 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 	public void unblock(@NotNull Integer playerId) {
 		final Player player = getDao().loadById(playerId, true);
 
-		checkStatus(player, Player.Status.BLOCKED);
+		checkStatus(player.getStatus(), Player.Status.BLOCKED);
 
 		player.setStatus(Player.Status.ACTIVE);
 	}
@@ -122,6 +127,42 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 		RestrictionsHelper.eqOpt(criteria, "status", pattern.getStatus());
 
 		return toList(criteria, searchData);
+	}
+
+	@Override
+	public boolean isParticipant(@NotNull Integer playerId, @NotNull Integer tournamentId) {
+		return getDao().isParticipant(playerId, tournamentId);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public void registerIn(@NotNull Integer playerId, @NotNull Integer tournamentId) {
+		final Player player = getDao().loadById(playerId);
+		final Tournament tournament = tournamentDAO.loadById(tournamentId);
+
+		if (isParticipant(playerId, tournamentId)){
+			throw new RepeatActionException();
+		}
+
+		checkStatus(player.getStatus(), Player.Status.ACTIVE);
+		checkState(Tournament.Status.REGISTRATION == tournament.getStatus());
+		tournament.getParticipants().add(player);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public void giveUp(@NotNull Integer playerId, @NotNull Integer tournamentId) {
+		final Player player = getDao().loadById(playerId);
+		final Tournament tournament = tournamentDAO.loadById(tournamentId);
+
+		if (!isParticipant(playerId, tournamentId)){
+			throw new RepeatActionException();
+		}
+
+		checkStatus(player.getStatus(), Player.Status.ACTIVE);
+		checkState(Tournament.Status.REGISTRATION == tournament.getStatus());
+
+		tournament.getParticipants().remove(player);
 	}
 
 	private PlayerAccount createAccount(PlayerRegistrationData registrationData, Player player) {
@@ -163,7 +204,7 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 		LOG.info("Sending email about player activation...");
 	}
 
-	private void checkStatus(Player entity, Player.Status... statuses) {
-		checkState(ArrayUtils.contains(statuses, entity.getStatus()));
+	private void checkStatus(Player.Status playerStatus, Player.Status... statuses) {
+		checkState(ArrayUtils.contains(statuses, playerStatus));
 	}
 }

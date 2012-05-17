@@ -6,13 +6,13 @@ package com.pingpong.core.bo.impl;
 import com.pingpong.core.bo.PlayerAccountBO;
 import com.pingpong.core.bo.PlayerBO;
 import com.pingpong.core.bo.TournamentBO;
-import com.pingpong.core.dao.PlayerDAO;
 import com.pingpong.core.dao.TournamentDAO;
 import com.pingpong.core.hibernate.RestrictionsHelper;
 import com.pingpong.core.mail.Mailer;
 import com.pingpong.core.web.UrlResolver;
 import com.pingpong.domain.Player;
 import com.pingpong.domain.Tournament;
+import com.pingpong.shared.hibernate.HibernateUtils;
 import com.pingpong.shared.hibernate.ListResult;
 import com.pingpong.shared.hibernate.PatternSearchData;
 import net.sf.oval.constraint.NotNull;
@@ -41,8 +41,6 @@ public class TournamentBOImpl extends AbstractBO<Integer, Tournament, Tournament
 	@Autowired
 	private PlayerBO playerBO;
 	@Autowired
-	private PlayerDAO playerDAO;
-	@Autowired
 	private PlayerAccountBO playerAccountBO;
 	@Autowired
 	private Mailer mailer;
@@ -61,10 +59,21 @@ public class TournamentBOImpl extends AbstractBO<Integer, Tournament, Tournament
 	}
 
 	@Override
+	public Tournament getById(@NotNull Integer integer) {
+		final Tournament entity = super.getById(integer);
+
+		if (entity != null) {
+			HibernateUtils.initializeAndUnproxy(entity.getParticipants());
+		}
+
+		return entity;
+	}
+
+	@Override
 	@Transactional(readOnly = false)
 	public void deleteById(@NotNull Integer id) {
 		final Tournament tournament = getDao().loadById(id);
-		checkStatus(tournament, Tournament.Status.NEW);
+		checkStatus(tournament.getStatus(), Tournament.Status.NEW);
 		super.deleteById(id);
 	}
 
@@ -73,7 +82,7 @@ public class TournamentBOImpl extends AbstractBO<Integer, Tournament, Tournament
 	public void transitToRegistrationStatus(@NotNull Integer id) {
 		final Tournament entity = getDao().loadById(id, true);
 
-		checkStatus(entity, Tournament.Status.NEW);
+		checkStatus(entity.getStatus(), Tournament.Status.NEW);
 
 		entity.setStatus(Tournament.Status.REGISTRATION);
 
@@ -109,7 +118,7 @@ public class TournamentBOImpl extends AbstractBO<Integer, Tournament, Tournament
 	public void transitToActiveStatus(@NotNull Integer id) {
 		final Tournament tournament = getDao().loadById(id, true);
 
-		checkStatus(tournament, Tournament.Status.REGISTRATION);
+		checkStatus(tournament.getStatus(), Tournament.Status.REGISTRATION);
 
 		tournament.setStatus(Tournament.Status.ACTIVE);
 	}
@@ -119,7 +128,7 @@ public class TournamentBOImpl extends AbstractBO<Integer, Tournament, Tournament
 	public void transitToFinishedStatus(@NotNull Integer id) {
 		final Tournament tournament = getDao().loadById(id, true);
 
-		checkStatus(tournament, Tournament.Status.ACTIVE);
+		checkStatus(tournament.getStatus(), Tournament.Status.ACTIVE);
 
 		tournament.setStatus(Tournament.Status.FINISHED);
 	}
@@ -129,24 +138,12 @@ public class TournamentBOImpl extends AbstractBO<Integer, Tournament, Tournament
 	public void transitToCanceledStatus(@NotNull Integer id) {
 		final Tournament tournament = getDao().loadById(id, true);
 
-		checkStatus(tournament, Tournament.Status.ACTIVE, Tournament.Status.REGISTRATION);
+		checkStatus(tournament.getStatus(), Tournament.Status.ACTIVE, Tournament.Status.REGISTRATION);
 
 		tournament.setStatus(Tournament.Status.CANCELED);
 	}
 
-	@Override
-	@Transactional(readOnly = false)
-	public void registerIn(@NotNull Integer playerId, @NotNull Integer tournamentId) {
-		final Player player = playerDAO.loadById(playerId);
-		final Tournament tournament = getDao().loadById(tournamentId);
-
-		checkStatus(tournament, Tournament.Status.REGISTRATION);
-		checkState(Player.Status.ACTIVE == player.getStatus());
-
-		tournament.getParticipants().add(player);
-	}
-
-	private void checkStatus(Tournament entity, Tournament.Status... statuses) {
-		checkState(ArrayUtils.contains(statuses, entity.getStatus()));
+	private void checkStatus(Tournament.Status tournamentStatus, Tournament.Status... statuses) {
+		checkState(ArrayUtils.contains(statuses, tournamentStatus));
 	}
 }

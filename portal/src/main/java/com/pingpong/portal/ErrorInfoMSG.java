@@ -20,4 +20,6 @@ public interface ErrorInfoMSG {
 	String LOGIN = "Couldn't find player with specified data, try again please";
 	String REGISTRATION = "Couldn't register player, try again please";
 	String SERVER_ERROR = "Server error. Try later";
+	String REPEAT_REGISTRATION = "You are already participant in this tournament";
+	String REPEAT_GIVE_UP = "You already left  tournament";
 }

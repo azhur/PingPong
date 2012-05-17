@@ -51,11 +51,10 @@ public class PlayerController extends AbstractBaseController {
 
 	@RequestMapping(value = "/{id}/activate", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
-	public String activate(@PathVariable("id") String id, Map model) {
+	public String activate(@PathVariable("id") Integer id, Map model) {
 		try {
-			final int playerId = Integer.parseInt(id);
-			final Player player = appService.getPlayerById(playerId);
-			appService.activatePlayer(playerId);
+			final Player player = appService.getPlayerById(id);
+			appService.activatePlayer(id);
 			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.PLAYER_ACTIVATION, player.getName()));
 		} catch(UnknownEntityException uee) {
 			model.put(ERROR_MSG_VAR, uee.getMessage());
@@ -77,11 +76,10 @@ public class PlayerController extends AbstractBaseController {
 
 	@RequestMapping(value = "/{id}/block", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
-	public String block(@PathVariable("id") String id, Map model) {
+	public String block(@PathVariable("id") Integer id, Map model) {
 		try {
-			final int playerId = Integer.parseInt(id);
-			final Player player = appService.getPlayerById(playerId);
-			appService.blockPlayer(playerId);
+			final Player player = appService.getPlayerById(id);
+			appService.blockPlayer(id);
 			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.PLAYER_BLOCKING, player.getName()));
 		} catch(UnknownEntityException uee) {
 			model.put(ERROR_MSG_VAR, uee.getMessage());
@@ -103,11 +101,10 @@ public class PlayerController extends AbstractBaseController {
 
 	@RequestMapping(value = "/{id}/unblock", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
-	public String unblock(@PathVariable("id") String id, Map model) {
+	public String unblock(@PathVariable("id") Integer id, Map model) {
 		try {
-			final int playerId = Integer.parseInt(id);
-			final Player player = appService.getPlayerById(playerId);
-			appService.unblockPlayer(playerId);
+			final Player player = appService.getPlayerById(id);
+			appService.unblockPlayer(id);
 			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.PLAYER_UNBLOCKING, player.getName()));
 		} catch(UnknownEntityException uee) {
 			model.put(ERROR_MSG_VAR, uee.getMessage());
@@ -129,11 +126,10 @@ public class PlayerController extends AbstractBaseController {
 
 	@RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
-	public String delete(@PathVariable("id") String id, Map model) {
+	public String delete(@PathVariable("id") Integer id, Map model) {
 		try {
-			final int playerId = Integer.parseInt(id);
-			final Player player = appService.getPlayerById(playerId);
-			appService.deletePlayer(playerId);
+			final Player player = appService.getPlayerById(id);
+			appService.deletePlayer(id);
 			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.PLAYER_DELETING, player.getName()));
 		} catch(UnknownEntityException uee) {
 			model.put(ERROR_MSG_VAR, uee.getMessage());

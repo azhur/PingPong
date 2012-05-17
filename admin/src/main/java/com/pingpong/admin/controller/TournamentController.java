@@ -57,11 +57,10 @@ public class TournamentController extends AbstractBaseController {
 
 	@RequestMapping(value = "/{id}/registration", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
-	public String registration(@PathVariable("id") String id, Map model) {
+	public String registration(@PathVariable("id") Integer id, Map model) {
 		try {
-			final int tournamentId = Integer.parseInt(id);
-			final Tournament tournament = appService.getTournamentById(tournamentId);
-			appService.transitTournamentToRegistrationStatus(tournamentId);
+			final Tournament tournament = appService.getTournamentById(id);
+			appService.transitTournamentToRegistrationStatus(id);
 			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.REGISTER_TOURNAMENT, tournament.getName()));
 		} catch(UnknownEntityException uee) {
 			model.put(ERROR_MSG_VAR, uee.getMessage());
@@ -81,11 +80,10 @@ public class TournamentController extends AbstractBaseController {
 
 	@RequestMapping(value = "/{id}/activate", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
-	public String activate(@PathVariable("id") String id, Map model) {
+	public String activate(@PathVariable("id") Integer id, Map model) {
 		try {
-			final int tournamentId = Integer.parseInt(id);
-			final Tournament tournament = appService.getTournamentById(tournamentId);
-			appService.transitTournamentToActiveStatus(tournamentId);
+			final Tournament tournament = appService.getTournamentById(id);
+			appService.transitTournamentToActiveStatus(id);
 			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.ACTIVATE_TOURNAMENT, tournament.getName()));
 		} catch(UnknownEntityException uee) {
 			model.put(ERROR_MSG_VAR, uee.getMessage());
@@ -106,11 +104,10 @@ public class TournamentController extends AbstractBaseController {
 
 	@RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
-	public String delete(@PathVariable("id") String id, Map model) {
+	public String delete(@PathVariable("id") Integer id, Map model) {
 		try {
-			final int tournamentId = Integer.parseInt(id);
-			final Tournament tournament = appService.getTournamentById(tournamentId);
-			appService.deleteTournament(tournamentId);
+			final Tournament tournament = appService.getTournamentById(id);
+			appService.deleteTournament(id);
 			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.DELETE_TOURNAMENT, tournament.getName()));
 		} catch(UnknownEntityException uee) {
 			model.put(ERROR_MSG_VAR, uee.getMessage());
@@ -131,11 +128,10 @@ public class TournamentController extends AbstractBaseController {
 
 	@RequestMapping(value = "/{id}/finish", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
-	public String finish(@PathVariable("id") String id, Map model) {
+	public String finish(@PathVariable("id") Integer id, Map model) {
 		try {
-			final int tournamentId = Integer.parseInt(id);
-			final Tournament tournament = appService.getTournamentById(tournamentId);
-			appService.transitTournamentToFinishedStatus(tournamentId);
+			final Tournament tournament = appService.getTournamentById(id);
+			appService.transitTournamentToFinishedStatus(id);
 			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.FINISH_TOURNAMENT, tournament.getName()));
 		} catch(UnknownEntityException uee) {
 			model.put(ERROR_MSG_VAR, uee.getMessage());
@@ -156,11 +152,10 @@ public class TournamentController extends AbstractBaseController {
 
 	@RequestMapping(value = "/{id}/cancel", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
-	public String cancel(@PathVariable("id") String id, Map model) {
+	public String cancel(@PathVariable("id") Integer id, Map model) {
 		try {
-			final int tournamentId = Integer.parseInt(id);
-			final Tournament tournament = appService.getTournamentById(tournamentId);
-			appService.transitTournamentToCanceledStatus(tournamentId);
+			final Tournament tournament = appService.getTournamentById(id);
+			appService.transitTournamentToCanceledStatus(id);
 			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.CANCEL_TOURNAMENT, tournament.getName()));
 		} catch(UnknownEntityException uee) {
 			model.put(ERROR_MSG_VAR, uee.getMessage());

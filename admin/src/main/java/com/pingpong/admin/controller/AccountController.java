@@ -189,11 +189,10 @@ public class AccountController extends AbstractBaseController {
 
 	@RequestMapping(value = "/{id}/block", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
-	public String block(@PathVariable("id") String id, Map model) {
+	public String block(@PathVariable("id") Integer id, Map model) {
 		try {
-			final int accountId = Integer.parseInt(id);
-			final AdminAccount admin = appService.getAdminAccountById(accountId);
-			appService.blockAdminAccount(accountId);
+			final AdminAccount admin = appService.getAdminAccountById(id);
+			appService.blockAdminAccount(id);
 			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.ADMIN_BLOCKING, admin.getEmail()));
 		} catch(UnknownEntityException uee) {
 			model.put(ERROR_MSG_VAR, uee.getMessage());
@@ -215,11 +214,10 @@ public class AccountController extends AbstractBaseController {
 
 	@RequestMapping(value = "/{id}/unblock", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
-	public String unblock(@PathVariable("id") String id, Map model) {
+	public String unblock(@PathVariable("id") Integer id, Map model) {
 		try {
-			final int accountId = Integer.parseInt(id);
-			final AdminAccount admin = appService.getAdminAccountById(accountId);
-			appService.unblockAdminAccount(accountId);
+			final AdminAccount admin = appService.getAdminAccountById(id);
+			appService.unblockAdminAccount(id);
 			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.ADMIN_UNBLOCKING, admin.getEmail()));
 		} catch(UnknownEntityException uee) {
 			model.put(ERROR_MSG_VAR, uee.getMessage());
@@ -241,16 +239,15 @@ public class AccountController extends AbstractBaseController {
 
 	@RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
-	public String delete(@PathVariable("id") String id, Map model) {
+	public String delete(@PathVariable("id") Integer id, Map model) {
 		try {
 			final AuthUser authUser = SpringSecurityUtils.getCurrentUser();
-			final int accountId = Integer.parseInt(id);
 
-			if(accountId == authUser.getId()) {
+			if(id == authUser.getId()) {
 				model.put(ERROR_MSG_VAR, SuccessInfoMSG.ADMIN_DELETING_YOURSELF);
 			} else {
-				final AdminAccount admin = appService.getAdminAccountById(accountId);
-				appService.deleteAdminAccount(accountId);
+				final AdminAccount admin = appService.getAdminAccountById(id);
+				appService.deleteAdminAccount(id);
 				model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.ADMIN_DELETING, admin.getEmail()));
 			}
 		} catch(UnknownEntityException uee) {

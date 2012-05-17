@@ -1,6 +1,7 @@
 package com.pingpong.core.dao;
 
 import com.pingpong.domain.Player;
+import net.sf.oval.constraint.NotNull;
 
 /**
  * @author Artur Zhurat
@@ -9,4 +10,5 @@ import com.pingpong.domain.Player;
  */
 
 public interface PlayerDAO extends DAO<Integer,Player> {
+	boolean isParticipant(@NotNull Integer playerId, @NotNull Integer tournamentId);
 }
