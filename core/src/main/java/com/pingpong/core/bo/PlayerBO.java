@@ -25,10 +25,4 @@ public interface PlayerBO extends BO<Integer, Player>{
 	void unblock(@NotNull Integer playerId);
 
 	ListResult<Player> listPlayers(@NotNull PatternSearchData<Player> searchData);
-
-	boolean isParticipant(@NotNull Integer playerId, @NotNull Integer tournamentId);
-
-	void registerIn(@NotNull Integer playerId, @NotNull Integer tournamentId);
-
-	void giveUp(@NotNull Integer playerId, @NotNull Integer tournamentId);
 }

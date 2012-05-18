@@ -46,14 +46,26 @@
         </div>
     </div>
 
+    <c:if test="${tournament.status == 'REGISTRATION' && tournament.participants.size() == tournament.maxParticipantsCount}">
+        <div class="control-group ">
+            <label class="control-label"><strong>Information:</strong></label>
+
+            <div class="controls">
+                <label class="info-label">
+                    <span class="label label-warning">All participants are registered in</span>
+                </label>
+            </div>
+        </div>
+    </c:if>
+
     <div class="form-actions">
         <c:choose>
-            <c:when test="${tournament.currentPlayerRegistered == true && tournament.status == 'REGISTRATION'}">
+            <c:when test="${tournament.currentPlayerRegistered == true && tournament.status == 'REGISTRATION' && tournament.participants.size() != tournament.maxParticipantsCount}">
                 <a class="btn btn-inverse btn-small" href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/giveUp"><i class="icon-thumbs-down icon-white"></i> give up</a>
             </c:when>
-            <c:otherwise>
+            <c:when test="${tournament.currentPlayerRegistered == false && tournament.status == 'REGISTRATION' && tournament.participants.size() != tournament.maxParticipantsCount}">
                 <a class="btn btn-small btn-success" href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/participate"><i class="icon-thumbs-up icon-white"></i> participate</a>
-            </c:otherwise>
+            </c:when>
         </c:choose>
         <a data-toggle="modal" href="#participants" class="btn btn-small btn-info"><i class="icon-user icon-white"></i> participants</a>
     </div>

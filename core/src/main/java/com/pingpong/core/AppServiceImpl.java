@@ -202,16 +202,16 @@ public class AppServiceImpl implements AppService {
 
 	@Override
 	public void registerInTournament(@NotNull Integer playerId, @NotNull Integer tournamentId) {
-		playerBO.registerIn(playerId, tournamentId);
+		tournamentBO.registerIn(playerId, tournamentId);
 	}
 
 	@Override
 	public boolean isParticipant(@NotNull Integer playerId, @NotNull Integer tournamentId) {
-		return playerBO.isParticipant(playerId, tournamentId);
+		return tournamentBO.isParticipant(playerId, tournamentId);
 	}
 
 	@Override
 	public void giveUp(@NotNull Integer playerId, @NotNull Integer tournamentId) {
-		playerBO.giveUp(playerId, tournamentId);
+		tournamentBO.giveUp(playerId, tournamentId);
 	}
 }

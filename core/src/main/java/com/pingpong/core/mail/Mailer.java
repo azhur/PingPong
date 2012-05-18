@@ -56,7 +56,8 @@ public class Mailer {
 		PLAYER_REGISTRATION("player-registration.ftl"),
 		PLAYER_ACTIVATION("player-activation.ftl"),
 		FORGOT_PASSWORD("forgot-password.ftl"),
-		TOURNAMENT_REGISTRATION("tournament-registration.ftl");
+		TOURNAMENT_REGISTRATION("tournament-registration.ftl"),
+		FULL_TOURNAMENT("full-tournament.ftl");
 
 		private String value;
 

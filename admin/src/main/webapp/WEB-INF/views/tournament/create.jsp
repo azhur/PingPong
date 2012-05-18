@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ page import="com.pingpong.shared.Constraints" %>
 <%
-    final String participantCount ="Should be at least " +  com.pingpong.shared.Constraints.MIN_PASSWORD_LENGTH + " participants";
+    final String participantCount ="Should be at least " +  Constraints.MIN_PARTICIPANT_COUNT + " participants";
 %>
 <ul class="breadcrumb">
     <li>

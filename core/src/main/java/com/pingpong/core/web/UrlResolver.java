@@ -30,6 +30,14 @@ public class UrlResolver {
 		return String.format("%s/account/reset_password/%s", adminUrl, uid);
 	}
 
+	public String getAdminTournamentViewUrl(Integer tournamentId) {
+		return String.format("%s/tournament/%s/view", adminUrl, tournamentId);
+	}
+
+	public String getPortalTournamentViewUrl(Integer tournamentId) {
+		return String.format("%s/tournament/%s/view", portalUrl, tournamentId);
+	}
+
 
 	public void setAdminUrl(String adminUrl) {
 		this.adminUrl = adminUrl;

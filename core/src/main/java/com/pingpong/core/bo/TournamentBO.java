@@ -21,4 +21,10 @@ public interface TournamentBO extends BO<Integer, Tournament> {
 	void transitToFinishedStatus(@NotNull Integer id);
 
 	void transitToCanceledStatus(@NotNull Integer id);
+
+	boolean isParticipant(@NotNull Integer playerId, @NotNull Integer tournamentId);
+
+	void registerIn(@NotNull Integer playerId, @NotNull Integer tournamentId);
+
+	void giveUp(@NotNull Integer playerId, @NotNull Integer tournamentId);
 }

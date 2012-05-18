@@ -59,6 +59,18 @@
         </div>
     </div>
 
+    <c:if test="${tournament.status == 'REGISTRATION' and tournament.participants.size() == tournament.maxParticipantsCount}">
+        <div class="control-group ">
+            <label class="control-label"><strong>Information:</strong></label>
+
+            <div class="controls">
+                <label class="info-label">
+                    <span class="label label-warning">All participants are registered in</span>
+                </label>
+            </div>
+        </div>
+    </c:if>
+
     <div class="form-actions">
         <c:choose>
             <c:when test="${tournament.status == 'NEW'}">
