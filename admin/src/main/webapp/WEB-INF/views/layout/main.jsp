@@ -8,6 +8,7 @@
     <title>
         <tiles:getAsString name="title"/>
     </title>
+    <meta charset="utf-8">
     <link rel="icon" href="${pageContext.servletContext.contextPath}/resources/images/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="${pageContext.servletContext.contextPath}/resources/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/bootstrap.min.css" type="text/css"/>
