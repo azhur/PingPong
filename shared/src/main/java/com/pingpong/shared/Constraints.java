@@ -1,4 +1,4 @@
-package com.pingpong.portal;
+package com.pingpong.shared;
 
 /**
  * @author Artur Zhurat
@@ -9,4 +9,5 @@ package com.pingpong.portal;
 public interface Constraints {
 	int MIN_PASSWORD_LENGTH = 6;
 	int MAX_PASSWORD_LENGTH = 50;
+	int MIN_PARTICIPANT_COUNT = 2;
 }

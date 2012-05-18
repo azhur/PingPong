@@ -1,5 +1,11 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<ul class="breadcrumb">
+    <li>
+        <a href="${pageContext.servletContext.contextPath}">Home</a> <span class="divider">/</span>
+    </li>
+    <li class="active">Tournaments</li>
+</ul>
 <h1 class="page-header">
     Tournaments &nbsp;
     <a href="${pageContext.servletContext.contextPath}/tournament/create" class="btn btn-primary">Create new</a>
@@ -37,7 +43,7 @@
                    ${tournament.status}
                 </span>
             </td>
-            <td>${tournament.name}</td>
+            <td><a href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/view">${tournament.name}</a></td>
             <td>${tournament.maxParticipantsCount}</td>
             <td>
                 <c:choose>

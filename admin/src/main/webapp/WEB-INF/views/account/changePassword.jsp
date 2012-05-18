@@ -1,4 +1,4 @@
-<%@ page import="com.pingpong.admin.Constraints" %>
+<%@ page import="com.pingpong.shared.Constraints" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <h1 class="page-header">
     Change password form

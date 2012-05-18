@@ -1,5 +1,16 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ page import="com.pingpong.shared.Constraints" %>
+<%
+    final String participantCount ="Should be at least " +  com.pingpong.shared.Constraints.MIN_PASSWORD_LENGTH + " participants";
+%>
+<ul class="breadcrumb">
+    <li>
+        <a href="${pageContext.servletContext.contextPath}">Home</a> <span class="divider">/</span>
+    </li>
+    <li class="active">Tournament<span class="divider">/</span></li>
+    <li class="active">Create</li>
+</ul>
 <h1 class="page-header">
     Create tournament
 </h1>
@@ -33,7 +44,7 @@
                                 <i class="icon-file"></i>
                             </span>
 
-                <form:input path="max" class="input-xlarge"/>
+                <form:input path="max" class="input-xlarge" rel="tooltip" data-original-title="<%=participantCount%>"/>
             </div>
         </div>
     </div>

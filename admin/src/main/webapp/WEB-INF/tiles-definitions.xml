@@ -53,5 +53,9 @@
         <put-attribute name="title" value="Create tournament"/>
         <put-attribute name="content" value="/WEB-INF/views/tournament/create.jsp"/>
     </definition>
+    <definition name="tournament/view" extends="main">
+        <put-attribute name="title" value="View tournament"/>
+        <put-attribute name="content" value="/WEB-INF/views/tournament/view.jsp"/>
+    </definition>
 
 </tiles-definitions>

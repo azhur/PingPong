@@ -59,7 +59,7 @@ public class TournamentController extends AbstractBaseController {
 	@Secured({"ROLE_ADMIN_USER"})
 	public String registration(@PathVariable("id") Integer id, Map model) {
 		try {
-			final Tournament tournament = appService.getTournamentById(id);
+			final Tournament tournament = loadTournamentById(id);
 			appService.transitTournamentToRegistrationStatus(id);
 			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.REGISTER_TOURNAMENT, tournament.getName()));
 		} catch(UnknownEntityException uee) {
@@ -68,21 +68,15 @@ public class TournamentController extends AbstractBaseController {
 			LOG.error(ErrorInfoMSG.REGISTER_TOURNAMENT);
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.REGISTER_TOURNAMENT);
 		}
-		try {
-			model.put("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
-		} catch(Exception e) {
-			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
-			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
-			return "index";
-		}
-		return "tournament/list";
+
+		return view(id, model);
 	}
 
 	@RequestMapping(value = "/{id}/activate", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
 	public String activate(@PathVariable("id") Integer id, Map model) {
 		try {
-			final Tournament tournament = appService.getTournamentById(id);
+			final Tournament tournament = loadTournamentById(id);
 			appService.transitTournamentToActiveStatus(id);
 			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.ACTIVATE_TOURNAMENT, tournament.getName()));
 		} catch(UnknownEntityException uee) {
@@ -92,21 +86,14 @@ public class TournamentController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.ACTIVATE_TOURNAMENT);
 		}
 
-		try {
-			model.put("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
-		} catch(Exception e) {
-			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
-			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
-			return "index";
-		}
-		return "tournament/list";
+		return view(id, model);
 	}
 
 	@RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
 	public String delete(@PathVariable("id") Integer id, Map model) {
 		try {
-			final Tournament tournament = appService.getTournamentById(id);
+			final Tournament tournament = loadTournamentById(id);
 			appService.deleteTournament(id);
 			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.DELETE_TOURNAMENT, tournament.getName()));
 		} catch(UnknownEntityException uee) {
@@ -116,21 +103,14 @@ public class TournamentController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.DELETE_TOURNAMENT);
 		}
 
-		try {
-			model.put("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
-		} catch(Exception e) {
-			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
-			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
-			return "index";
-		}
-		return "tournament/list";
+		return view(id, model);
 	}
 
 	@RequestMapping(value = "/{id}/finish", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
 	public String finish(@PathVariable("id") Integer id, Map model) {
 		try {
-			final Tournament tournament = appService.getTournamentById(id);
+			final Tournament tournament = loadTournamentById(id);
 			appService.transitTournamentToFinishedStatus(id);
 			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.FINISH_TOURNAMENT, tournament.getName()));
 		} catch(UnknownEntityException uee) {
@@ -140,21 +120,14 @@ public class TournamentController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.FINISH_TOURNAMENT);
 		}
 
-		try {
-			model.put("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
-		} catch(Exception e) {
-			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
-			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
-			return "index";
-		}
-		return "tournament/list";
+		return view(id, model);
 	}
 
 	@RequestMapping(value = "/{id}/cancel", method = RequestMethod.GET)
 	@Secured({"ROLE_ADMIN_USER"})
 	public String cancel(@PathVariable("id") Integer id, Map model) {
 		try {
-			final Tournament tournament = appService.getTournamentById(id);
+			final Tournament tournament = loadTournamentById(id);
 			appService.transitTournamentToCanceledStatus(id);
 			model.put(SUCCESS_MSG_VAR, String.format(SuccessInfoMSG.CANCEL_TOURNAMENT, tournament.getName()));
 		} catch(UnknownEntityException uee) {
@@ -164,14 +137,23 @@ public class TournamentController extends AbstractBaseController {
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.CANCEL_TOURNAMENT);
 		}
 
+		return view(id, model);
+	}
+
+	@RequestMapping(value = "/{id}/view", method = RequestMethod.GET)
+	@Secured({"ROLE_ADMIN_USER"})
+	public String view(@PathVariable("id") Integer id, Map model) {
 		try {
-			model.put("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
+			final Tournament tournament = loadTournamentById(id);
+			model.put("tournament", tournament);
+		} catch(UnknownEntityException uee) {
+			model.put(ERROR_MSG_VAR, uee.getMessage());
 		} catch(Exception e) {
-			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
-			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
-			return "index";
+			LOG.error(ErrorInfoMSG.CANCEL_TOURNAMENT);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.CANCEL_TOURNAMENT);
 		}
-		return "tournament/list";
+
+	    return "tournament/view";
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -208,13 +190,17 @@ public class TournamentController extends AbstractBaseController {
 			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.CREATE_TOURNAMENT);
 			return "tournament/create";
 		}
-		try {
-			model.addAttribute("tournaments", appService.listTournaments(new PatternSearchData<Tournament>(new Tournament())).getItems());
-		} catch(Exception e) {
-			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
-			model.addAttribute(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
-			return "index";
+
+		return showListForm(model.asMap());
+	}
+
+	private Tournament loadTournamentById(Integer id) {
+		final Tournament tournament = appService.getTournamentById(id);
+
+		if (tournament == null) {
+			throw new UnknownEntityException(Tournament.class, id);
 		}
-		return "tournament/list";
+
+		return tournament;
 	}
 }

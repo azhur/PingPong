@@ -66,7 +66,7 @@
 
         <div class="modal-body">
             <c:choose>
-                <c:when test="${empty participants}">
+                <c:when test="${empty tournament.participants}">
                     <span class="label label-info">No data!</span>
                 </c:when>
                 <c:otherwise>
@@ -77,7 +77,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="participant" items="${participants}">
+                        <c:forEach var="participant" items="${tournament.participants}">
                             <tr>
                                 <td>
                                    ${participant.name}

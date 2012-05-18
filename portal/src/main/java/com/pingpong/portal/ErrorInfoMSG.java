@@ -22,4 +22,5 @@ public interface ErrorInfoMSG {
 	String SERVER_ERROR = "Server error. Try later";
 	String REPEAT_REGISTRATION = "You are already participant in this tournament";
 	String REPEAT_GIVE_UP = "You already left  tournament";
+	String FULL_TOURNAMENT = "Cannot participate, tournament is full";
 }

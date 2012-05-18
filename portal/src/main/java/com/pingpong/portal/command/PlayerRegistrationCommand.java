@@ -3,7 +3,7 @@
  */
 package com.pingpong.portal.command;
 
-import com.pingpong.portal.Constraints;
+import com.pingpong.shared.Constraints;
 import com.pingpong.shared.registration.PlayerRegistrationData;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;

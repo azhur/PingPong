@@ -17,6 +17,7 @@ import com.pingpong.domain.Authority;
 import com.pingpong.domain.Player;
 import com.pingpong.domain.PlayerAccount;
 import com.pingpong.domain.Tournament;
+import com.pingpong.shared.exception.FullTournamentException;
 import com.pingpong.shared.exception.NotUniqueEmailException;
 import com.pingpong.shared.exception.RepeatActionException;
 import com.pingpong.shared.hibernate.ListResult;
@@ -138,10 +139,22 @@ public class PlayerBOImpl extends AbstractBO<Integer, Player, PlayerDAO> impleme
 	@Transactional(readOnly = false)
 	public void registerIn(@NotNull Integer playerId, @NotNull Integer tournamentId) {
 		final Player player = getDao().loadById(playerId);
-		final Tournament tournament = tournamentDAO.loadById(tournamentId);
+		final Tournament tournament = tournamentDAO.loadById(tournamentId, true);
 
 		if (isParticipant(playerId, tournamentId)){
 			throw new RepeatActionException();
+		}
+
+		final int participantCounts = tournament.getParticipants().size();
+		final Integer maxParticipantsCount = tournament.getMaxParticipantsCount();
+
+		if (participantCounts >= maxParticipantsCount) {
+			throw new FullTournamentException();
+		}
+
+		if (participantCounts == maxParticipantsCount - 1) {
+			LOG.info("Full tournament");
+			//todo inform administrators
 		}
 
 		checkStatus(player.getStatus(), Player.Status.ACTIVE);

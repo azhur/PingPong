@@ -3,8 +3,10 @@
  */
 package com.pingpong.admin.command;
 
+import com.pingpong.shared.Constraints;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -18,6 +20,7 @@ public class TournamentCommand implements Serializable {
 	@NotBlank
 	private String name;
 	@NotNull
+	@Min(value = Constraints.MIN_PARTICIPANT_COUNT)
 	private Integer max;
 
 	public String getName() {

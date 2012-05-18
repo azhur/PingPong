@@ -3,7 +3,7 @@
  */
 package com.pingpong.admin.command;
 
-import com.pingpong.admin.Constraints;
+import com.pingpong.shared.Constraints;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 

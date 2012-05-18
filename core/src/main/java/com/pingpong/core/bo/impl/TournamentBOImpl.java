@@ -12,6 +12,7 @@ import com.pingpong.core.mail.Mailer;
 import com.pingpong.core.web.UrlResolver;
 import com.pingpong.domain.Player;
 import com.pingpong.domain.Tournament;
+import com.pingpong.shared.Constraints;
 import com.pingpong.shared.hibernate.HibernateUtils;
 import com.pingpong.shared.hibernate.ListResult;
 import com.pingpong.shared.hibernate.PatternSearchData;
@@ -27,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 
 /**
@@ -47,6 +49,20 @@ public class TournamentBOImpl extends AbstractBO<Integer, Tournament, Tournament
 	@Autowired
 	private UrlResolver urlResolver;
 
+
+	@Override
+	@Transactional(readOnly = false)
+	public Integer insert(@NotNull Tournament entity) {
+		checkArgument(entity.getMaxParticipantsCount() >= Constraints.MIN_PARTICIPANT_COUNT);
+		return super.insert(entity);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public void update(@NotNull Tournament entity) {
+		checkArgument(entity.getMaxParticipantsCount() >= Constraints.MIN_PARTICIPANT_COUNT);
+		super.update(entity);
+	}
 
 	@Override
 	public ListResult<Tournament> list(@NotNull PatternSearchData<Tournament> searchData) {

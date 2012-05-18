@@ -3,13 +3,13 @@
  */
 package com.pingpong.portal.controller;
 
-import com.pingpong.domain.Player;
 import com.pingpong.domain.Tournament;
 import com.pingpong.portal.ErrorInfoMSG;
 import com.pingpong.portal.SuccessInfoMSG;
 import com.pingpong.portal.extension.TournamentEx;
 import com.pingpong.portal.security.SpringSecurityUtils;
 import com.pingpong.shared.AppService;
+import com.pingpong.shared.exception.FullTournamentException;
 import com.pingpong.shared.exception.RepeatActionException;
 import com.pingpong.shared.exception.UnknownEntityException;
 import com.pingpong.shared.hibernate.PatternSearchData;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -68,6 +67,10 @@ public class TournamentController extends AbstractBaseController {
 			LOG.error(uee.getMessage(), uee);
 			model.put(ERROR_MSG_VAR, uee.getMessage());
 			return view(id,model);
+		} catch(FullTournamentException fte) {
+			LOG.error(ErrorInfoMSG.FULL_TOURNAMENT, fte);
+			model.put(ERROR_MSG_VAR, ErrorInfoMSG.FULL_TOURNAMENT);
+			return view(id,model);
 		} catch(Exception e) {
 			LOG.error(ErrorInfoMSG.SERVER_ERROR, e);
 			model.put(ERROR_MSG_VAR, ErrorInfoMSG.SERVER_ERROR);
@@ -107,7 +110,6 @@ public class TournamentController extends AbstractBaseController {
 
 			final TournamentEx tournament = convert(item);
 			model.put("tournament", tournament);
-			model.put("participants", new ArrayList<Player>(tournament.getParticipants()));
 			return "tournament/view";
 		} catch(UnknownEntityException uee) {
 			LOG.error(uee.getMessage(), uee);
