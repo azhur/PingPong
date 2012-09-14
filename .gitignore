@@ -1,8 +1,12 @@
 **/target/**
 .idea/**
+**/.idea/**
+**/.settings/**
 *.ids
 *.ipr
 *.iws
 *.iml
 *.orig
 *.log
+**/classes/**
+**/plugins/**
