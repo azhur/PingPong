@@ -9,10 +9,14 @@ import grails.plugins.springsecurity.Secured
 import org.joda.time.LocalDate
 
 import javax.persistence.EntityNotFoundException
+import com.pingpong.portal.command.ChangePasswordCommand
+import com.pingpong.shared.exception.WrongPasswordException
+import com.pingpong.portal.command.ChangeProfileCommand
 
 @Secured('isAuthenticated()')
 class AccountController {
 	def appService
+	def springSecurityService
 
 	@Secured('isAnonymous()')
 	def registration() {
@@ -106,6 +110,72 @@ class AccountController {
 			log.error("Unable to reset password", any)
 			flash.error = message(code: 'server.error')
 			render view: 'resetPassword', model: [command: command]
+		}
+	}
+
+	def changePassword(){
+	  [command: new ChangePasswordCommand()]
+	}
+
+	def changePasswordProcess(ChangePasswordCommand command) {
+		try {
+			if (command.validate()) {
+				def user = (AuthUser)springSecurityService.principal
+				appService.changePassword((int)user.id, command.oldPass, command.pass1)
+				flash.success = message(code: 'account.changePassword.success')
+				redirect(controller: 'home', action: 'index')
+			} else {
+				render view: 'changePassword', model: [command: new ChangePasswordCommand()]
+			}
+		} catch (WrongPasswordException wpe) {
+			log.error('Wrong old password', wpe)
+			flash.error=message(code: 'account.changePassword.wrongOldPassword')
+			render view: 'changePassword', model: [command: new ChangePasswordCommand()]
+		} catch (any) {
+			log.error("Unable to change password", any)
+			flash.error = message(code: 'server.error')
+			render view: 'changePassword', model: [command: new ChangePasswordCommand()]
+		}
+	}
+
+	def changeProfile() {
+		try {
+			def user = (AuthUser)springSecurityService.principal
+			def player = appService.getPlayerAccountByEmail(user.username).player
+			def command = new ChangeProfileCommand()
+			command.email = user.username
+			command.name = player.name
+			command.gender = player.gender
+			command.birth = player.birth
+
+			[command: command]
+		} catch (any) {
+			log.error("Unable to show change profile form", any)
+			flash.error = message(code: 'server.error')
+			redirect(controller: 'home', action: 'index')
+		}
+	}
+
+	def changeProfileProcess(ChangeProfileCommand command) {
+		try{
+		 if (command.validate()) {
+			 def user = (AuthUser)springSecurityService.principal
+			 def player = appService.getPlayerAccountByEmail(user.username).player
+
+			 player.name = command.name
+			 player.gender = command.gender
+			 player.birth = command.birth
+
+			 appService.updatePlayer(player)
+			 flash.success = message(code: 'account.changeProfile.success')
+			 redirect(controller: 'home', action: 'index')
+		 } else {
+			 render view: 'changePassword', model: [command: command]
+		 }
+		} catch(any) {
+			log.error("Unable to change profile", any)
+			flash.error = message(code: 'server.error')
+			render view: 'changeProfile', model: [command: command]
 		}
 	}
 
