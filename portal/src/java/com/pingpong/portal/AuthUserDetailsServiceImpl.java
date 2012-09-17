@@ -57,7 +57,7 @@ public class AuthUserDetailsServiceImpl implements GrailsUserDetailsService {
 	protected UserDetails createUserDetails(PlayerAccount account, Collection<GrantedAuthority> authorities) {
 		final boolean enabled = account.getPlayer().getStatus() == Player.Status.ACTIVE && account.isEnabled();
 
-		return new AuthUser(account.getEmail(), account.getPassword(), enabled, account.getSalt(), account.getPlayer().getName(), account.getId(), authorities);
+		return new AuthUser(account.getEmail(), account.getPassword(), enabled, account.getSalt(), account.getPlayer().getName(), account.getId(), account.getPlayer().getId(), authorities);
 	}
 
 	@Override

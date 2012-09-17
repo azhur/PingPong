@@ -1,4 +1,4 @@
-package com.pingpong.portal
+package com.pingpong.portal.command
 
 import com.pingpong.shared.registration.PlayerRegistrationData
 import grails.validation.Validateable

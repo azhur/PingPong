@@ -19,13 +19,13 @@ public class AuthUser extends GrailsUser {
 	
 	private String salt;
 	private String name;
-	//private Integer playerId;
+	private Integer playerId;
 
-	public AuthUser(String username, String password, boolean enabled, String salt, String name, Integer id, /*Integer playerId,*/ Collection<GrantedAuthority> authorities){
+	public AuthUser(String username, String password, boolean enabled, String salt, String name, Integer id, Integer playerId, Collection<GrantedAuthority> authorities){
 		super(username, password, enabled, true, true, true, authorities, id);
 		this.salt = salt;
 		this.name = name;
-		//this.playerId = playerId;
+		this.playerId = playerId;
 	}
 
 	public String getSalt() {
@@ -36,7 +36,7 @@ public class AuthUser extends GrailsUser {
 		return name;
 	}
 
-	/*public Integer getPlayerId() {
+	public Integer getPlayerId() {
 		return playerId;
-	}*/
+	}
 }

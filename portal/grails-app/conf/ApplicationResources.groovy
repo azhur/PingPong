@@ -6,7 +6,6 @@ modules = {
 		resource url:'js/application.js'
 		resource url:'bootstrap/css/bootstrap-responsive.min.css'
 		resource url:'bootstrap/css/bootstrap.min.css'
-		resource url:'css/datepicker.css'
 		resource url:'css/main.css'
 
     }

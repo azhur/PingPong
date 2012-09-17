@@ -34,10 +34,13 @@
           <sec:ifLoggedIn>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-star icon-white"></i> <g:message code="tournament.plural"/> <b class="caret"></b></a>
-              <ul  class="dropdown-menu">
-                <li><g:link controller="photoAlbum" action="list"><i class="icon-share-alt"></i> <g:message code="tournament.status.REGISTRATION"/></g:link></li>
-                <li><g:link controller="photoAlbum" action="list"><i class="icon-share-alt"></i> <g:message code="tournament.status.ACTIVE"/></g:link></li>
-                <li><g:link controller="photoAlbum" action="list"><i class="icon-share-alt"></i> <g:message code="tournament.status.FINISHED"/></g:link></li>
+              <ul class="dropdown-menu">
+                <li><g:link controller="tournament" action="list" params="[status: 'REGISTRATION']"><i class="icon-share-alt"></i> <span class="badge badge-info"><g:message
+                        code="tournament.status.REGISTRATION"/></span></g:link></li>
+                <li><g:link controller="tournament" action="list" params="[status: 'ACTIVE']"><i class="icon-share-alt"></i> <span class="badge badge-success"><g:message
+                        code="tournament.status.ACTIVE.plural"/></span></g:link></li>
+                <li><g:link controller="tournament" action="list" params="[status: 'FINISHED']"><i class="icon-share-alt"></i> <span class="badge badge-important"><g:message
+                        code="tournament.status.FINISHED.plural"/></span></g:link></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -64,7 +67,8 @@
             <div class="btn-group">
               <button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i> <sec:username/> <span class="caret"></span></button>
               <ul class="dropdown-menu">
-                <li><a href="#"><i class="icon-briefcase"></i> <g:message code="profile"/></a></li>
+                <li><g:link controller="account" action="changeProfile"><i class="icon-briefcase"></i> <g:message code="profile"/></g:link></li>
+                <li><g:link controller="account" action="changePassword"><i class="icon-certificate"></i> <g:message code="changePassword"/></g:link></li>
                 <li class="divider"></li>
                 <li><g:link controller="logout"><i class="icon-off"></i> <g:message code="sign.out"/></g:link></li>
               </ul>
@@ -102,21 +106,8 @@
     </div>
   </g:if>
   <sec:ifNotLoggedIn>
-    <script src="http://ulogin.ru/js/ulogin.js"></script>
-
     <div class="alert alert-info">
-      <div class="row">
-        <div class="span7">
-          <g:message code="login.network.accounts.label" /> &rarr;<br>
-          <small><g:message code="login.network.accounts.info.label" /></small>
-        </div>
-
-        <div class="span2 pull-right">
-          <div id="uLogin"
-               x-ulogin-params="display=panel;fields=first_name,last_name,email,sex;providers=vkontakte,facebook,google,twitter;redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fgrails%2Flogin%2Fauth_social_network">
-          </div>
-        </div>
-      </div>
+      <g:message code="action.forgotPassword.question"/> &rarr;<g:link controller="account" action="forgotPassword" class="btn btn-link"><g:message code="action.reset"/> </g:link>
     </div>
   </sec:ifNotLoggedIn>
   <g:layoutBody/>
@@ -125,12 +116,5 @@
 <footer class="navbar-fixed-bottom">
   &copy Uwiss 2012
 </footer>
-%{--<script>
-  $(document).ready($(function () {
-    $('.locale-link').attr('href', function () {
-      return resolveLocalePath($(this).attr('locale'))
-    });
-  }))
-</script>--}%
 </body>
 </html>
