@@ -3,7 +3,7 @@
 <h1 class="page-header">
     Players
 </h1>
-<table class="table table-bordered">
+<table class="table table-bordered table-hover">
     <thead>
     <tr>
         <th class="span1">Status</th>
@@ -14,7 +14,17 @@
     </thead>
     <tbody>
     <c:forEach var="player" items="${players}">
-        <tr>
+    <c:choose>
+    <c:when test="${player.status == 'REGISTRATION'}">
+        <tr class="warning">
+                </c:when>
+                <c:when test="${player.status == 'ACTIVE'}">
+                    <tr class="success">
+                </c:when>
+                <c:otherwise>
+                    <tr class="error">
+                </c:otherwise>
+                </c:choose>
             <td>
                 <c:choose>
                 <c:when test="${player.status == 'REGISTRATION'}">
@@ -52,13 +62,3 @@
     </c:forEach>
     </tbody>
 </table>
-
-<script>
-    $(function () {
-        $("[rel=tooltip]").tooltip({
-            trigger:'focus',
-            placement:'right'
-        });
-        $("[data-spy=scroll]").scrollspy();
-    })
-</script>

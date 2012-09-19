@@ -1,5 +1,6 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="sql_rt" uri="http://java.sun.com/jstl/sql_rt" %>
 <ul class="breadcrumb">
     <li>
         <a href="${pageContext.servletContext.contextPath}">Home</a> <span class="divider">/</span>
@@ -10,7 +11,7 @@
     Tournaments &nbsp;
     <a href="${pageContext.servletContext.contextPath}/tournament/create" class="btn btn-primary">Create new</a>
 </h1>
-<table class="table table-bordered">
+<table class="table table-bordered table-hover">
     <thead>
     <tr>
         <th class="span1">Status</th>
@@ -21,7 +22,24 @@
     </thead>
     <tbody>
     <c:forEach var="tournament" items="${tournaments}">
-        <tr>
+    <c:choose>
+    <c:when test="${tournament.status == 'NEW'}">
+                    <tr class="info">
+                </c:when>
+                <c:when test="${tournament.status == 'REGISTRATION'}">
+                    <tr class="warning">
+                </c:when>
+                <c:when test="${tournament.status == 'ACTIVE'}">
+                    <tr class="success">
+                </c:when>
+                <c:when test="${tournament.status == 'CANCELED'}">
+                    <tr class="error">
+                </c:when>
+                <c:otherwise>
+                    <tr>
+                </c:otherwise>
+                </c:choose>
+
             <td>
                 <c:choose>
                 <c:when test="${tournament.status == 'NEW'}">
@@ -65,13 +83,3 @@
     </c:forEach>
     </tbody>
 </table>
-
-<script>
-    $(function () {
-        $("[rel=tooltip]").tooltip({
-            trigger:'focus',
-            placement:'right'
-        });
-        $("[data-spy=scroll]").scrollspy();
-    })
-</script>

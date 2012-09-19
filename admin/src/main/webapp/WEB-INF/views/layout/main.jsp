@@ -19,11 +19,7 @@
     <script src="${pageContext.servletContext.contextPath}/resources/js/jquery/jquery-1.7.1.min.js"></script>
 
     <%--bootstrap--%>
-    <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-alert.js"></script>
-    <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-dropdown.js"></script>
-    <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-modal.js"></script>
-    <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-tooltip.js"></script>
-    <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-scrollspy.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
     <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-datepicker.js"></script>
 </head>
 <body data-spy="scroll">

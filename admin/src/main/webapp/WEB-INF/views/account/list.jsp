@@ -4,7 +4,7 @@
     Administrators &nbsp;
     <a href="${pageContext.servletContext.contextPath}/account/create" class="btn btn-primary">Create new</a>
 </h1>
-<table class="table table-bordered">
+<table class="table table-bordered table-hover">
     <thead>
     <tr>
         <th class="span1">Status</th>
@@ -14,7 +14,15 @@
     </thead>
     <tbody>
     <c:forEach var="admin" items="${admins}">
-        <tr>
+    <c:choose>
+    <c:when test="${admin.enabled == true}">
+        <tr class="success">
+                </c:when>
+                <c:otherwise>
+                    <tr class="error">
+                </c:otherwise>
+                </c:choose>
+
             <td>
                 <c:choose>
                 <c:when test="${admin.enabled == true}">
@@ -44,13 +52,3 @@
     </c:forEach>
     </tbody>
 </table>
-
-<script>
-    $(function () {
-        $("[rel=tooltip]").tooltip({
-            trigger:'focus',
-            placement:'right'
-        });
-        $("[data-spy=scroll]").scrollspy();
-    })
-</script>

@@ -19,7 +19,7 @@ import java.io.Serializable;
 public class NewAccountCommand implements Serializable {
 	private static final long serialVersionUID = 7913233869617846119L;
 
-	@NotBlank(message = "{playerRegistrationCommand.blank.email}")
+	@NotBlank(message = "{email.blank.error}")
 	@Email(message = "{email.format.error}")
 	private String email;
 	@NotBlank(message = "{password.blank.error}")

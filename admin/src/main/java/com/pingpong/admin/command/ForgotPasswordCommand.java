@@ -16,7 +16,7 @@ import java.io.Serializable;
 
 public class ForgotPasswordCommand implements Serializable {
 	private static final long serialVersionUID = 7559525678505160672L;
-	@NotBlank(message = "{playerRegistrationCommand.blank.email}")
+	@NotBlank(message = "{email.blank.error}")
 	@Email(message = "{email.format.error}")
 	private String username;
 

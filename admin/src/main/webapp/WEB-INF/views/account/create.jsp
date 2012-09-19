@@ -4,8 +4,11 @@
     Create administrator
 </h1>
 <form:form method="post" action="createProcess" commandName="command" cssClass="form-horizontal">
-    <div class="control-group ">
-        <label class="control-label">Email:</label>
+    <div class="control-group required">
+        <label class="control-label">
+            Email:
+            <span class="required-indicator">*</span>
+        </label>
 
         <div class="controls">
             <div class="alert-error">
@@ -16,12 +19,15 @@
                                 <i class="icon-envelope"></i>
                             </span>
 
-                <form:input path="email"/>
+                <form:input path="email" required="true" />
             </div>
         </div>
     </div>
-    <div class="control-group ">
-        <label class="control-label">Password:</label>
+    <div class="control-group required">
+        <label class="control-label">
+            Password:
+            <span class="required-indicator">*</span>
+        </label>
 
         <div class="controls">
             <div class="alert-error">
@@ -31,20 +37,23 @@
                                       <span class="add-on">
                                          <i class="icon-asterisk"></i>
                                       </span>
-                <form:password path="pass1" maxlength="50"/>
+                <form:password path="pass1" maxlength="50" required="true"/>
             </div>
         </div>
     </div>
 
-    <div class="control-group ">
-        <label class="control-label">Retype password:</label>
+    <div class="control-group required">
+        <label class="control-label">
+            Retype password:
+            <span class="required-indicator">*</span>
+        </label>
 
         <div class="controls">
             <div class="input-prepend">
                                       <span class="add-on">
                                          <i class="icon-asterisk"></i>
                                       </span>
-                <form:password path="pass2"/>
+                <form:password path="pass2" required="true"/>
             </div>
         </div>
     </div>

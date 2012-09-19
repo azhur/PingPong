@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ page import="com.pingpong.shared.Constraints" %>
 <%
-    final String participantCount ="Should be at least " +  Constraints.MIN_PARTICIPANT_COUNT + " participants";
+    final String participantCount = "Should be at least " + Constraints.MIN_PARTICIPANT_COUNT + " participants";
 %>
 <ul class="breadcrumb">
     <li>
@@ -16,7 +16,10 @@
 </h1>
 <form:form method="post" action="createProcess" commandName="command" cssClass="form-horizontal">
     <div class="control-group ">
-        <label class="control-label">Name:</label>
+        <label class="control-label">
+            Name:
+            <span class="required-indicator">*</span>
+        </label>
 
         <div class="controls">
             <div class="alert-error">
@@ -27,13 +30,16 @@
                                 <i class="icon-file"></i>
                             </span>
 
-                <form:input path="name" class="input-xlarge"/>
+                <form:input path="name" class="input-xlarge" required="true"/>
             </div>
         </div>
     </div>
 
     <div class="control-group ">
-        <label class="control-label">Max participants:</label>
+        <label class="control-label">
+            Max participants:
+            <span class="required-indicator">*</span>
+        </label>
 
         <div class="controls">
             <div class="alert-error">
@@ -44,11 +50,10 @@
                                 <i class="icon-file"></i>
                             </span>
 
-                <form:input path="max" class="input-xlarge" rel="tooltip" data-original-title="<%=participantCount%>"/>
+                <form:input path="max" class="input-xlarge" rel="tooltip" data-original-title="<%=participantCount%>" required="true"/>
             </div>
         </div>
     </div>
-
     <div class="form-actions">
         <button type="submit" class="btn btn-primary">Create</button>
         &nbsp;
