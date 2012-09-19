@@ -1,4 +1,4 @@
-<%@ page import="com.pingpong.shared.Constraints; com.pingpong.portal.PlayerRegistrationCommand; com.pingpong.domain.enumeration.Gender;" contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.pingpong.shared.Constraints; com.pingpong.portal.command.PlayerRegistrationCommand; com.pingpong.domain.enumeration.Gender;" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
   <meta name="layout" content="main"/>

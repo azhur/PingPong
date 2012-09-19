@@ -1,6 +1,7 @@
 package com.pingpong.core.hibernate;
 
 import com.pingpong.domain.Entity;
+import com.pingpong.shared.exception.UnknownEntityException;
 import org.hibernate.HibernateException;
 import org.hibernate.LockOptions;
 import org.hibernate.Session;
@@ -63,7 +64,13 @@ public class HibernateManager {
 		checkNotNull(id);
 		checkNotNull(entityType);
 
-		getCurrentSession().delete(getEntityById(entityType, id));
+		final Entity<? extends Serializable> entity = getEntityById(entityType, id);
+
+		if (entity == null) {
+			throw new UnknownEntityException(entityType, id);
+		}
+
+		getCurrentSession().delete(entity);
 
 		LOGGER.info("Deleted entity with id = '{}'", id);
 	}

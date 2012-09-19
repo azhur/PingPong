@@ -23,6 +23,13 @@
  alter table admin_account add constraint admin_account_account
  FOREIGN KEY (id) REFERENCES account(id);
 
+
+ insert into account(id, discriminator, email, password, salt, enabled)
+      values(0, 'ADMIN_ACCOUNT', 'artur.zhurat@gmail.com', md5('111111'), '', TRUE);
+ insert into admin_account values (0);
+ insert into authority(id, account_id, name) values (0, 0, 'ROLE_ADMIN_USER');
+
+
  CREATE TABLE player_account (
        id id NOT NULL,
        player_id id NOT NULL,

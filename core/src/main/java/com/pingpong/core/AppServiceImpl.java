@@ -2,15 +2,20 @@ package com.pingpong.core;
 
 import com.pingpong.core.bo.AccountBO;
 import com.pingpong.core.bo.AdminAccountBO;
+import com.pingpong.core.bo.PhotoAlbumBO;
+import com.pingpong.core.bo.PhotoBO;
 import com.pingpong.core.bo.PlayerAccountBO;
 import com.pingpong.core.bo.PlayerBO;
 import com.pingpong.core.bo.TournamentBO;
 import com.pingpong.domain.Account;
 import com.pingpong.domain.AdminAccount;
+import com.pingpong.domain.Photo;
+import com.pingpong.domain.PhotoAlbum;
 import com.pingpong.domain.Player;
 import com.pingpong.domain.PlayerAccount;
 import com.pingpong.domain.Tournament;
 import com.pingpong.shared.AppService;
+import com.pingpong.shared.PhotoImage;
 import com.pingpong.shared.hibernate.ListResult;
 import com.pingpong.shared.hibernate.PatternSearchData;
 import com.pingpong.shared.registration.PlayerRegistrationData;
@@ -39,6 +44,10 @@ public class AppServiceImpl implements AppService {
 	private AccountBO accountBO;
 	@Autowired
 	private TournamentBO tournamentBO;
+	@Autowired
+	private PhotoAlbumBO photoAlbumBO;
+	@Autowired
+	private PhotoBO photoBO;
 
 	@Override
 	public ListResult<Player> listPlayers(@NotNull PatternSearchData<Player> searchData) {
@@ -213,5 +222,65 @@ public class AppServiceImpl implements AppService {
 	@Override
 	public void giveUp(@NotNull Integer playerId, @NotNull Integer tournamentId) {
 		tournamentBO.giveUp(playerId, tournamentId);
+	}
+
+	@Override
+	public ListResult<PhotoAlbum> listPhotoAlbums(@NotNull PatternSearchData<PhotoAlbum> searchData) {
+		return photoAlbumBO.list(searchData);
+	}
+
+	@Override
+	public Integer insertPhotoAlbum(@NotNull PhotoAlbum photoAlbum) {
+		return photoAlbumBO.insert(photoAlbum);
+	}
+
+	@Override
+	public void deletePhotoAlbum(@NotNull Integer photoAlbumId) {
+		photoAlbumBO.deleteById(photoAlbumId);
+	}
+
+	@Override
+	public void updatePhotoAlbum(@NotNull PhotoAlbum photoAlbum) {
+		photoAlbumBO.update(photoAlbum);
+	}
+
+	@Override
+	public PhotoAlbum getPhotoAlbumById(@NotNull Integer id) {
+		return photoAlbumBO.getById(id);
+	}
+
+	@Override
+	public ListResult<Photo> listPhotos(@NotNull PatternSearchData<Photo> searchData) {
+		return photoBO.list(searchData);
+	}
+
+	@Override
+	public Integer insertPhoto(@NotNull PhotoImage photo) {
+		return photoBO.insertPhoto(photo);
+	}
+
+	@Override
+	public void deletePhoto(@NotNull Integer photoId) {
+		photoBO.deleteById(photoId);
+	}
+
+	@Override
+	public void updatePhoto(@NotNull Photo photo) {
+		photoBO.update(photo);
+	}
+
+	@Override
+	public Photo getPhotoById(@NotNull Integer id) {
+		return photoBO.getById(id);
+	}
+
+	@Override
+	public PhotoImage getOrReturnDefaultPhoto(Integer id) {
+		return photoBO.getOrReturnDefaultPhoto(id);
+	}
+
+	@Override
+	public void setPhotoAsCover(@NotNull Integer id) {
+		photoBO.setAsCover(id);
 	}
 }

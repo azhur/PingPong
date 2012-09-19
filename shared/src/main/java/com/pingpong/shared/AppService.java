@@ -2,6 +2,8 @@ package com.pingpong.shared;
 
 import com.pingpong.domain.Account;
 import com.pingpong.domain.AdminAccount;
+import com.pingpong.domain.Photo;
+import com.pingpong.domain.PhotoAlbum;
 import com.pingpong.domain.Player;
 import com.pingpong.domain.PlayerAccount;
 import com.pingpong.domain.Tournament;
@@ -84,4 +86,33 @@ public interface AppService {
 	void giveUp(@NotNull Integer playerId, @NotNull Integer tournamentId);
 
 	boolean isParticipant(@NotNull Integer playerId, @NotNull Integer tournamentId);
+
+	@NotNull
+	ListResult<PhotoAlbum> listPhotoAlbums(@NotNull PatternSearchData<PhotoAlbum> searchData);
+
+	@NotNull
+	Integer insertPhotoAlbum(@NotNull PhotoAlbum photoAlbum);
+
+	void deletePhotoAlbum(@NotNull Integer photoAlbumId);
+
+	void updatePhotoAlbum(@NotNull PhotoAlbum photoAlbum);
+
+	PhotoAlbum getPhotoAlbumById(@NotNull Integer id);
+
+	@NotNull
+	ListResult<Photo> listPhotos(@NotNull PatternSearchData<Photo> searchData);
+
+	@NotNull
+	Integer insertPhoto(@NotNull PhotoImage photo);
+
+	void deletePhoto(@NotNull Integer photoId);
+
+	void updatePhoto(@NotNull Photo photo);
+
+	Photo getPhotoById(@NotNull Integer id);
+
+	@NotNull
+	PhotoImage getOrReturnDefaultPhoto(Integer id);
+
+	void setPhotoAsCover(@NotNull Integer id);
 }
