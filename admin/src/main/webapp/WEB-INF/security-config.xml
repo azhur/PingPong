@@ -13,13 +13,12 @@
                              authentication-failure-url="/loginFailed"
                              default-target-url="/"/>
         <security:access-denied-handler error-page="/error/deny"/>
-        <security:remember-me/>
+        <security:remember-me key="pp-security-key"/>
         <security:logout invalidate-session="true"
                          logout-success-url="/index"
                          logout-url="/logout"/>
 
         <security:intercept-url pattern='/login' access='isAnonymous()' />
-        <security:intercept-url pattern='/registration' access='isAnonymous()' />
     </security:http>
 
 

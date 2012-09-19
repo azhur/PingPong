@@ -33,7 +33,7 @@
 
             <div class="controls">
                 <label class="checkbox">
-                    <input type="checkbox" name="_spring_security_remember_me" checked/>
+                    <input type="checkbox" id="_spring_security_remember_me" name="_spring_security_remember_me" checked/>
                     Remember me
                 </label>
             </div>
