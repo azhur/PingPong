@@ -1,12 +1,13 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="spring" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ page import="com.pingpong.shared.Constraints" %>
 <%
     final String participantCount = "Should be at least " + Constraints.MIN_PARTICIPANT_COUNT + " participants";
 %>
 <ul class="breadcrumb">
     <li>
-        <a href="${pageContext.servletContext.contextPath}">Home</a> <span class="divider">/</span>
+        <a href="<c:url value=""/>">Home</a> <span class="divider">/</span>
     </li>
     <li class="active">Tournament<span class="divider">/</span></li>
     <li class="active">Create</li>
@@ -55,9 +56,13 @@
         </div>
     </div>
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="btn btn-primary">
+            <spring:message key="action.create">
+                <spring:param value=""/>
+            </spring:message>
+        </button>
         &nbsp;
-        <button type="reset" class="btn">Cancel</button>
+        <button type="reset" class="btn"><spring:message key="action.cancel"/></button>
     </div>
 </form:form>
 <script>

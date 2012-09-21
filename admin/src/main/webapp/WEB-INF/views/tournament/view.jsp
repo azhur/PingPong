@@ -1,10 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <ul class="breadcrumb">
     <li>
-        <a href="${pageContext.servletContext.contextPath}">Home</a> <span class="divider">/</span>
+        <a href="<c:url value=""/>">Home</a> <span class="divider">/</span>
     </li>
     <li>
-        <a href="${pageContext.servletContext.contextPath}/tournament/list">Tournaments</a> <span class="divider">/</span>
+        <a href="<c:url value="/tournament/list"/>">Tournaments</a> <span class="divider">/</span>
     </li>
     <li class="active">${tournament.name}</li>
 </ul>
@@ -74,16 +74,16 @@
     <div class="form-actions">
         <c:choose>
             <c:when test="${tournament.status == 'NEW'}">
-                <a class="btn btn-success" href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/registration"><i class="icon-ok icon-white"></i> Registration</a>
-                <a class="btn btn-danger" href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/delete"><i class="icon-trash icon-white"></i> Delete</a>
+                <a class="btn btn-success" href="<c:url value="/tournament/${tournament.id}/registration"/>"><i class="icon-ok icon-white"></i> Registration</a>
+                <a class="btn btn-danger" href="<c:url value="/tournament/${tournament.id}/delete"/>"><i class="icon-trash icon-white"></i> Delete</a>
             </c:when>
             <c:when test="${tournament.status == 'REGISTRATION'}">
-                <a class="btn btn-success" href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/activate"><i class="icon-thumbs-up icon-white"></i> Activate</a>
-                <a class="btn btn-inverse" href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/cancel"><i class="icon-ban-circle icon-white"></i> Cancel</a>
+                <a class="btn btn-success" href="<c:url value="/tournament/${tournament.id}/activate"/>"><i class="icon-thumbs-up icon-white"></i> Activate</a>
+                <a class="btn btn-inverse" href="<c:url value="/tournament/${tournament.id}/cancel"/>"><i class="icon-ban-circle icon-white"></i> Cancel</a>
             </c:when>
             <c:when test="${tournament.status == 'ACTIVE'}">
-                <a class="btn btn-success" href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/finish"><i class="icon-bell icon-white"></i> Finish</a>
-                <a class="btn btn-inverse" href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/cancel"><i class="icon-ban-circle icon-white"></i> Cancel</a>
+                <a class="btn btn-success" href="<c:url value="/tournament/${tournament.id}/finish"/>"><i class="icon-bell icon-white"></i> Finish</a>
+                <a class="btn btn-inverse" href="<c:url value="/tournament/${tournament.id}/cancel"/>"><i class="icon-ban-circle icon-white"></i> Cancel</a>
             </c:when>
         </c:choose>
         <a data-toggle="modal" href="#participants" class="btn btn-info"><i class="icon-user icon-white"></i> Participants</a>

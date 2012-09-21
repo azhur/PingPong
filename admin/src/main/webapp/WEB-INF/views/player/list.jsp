@@ -46,14 +46,14 @@
             <td>
                 <c:choose>
                 <c:when test="${player.status == 'REGISTRATION'}">
-                    <a href="${pageContext.servletContext.contextPath}/player/${player.id}/activate">activate</a>
-                    <a href="${pageContext.servletContext.contextPath}/player/${player.id}/delete">delete</a>
+                    <a href="<c:url value="/player/${player.id}/activate"/>">activate</a>
+                    <a href="<c:url value="/player/${player.id}/delete"/>">delete</a>
                 </c:when>
                 <c:when test="${player.status == 'ACTIVE'}">
-                    <a href="${pageContext.servletContext.contextPath}/player/${player.id}/block">block</a>
+                    <a href="<c:url value="/player/${player.id}/block"/>">block</a>
                 </c:when>
                 <c:otherwise>
-                    <a href="${pageContext.servletContext.contextPath}/player/${player.id}/unblock">unblock</a>
+                    <a href="<c:url value="/player/${player.id}/unblock"/>">unblock</a>
                 </c:otherwise>
                 </c:choose>
             </td>

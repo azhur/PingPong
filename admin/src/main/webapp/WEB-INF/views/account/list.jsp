@@ -1,15 +1,16 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <h1 class="page-header">
-    Administrators &nbsp;
-    <a href="${pageContext.servletContext.contextPath}/account/create" class="btn btn-primary">Create new</a>
+    <fmt:message key="account.admin.plural"/>&nbsp;
+    <a href="<c:url value="/account/create"/>" class="btn btn-primary"><fmt:message key="action.create.new"/></a>
 </h1>
 <table class="table table-bordered table-hover">
     <thead>
     <tr>
-        <th class="span1">Status</th>
-        <th>Email</th>
-        <th>Actions</th>
+        <th class="span1"><fmt:message key="account.status"/></th>
+        <th><fmt:message key="account.email"/></th>
+        <th><fmt:message key="actions"/></th>
     </tr>
     </thead>
     <tbody>
@@ -27,11 +28,11 @@
                 <c:choose>
                 <c:when test="${admin.enabled == true}">
                     <span class="label label-success">
-                    Active
+                    <fmt:message key="account.status.ACTIVE"/>
                 </c:when>
                 <c:otherwise>
                     <span class="label label-important">
-                    Blocked
+                    <fmt:message key="account.status.BLOCKED"/>
                 </c:otherwise>
                 </c:choose>
             </td>
@@ -39,13 +40,13 @@
             <td>
                 <c:choose>
                     <c:when test="${admin.enabled == true}">
-                        <a href="${pageContext.servletContext.contextPath}/account/${admin.id}/block">block</a>
+                        <a href="<c:url value="/account/${admin.id}/block"/>"><fmt:message key="account.action.block"/></a>
                     </c:when>
                     <c:otherwise>
-                        <a href="${pageContext.servletContext.contextPath}/account/${admin.id}/unblock">unblock</a>
+                        <a href="<c:url value="/account/${admin.id}/unblock"/>"><fmt:message key="account.action.unblock"/></a>
                     </c:otherwise>
                 </c:choose>
-                <a href="${pageContext.servletContext.contextPath}/account/${admin.id}/delete">delete</a>
+                <a href="<c:url value="/account/${admin.id}/delete"/>"><fmt:message key="account.action.delete"/></a>
             </td>
 
         </tr>

@@ -1,13 +1,14 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <h1 class="page-header">
-    Reset password form
+    <fmt:message key="account.action.resetPassword"/>
 </h1>
 
 <form:form method="post" action="resetPasswordProcess" commandName="command" cssClass="form-horizontal">
     <form:hidden path="forgotPasswordId" />
 
     <div class="control-group ">
-        <label class="control-label">Email:</label>
+        <label class="control-label"><fmt:message key="account.email"/></label>
 
         <div class="controls">
             <div class="input-prepend">
@@ -21,7 +22,7 @@
     </div>
 
     <div class="control-group ">
-        <label class="control-label">Password:</label>
+        <label class="control-label"><fmt:message key="springSecurity.login.password.label"/></label>
 
         <div class="controls">
             <div class="alert-error">
@@ -37,7 +38,7 @@
     </div>
 
     <div class="control-group ">
-        <label class="control-label">Retype password:</label>
+        <label class="control-label"><fmt:message key="account.retypePassword"/></label>
 
         <div class="controls">
             <div class="input-prepend">
@@ -50,8 +51,8 @@
     </div>
 
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Reset</button>
+        <button type="submit" class="btn btn-primary"><fmt:message key="action.reset"/></button>
         &nbsp;
-        <button type="reset" class="btn">Cancel</button>
+        <button type="reset" class="btn"><fmt:message key="action.cancel"/></button>
     </div>
 </form:form>

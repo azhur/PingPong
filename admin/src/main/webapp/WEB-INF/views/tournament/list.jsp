@@ -3,13 +3,13 @@
 <%@ taglib prefix="sql_rt" uri="http://java.sun.com/jstl/sql_rt" %>
 <ul class="breadcrumb">
     <li>
-        <a href="${pageContext.servletContext.contextPath}">Home</a> <span class="divider">/</span>
+        <a href="<c:url value=""/>">Home</a> <span class="divider">/</span>
     </li>
     <li class="active">Tournaments</li>
 </ul>
 <h1 class="page-header">
     Tournaments &nbsp;
-    <a href="${pageContext.servletContext.contextPath}/tournament/create" class="btn btn-primary">Create new</a>
+    <a href="<c:url value="/tournament/create"/>" class="btn btn-primary">Create new</a>
 </h1>
 <table class="table table-bordered table-hover">
     <thead>
@@ -61,21 +61,21 @@
                    ${tournament.status}
                 </span>
             </td>
-            <td><a href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/view">${tournament.name}</a></td>
+            <td><a href="<c:url value="/tournament/${tournament.id}/view"/>">${tournament.name}</a></td>
             <td>${tournament.maxParticipantsCount}</td>
             <td>
                 <c:choose>
                 <c:when test="${tournament.status == 'NEW'}">
-                    <a href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/registration">registration</a>
-                    <a href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/delete">delete</a>
+                    <a href="<c:url value="/tournament/${tournament.id}/registration"/>">registration</a>
+                    <a href="<c:url value="/tournament/${tournament.id}/delete"/>">delete</a>
                 </c:when>
                 <c:when test="${tournament.status == 'REGISTRATION'}">
-                    <a href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/activate">activate</a>
-                    <a href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/cancel">cancel</a>
+                    <a href="<c:url value="/tournament/${tournament.id}/activate"/>">activate</a>
+                    <a href="<c:url value="/tournament/${tournament.id}/cancel"/>">cancel</a>
                 </c:when>
                 <c:when test="${tournament.status == 'ACTIVE'}">
-                    <a href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/finish">finish</a>
-                    <a href="${pageContext.servletContext.contextPath}/tournament/${tournament.id}/cancel">cancel</a>
+                    <a href="<c:url value="/tournament/${tournament.id}/finish"/>">finish</a>
+                    <a href="<c:url value="/tournament/${tournament.id}/cancel"/>">cancel</a>
                 </c:when>
                 </c:choose>
             </td>

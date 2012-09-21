@@ -2,25 +2,25 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE HTML>
 <html>
 <head>
     <title>
         <tiles:getAsString name="title"/>
     </title>
-    <meta charset="utf-8">
-    <link rel="icon" href="${pageContext.servletContext.contextPath}/resources/images/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="${pageContext.servletContext.contextPath}/resources/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/bootstrap.min.css" type="text/css"/>
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/css/main.css" type="text/css"/>
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/datepicker.css" type="text/css"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="icon" href="<c:url value="/resources/images/favicon.ico"/>" type="image/x-icon">
+    <link rel="shortcut icon" href="<c:url value="/resources/images/favicon.ico"/>" type="image/x-icon">
+    <link rel="stylesheet" href="<c:url value="/resources/bootstrap/css/bootstrap.min.css"/>" type="text/css"/>
+    <link rel="stylesheet" href="<c:url value="/resources/css/main.css"/>" type="text/css"/>
 
     <%--jquery--%>
-    <script src="${pageContext.servletContext.contextPath}/resources/js/jquery/jquery-1.7.1.min.js"></script>
+    <script src="<c:url value="/resources/js/jquery/jquery-1.7.1.min.js"/>"></script>
 
     <%--bootstrap--%>
-    <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
-    <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/bootstrap-datepicker.js"></script>
+    <script src="<c:url value="/resources/bootstrap/js/bootstrap.min.js"/>"></script>
 </head>
 <body data-spy="scroll">
 <div class="navbar navbar-fixed-top">
@@ -31,17 +31,24 @@
                 <span class="i-bar"></span>
                 <span class="i-bar"></span>
             </a>
-            <a class="brand" href="${pageContext.servletContext.contextPath}/index">PingPong Administration</a>
+            <a class="brand" href="<c:url value=""/>"><fmt:message key="app.brand"/></a>
 
             <div class="nav-collapse">
                 <ul class="nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-font"></i> <fmt:message key="language"/> <b class="caret"></b></a>
+                        <ul id="menu2" class="dropdown-menu">
+                            <li><a href="<c:url value="?lang=en"/>"><img src="<c:url value="/resources/images/flags/en.png"/>" alt=""/> <fmt:message key="language.english"/></a></li>
+                            <li><a href="<c:url value="?lang=ru"/>"><img src="<c:url value="/resources/images/flags/ru.png"/>" alt=""/> <fmt:message key="language.russian"/></a></li>
+                        </ul>
+                    </li>
                     <sec:authorize access="isAnonymous()">
-                        <li><a href="${pageContext.servletContext.contextPath}/login">Login</a></li>
+                        <li><a href="<c:url value="/login"/>"><fmt:message key="springSecurity.login.button"/></a></li>
                     </sec:authorize>
                     <sec:authorize access="hasRole('ROLE_ADMIN_USER')">
-                        <li><a href="${pageContext.servletContext.contextPath}/account/list">Administrators</a></li>
-                        <li><a href="${pageContext.servletContext.contextPath}/player/list">Players</a></li>
-                        <li><a href="${pageContext.servletContext.contextPath}/tournament/list">Tournaments</a></li>
+                        <li><a href="<c:url value="/account/list"/>"><fmt:message key="account.admin.plural"/></a></li>
+                        <li><a href="<c:url value="/player/list"/>"><fmt:message key="account.player.plural"/></a></li>
+                        <li><a href="<c:url value="/tournament/list"/>"><fmt:message key="tournament.plural"/></a></li>
                     </sec:authorize>
                 </ul>
 
@@ -51,20 +58,20 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><sec:authentication property="principal.username"/><b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="${pageContext.servletContext.contextPath}/account/changePassword">
+                                    <a href="<c:url value="/account/changePassword"/>">
                                         <span class="add-on">
                                            <i class="icon-pencil"></i>
                                         </span>
-                                        Change Password
+                                        <fmt:message key="action.changePassword"/>
                                     </a>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="${pageContext.servletContext.contextPath}/logout">
+                                    <a href="<c:url value="/logout"/>">
                                     <span class="add-on">
                                      <i class="icon-remove"></i>
                                     </span>
-                                        Log out
+                                        <fmt:message key="sign.out"/>
                                     </a>
                                 </li>
                             </ul>

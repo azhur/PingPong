@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @since 11/02/2012
  */
 @Controller
-@RequestMapping("/index")
+@RequestMapping("/")
 public class IndexController extends AbstractBaseController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String index() {
