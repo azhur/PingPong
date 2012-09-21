@@ -1,24 +1,32 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-<%@ taglib prefix="spring" uri="http://java.sun.com/jstl/fmt_rt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page import="com.pingpong.shared.Constraints" %>
-<%
-    final String participantCount = "Should be at least " + Constraints.MIN_PARTICIPANT_COUNT + " participants";
-%>
+
+<c:set var="argPartCount">
+ <spring:message code="tournament.participants.count.constraint" arguments="<%=Constraints.MIN_PARTICIPANT_COUNT%>"/>
+</c:set>
 <ul class="breadcrumb">
     <li>
-        <a href="<c:url value=""/>">Home</a> <span class="divider">/</span>
+        <a href="<c:url value="/"/>"><spring:message code="action.home"/></a> <span class="divider">/</span>
     </li>
-    <li class="active">Tournament<span class="divider">/</span></li>
-    <li class="active">Create</li>
+    <li class="active">
+        <a href="<c:url value="/tournament/list"/>"><spring:message code="tournament.plural"/></a><span class="divider">/</span>
+    </li>
+    <li class="active">
+        <spring:message code="action.create" arguments=","/>
+    </li>
 </ul>
 <h1 class="page-header">
-    Create tournament
+    <c:set var="tourKey">
+         <spring:message code="tournament"/>
+    </c:set>
+    <spring:message code="action.create" arguments="${tourKey}"/>
 </h1>
 <form:form method="post" action="createProcess" commandName="command" cssClass="form-horizontal">
     <div class="control-group ">
         <label class="control-label">
-            Name:
+           <spring:message code="tournament.name"/>
             <span class="required-indicator">*</span>
         </label>
 
@@ -38,7 +46,7 @@
 
     <div class="control-group ">
         <label class="control-label">
-            Max participants:
+            <spring:message code="tournament.max.participants"/>
             <span class="required-indicator">*</span>
         </label>
 
@@ -51,18 +59,16 @@
                                 <i class="icon-file"></i>
                             </span>
 
-                <form:input path="max" class="input-xlarge" rel="tooltip" data-original-title="<%=participantCount%>" required="true"/>
+                <form:input path="max" class="input-xlarge" rel="tooltip" data-original-title="${argPartCount}" required="true"/>
             </div>
         </div>
     </div>
     <div class="form-actions">
         <button type="submit" class="btn btn-primary">
-            <spring:message key="action.create">
-                <spring:param value=""/>
-            </spring:message>
+            <spring:message code="action.create" arguments=","/>
         </button>
         &nbsp;
-        <button type="reset" class="btn"><spring:message key="action.cancel"/></button>
+        <button type="reset" class="btn"><spring:message code="action.cancel"/></button>
     </div>
 </form:form>
 <script>

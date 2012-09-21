@@ -1,16 +1,16 @@
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="spring" uri="http://java.sun.com/jstl/fmt_rt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <h1 class="page-header">
-    <fmt:message key="action.create">
-        <fmt:param><fmt:message key="account.admin"/></fmt:param>
-    </fmt:message>
+    <c:set var="argCode">
+        <spring:message code="account.admin"/>
+    </c:set>
+    <spring:message code="action.create" arguments='${argCode}'/>
 </h1>
 <form:form method="post" action="createProcess" commandName="command" cssClass="form-horizontal">
     <div class="control-group required">
         <label class="control-label">
-            <fmt:message key="account.email"/>
+            <spring:message code="account.email"/>
             <span class="required-indicator">*</span>
         </label>
 
@@ -29,7 +29,7 @@
     </div>
     <div class="control-group required">
         <label class="control-label">
-            <fmt:message key="springSecurity.login.password.label"/>
+            <spring:message code="springSecurity.login.password.label"/>
             <span class="required-indicator">*</span>
         </label>
 
@@ -48,7 +48,7 @@
 
     <div class="control-group required">
         <label class="control-label">
-            <fmt:message key="account.retypePassword"/>
+            <spring:message code="account.retypePassword"/>
             <span class="required-indicator">*</span>
         </label>
 
@@ -64,12 +64,10 @@
 
     <div class="form-actions">
         <button type="submit" class="btn btn-primary">
-            <fmt:message key="action.create">
-                <fmt:param value=""/>
-            </fmt:message>
+            <spring:message code="action.create" arguments=","/>
         </button>
         &nbsp;
-        <button type="reset" class="btn"><fmt:message key="action.cancel"/></button>
+        <button type="reset" class="btn"><spring:message code="action.cancel"/></button>
     </div>
 </form:form>
 <script>

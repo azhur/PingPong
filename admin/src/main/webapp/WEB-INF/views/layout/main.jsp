@@ -2,7 +2,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -31,24 +31,24 @@
                 <span class="i-bar"></span>
                 <span class="i-bar"></span>
             </a>
-            <a class="brand" href="<c:url value=""/>"><fmt:message key="app.brand"/></a>
+            <a class="brand" href="<c:url value="/"/>"><spring:message code="app.brand"/></a>
 
             <div class="nav-collapse">
                 <ul class="nav">
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-font"></i> <fmt:message key="language"/> <b class="caret"></b></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-font"></i> <spring:message code="language"/> <b class="caret"></b></a>
                         <ul id="menu2" class="dropdown-menu">
-                            <li><a href="<c:url value="?lang=en"/>"><img src="<c:url value="/resources/images/flags/en.png"/>" alt=""/> <fmt:message key="language.english"/></a></li>
-                            <li><a href="<c:url value="?lang=ru"/>"><img src="<c:url value="/resources/images/flags/ru.png"/>" alt=""/> <fmt:message key="language.russian"/></a></li>
+                            <li><a href="<c:url value="?lang=en"/>"><img src="<c:url value="/resources/images/flags/en.png"/>" alt=""/> <spring:message code="language.english"/></a></li>
+                            <li><a href="<c:url value="?lang=ru"/>"><img src="<c:url value="/resources/images/flags/ru.png"/>" alt=""/> <spring:message code="language.russian"/></a></li>
                         </ul>
                     </li>
                     <sec:authorize access="isAnonymous()">
-                        <li><a href="<c:url value="/login"/>"><fmt:message key="springSecurity.login.button"/></a></li>
+                        <li><a href="<c:url value="/login"/>"><spring:message code="springSecurity.login.button"/></a></li>
                     </sec:authorize>
                     <sec:authorize access="hasRole('ROLE_ADMIN_USER')">
-                        <li><a href="<c:url value="/account/list"/>"><fmt:message key="account.admin.plural"/></a></li>
-                        <li><a href="<c:url value="/player/list"/>"><fmt:message key="account.player.plural"/></a></li>
-                        <li><a href="<c:url value="/tournament/list"/>"><fmt:message key="tournament.plural"/></a></li>
+                        <li><a href="<c:url value="/account/list"/>"><spring:message code="account.admin.plural"/></a></li>
+                        <li><a href="<c:url value="/player/list"/>"><spring:message code="account.player.plural"/></a></li>
+                        <li><a href="<c:url value="/tournament/list"/>"><spring:message code="tournament.plural"/></a></li>
                     </sec:authorize>
                 </ul>
 
@@ -62,7 +62,7 @@
                                         <span class="add-on">
                                            <i class="icon-pencil"></i>
                                         </span>
-                                        <fmt:message key="action.changePassword"/>
+                                        <spring:message code="action.changePassword"/>
                                     </a>
                                 </li>
                                 <li class="divider"></li>
@@ -71,7 +71,7 @@
                                     <span class="add-on">
                                      <i class="icon-remove"></i>
                                     </span>
-                                        <fmt:message key="sign.out"/>
+                                        <spring:message code="sign.out"/>
                                     </a>
                                 </li>
                             </ul>

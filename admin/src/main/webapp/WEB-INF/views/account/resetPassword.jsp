@@ -1,14 +1,14 @@
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <h1 class="page-header">
-    <fmt:message key="account.action.resetPassword"/>
+    <spring:message code="account.action.resetPassword"/>
 </h1>
 
 <form:form method="post" action="resetPasswordProcess" commandName="command" cssClass="form-horizontal">
     <form:hidden path="forgotPasswordId" />
 
     <div class="control-group ">
-        <label class="control-label"><fmt:message key="account.email"/></label>
+        <label class="control-label"><spring:message code="account.email"/></label>
 
         <div class="controls">
             <div class="input-prepend">
@@ -22,7 +22,7 @@
     </div>
 
     <div class="control-group ">
-        <label class="control-label"><fmt:message key="springSecurity.login.password.label"/></label>
+        <label class="control-label"><spring:message code="springSecurity.login.password.label"/></label>
 
         <div class="controls">
             <div class="alert-error">
@@ -38,7 +38,7 @@
     </div>
 
     <div class="control-group ">
-        <label class="control-label"><fmt:message key="account.retypePassword"/></label>
+        <label class="control-label"><spring:message code="account.retypePassword"/></label>
 
         <div class="controls">
             <div class="input-prepend">
@@ -51,8 +51,8 @@
     </div>
 
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary"><fmt:message key="action.reset"/></button>
+        <button type="submit" class="btn btn-primary"><spring:message code="action.reset"/></button>
         &nbsp;
-        <button type="reset" class="btn"><fmt:message key="action.cancel"/></button>
+        <button type="reset" class="btn"><spring:message code="action.cancel"/></button>
     </div>
 </form:form>

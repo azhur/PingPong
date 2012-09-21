@@ -1,23 +1,24 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="sql_rt" uri="http://java.sun.com/jstl/sql_rt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <ul class="breadcrumb">
     <li>
-        <a href="<c:url value=""/>">Home</a> <span class="divider">/</span>
+        <a href="<c:url value="/"/>"><spring:message code="action.home"/></a> <span class="divider">/</span>
     </li>
-    <li class="active">Tournaments</li>
+    <li class="active"><spring:message code="tournament.plural"/></li>
 </ul>
 <h1 class="page-header">
-    Tournaments &nbsp;
-    <a href="<c:url value="/tournament/create"/>" class="btn btn-primary">Create new</a>
+    <spring:message code="tournament.plural"/> &nbsp;
+    <a href="<c:url value="/tournament/create"/>" class="btn btn-primary"><spring:message code="action.create.new"/></a>
 </h1>
 <table class="table table-bordered table-hover">
     <thead>
     <tr>
-        <th class="span1">Status</th>
-        <th>Name</th>
-        <th>Players count</th>
-        <th>Actions</th>
+        <th class="span1"><spring:message code="tournament.status"/></th>
+        <th><spring:message code="tournament.name"/></th>
+        <th><spring:message code="tournament.player.count"/></th>
+        <th><spring:message code="actions"/></th>
     </tr>
     </thead>
     <tbody>
@@ -58,7 +59,7 @@
                     <span class="label">
                 </c:otherwise>
                 </c:choose>
-                   ${tournament.status}
+                    <spring:message code="tournament.status.${tournament.status}" />
                 </span>
             </td>
             <td><a href="<c:url value="/tournament/${tournament.id}/view"/>">${tournament.name}</a></td>
@@ -66,16 +67,16 @@
             <td>
                 <c:choose>
                 <c:when test="${tournament.status == 'NEW'}">
-                    <a href="<c:url value="/tournament/${tournament.id}/registration"/>">registration</a>
-                    <a href="<c:url value="/tournament/${tournament.id}/delete"/>">delete</a>
+                    <a href="<c:url value="/tournament/${tournament.id}/registration"/>"><spring:message code="tournament.action.registration" /></a>
+                    <a href="<c:url value="/tournament/${tournament.id}/delete"/>"><spring:message code="tournament.action.delete" /></a>
                 </c:when>
                 <c:when test="${tournament.status == 'REGISTRATION'}">
-                    <a href="<c:url value="/tournament/${tournament.id}/activate"/>">activate</a>
-                    <a href="<c:url value="/tournament/${tournament.id}/cancel"/>">cancel</a>
+                    <a href="<c:url value="/tournament/${tournament.id}/activate"/>"><spring:message code="tournament.action.activate" /></a>
+                    <a href="<c:url value="/tournament/${tournament.id}/cancel"/>"><spring:message code="tournament.action.cancel" /></a>
                 </c:when>
                 <c:when test="${tournament.status == 'ACTIVE'}">
-                    <a href="<c:url value="/tournament/${tournament.id}/finish"/>">finish</a>
-                    <a href="<c:url value="/tournament/${tournament.id}/cancel"/>">cancel</a>
+                    <a href="<c:url value="/tournament/${tournament.id}/finish"/>"><spring:message code="tournament.action.finish" /></a>
+                    <a href="<c:url value="/tournament/${tournament.id}/cancel"/>"><spring:message code="tournament.action.cancel" /></a>
                 </c:when>
                 </c:choose>
             </td>
